@@ -30,7 +30,7 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-              Hi, I'm <span className="text-primary">Rajin Sakha</span>
+              Hi, I&apos;m <span className="text-primary">Rajin Sakha</span>
               <br />
               Front-end Developer
             </h1>

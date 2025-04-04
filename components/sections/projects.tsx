@@ -8,9 +8,10 @@ import { Button } from "@/components/ui/button";
 
 import { SectionHeading } from "@/components/ui/section-heading";
 import ProjectCard from "../ui/project-card";
+import { Project } from "@/types";
 
-// Project data
-const projects = [
+
+const projects: Project[] = [
   {
     id: 1,
     title: "Hajir Khata",

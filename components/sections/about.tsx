@@ -41,7 +41,7 @@ export default function About() {
 
             <div className="space-y-4 text-muted-foreground">
               <p>
-                I'm Rajin Sakha, a detail-oriented Front-end Developer with
+                I&apos;m Rajin Sakha, a detail-oriented Front-end Developer with
                 expertise in building responsive and user-friendly web
                 applications. With a strong foundation in React.js and Next.js,
                 I specialize in creating seamless digital experiences that
@@ -49,13 +49,13 @@ export default function About() {
               </p>
               <p>
                 My journey in web development began 5 years ago, and since then,
-                I've had the opportunity to work on diverse projects ranging
+                I&apos;ve had the opportunity to work on diverse projects ranging
                 from e-commerce platforms to complex enterprise applications. I
                 thrive in collaborative environments where open communication
                 and innovative thinking are valued.
               </p>
               <p>
-                Beyond coding, I'm passionate about staying current with
+                Beyond coding, I&apos;m passionate about staying current with
                 emerging technologies and design trends. I believe in continuous
                 learning and regularly participate in workshops and online
                 courses to enhance my skills and bring fresh perspectives to my

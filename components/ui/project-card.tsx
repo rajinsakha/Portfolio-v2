@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { Button } from "./button";
 import Link from "next/link";
+import { Project } from "@/types";
 export default function ProjectCard({
   project,
   index,
 }: {
-  project: any;
+  project: Project;
   index: number;
 }) {
   const [isHovered, setIsHovered] = useState(false);

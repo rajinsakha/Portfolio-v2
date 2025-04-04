@@ -25,15 +25,15 @@ export default function CTA() {
             Ready to bring your ideas to life?
           </h2>
           <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-            I'm currently available for freelance work and open to new
+            I&apos;m currently available for freelance work and open to new
             opportunities. If you have a project that needs some creative touch,
-            I'd love to hear about it.
+            I&apos;d love to hear about it.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button size="lg" asChild>
               <Link href="#contact">
-                Let's Talk <ArrowRight className="ml-2 h-4 w-4" />
+                Let&apos;s Talk <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
