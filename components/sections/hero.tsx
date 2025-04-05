@@ -40,10 +40,11 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-              Hi, I&apos;m Rajin Sakha<span className="text-primary">.</span>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-shadow-xs dark:text-shadow-white">
+              Hi, I&apos;m Rajin Sakha
+              <span className="text-primary text-shadow-none">.</span>
             </h1>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-primary">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-primary text-shadow-xs">
               Front-end Developer
             </h1>
           </motion.div>
@@ -57,7 +58,7 @@ export default function Hero() {
             <div className="h-16 flex items-center justify-center">
               <TypewriterEffect
                 words={words}
-                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl"
+                className="text-shadow-xs dark:text-shadow-white "
               />
             </div>
           </motion.div>
@@ -66,7 +67,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto"
+            className="text-muted-foreground text-base sm:text-lg mb-8 max-w-2xl mx-auto"
           >
             I create engaging web experiences that blend creativity with
             technical expertise. Specializing in React.js and Next.js to build

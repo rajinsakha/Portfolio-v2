@@ -45,7 +45,20 @@ export const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
     const timer = setTimeout(() => type(), typingSpeed);
 
     return () => clearTimeout(timer);
-  }, [currentText, isDeleting, currentWordIndex, words, pauseDuration]);
+  }, [
+    currentText,
+    isDeleting,
+    currentWordIndex,
+    words,
+    pauseDuration,
+    typingSpeed,
+  ]);
 
-  return <span className={className}>{currentText}</span>;
+  return (
+    <span
+      className={`font-medium text-xl sm:text-2xl md:text-3xl lg:text-4xl ${className}`}
+    >
+      {currentText}
+    </span>
+  );
 };

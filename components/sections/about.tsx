@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
+import profile from "@/assets/about-img.jpg";
 
 export default function About() {
   return (
@@ -17,14 +18,17 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="relative aspect-square w-full max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden"
+            className="relative  h-full  w-full max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden"
           >
-            <Image
-              src="/placeholder.svg?height=600&width=600"
-              alt="Rajin Sakha"
-              fill
-              className="object-cover"
-            />
+            <div className="h-full min-h-[400px] lg:min-h-full lg:h-full w-full relative">
+              <Image
+                src={profile.src}
+                alt="Rajin Sakha"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
           </motion.div>
 
           <motion.div
@@ -40,21 +44,21 @@ export default function About() {
             </h3>
 
             <div className="space-y-4 text-muted-foreground">
-              <p>
+              <p className="text-sm sm:text-base ">
                 I&apos;m Rajin Sakha, a detail-oriented Front-end Developer with
                 expertise in building responsive and user-friendly web
                 applications. With a strong foundation in React.js and Next.js,
                 I specialize in creating seamless digital experiences that
                 combine aesthetic appeal with functional excellence.
               </p>
-              <p>
+              <p className="text-sm sm:text-base ">
                 My journey in web development began 5 years ago, and since then,
-                I&apos;ve had the opportunity to work on diverse projects ranging
-                from e-commerce platforms to complex enterprise applications. I
-                thrive in collaborative environments where open communication
-                and innovative thinking are valued.
+                I&apos;ve had the opportunity to work on diverse projects
+                ranging from e-commerce platforms to complex enterprise
+                applications. I thrive in collaborative environments where open
+                communication and innovative thinking are valued.
               </p>
-              <p>
+              <p className="text-sm sm:text-base ">
                 Beyond coding, I&apos;m passionate about staying current with
                 emerging technologies and design trends. I believe in continuous
                 learning and regularly participate in workshops and online
@@ -63,7 +67,7 @@ export default function About() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mt-8">
+            {/* <div className="grid grid-cols-2 gap-4 mt-8">
               <div>
                 <h4 className="font-medium mb-2">Name</h4>
                 <p className="text-muted-foreground">Rajin Sakha</p>
@@ -80,7 +84,7 @@ export default function About() {
                 <h4 className="font-medium mb-2">Availability</h4>
                 <p className="text-muted-foreground">Open to opportunities</p>
               </div>
-            </div>
+            </div> */}
 
             <div className="mt-8">
               <Button size="lg">Download Resume</Button>

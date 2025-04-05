@@ -87,7 +87,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-background/95 backdrop-blur-sm z-50 md:hidden"
+            className="fixed inset-0 bg-background/95 backdrop-blur-sm z-[100] md:hidden"
           >
             <div className="container h-full flex flex-col">
               <div className="flex items-center justify-between py-4">
