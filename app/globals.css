@@ -124,8 +124,21 @@
   }
 }
 
-@layer components {
+@layer utilities {
   .container {
-    @apply mx-auto px-4 max-w-7xl;
+    @apply mx-auto w-full lg:max-w-7xl px-6 sm:px-8 lg:px-12;
   }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-blink {
+  animation: blink 0.8s infinite alternate;
 }

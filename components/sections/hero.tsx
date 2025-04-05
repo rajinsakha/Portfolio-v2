@@ -4,7 +4,9 @@ import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { TypewriterEffect } from "@/components/ui/typewriter-effect";
+
+import { cn } from "@/lib/utils";
+import { TypewriterEffect } from "../ui/typewriter-effect";
 
 export default function Hero() {
   const words = [
@@ -17,9 +19,18 @@ export default function Hero() {
   return (
     <section className="relative pt-36 pb-20 md:pt-44 md:pb-32 overflow-hidden">
       {/* Background gradient */}
-      <div className="absolute inset-0 -z-10 h-full w-full bg-background">
-        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
-      </div>
+      <div
+        className={cn(
+          "absolute inset-0 -z-10",
+          "[background-size:20px_20px]",
+          "[background-image:radial-gradient(#d4d4d4_1px,transparent_1px)]",
+          "dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]"
+        )}
+      />
+      {/* Radial gradient for the faded look */}
+      <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center bg-background [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+
+      {/* Top gradient overlay */}
       <div className="absolute top-0 -z-10 h-[50vh] w-full bg-gradient-to-b from-primary/5 to-transparent"></div>
 
       <div className="container">
@@ -29,9 +40,10 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-              Hi, I&apos;m <span className="text-primary">Rajin Sakha</span>
-              <br />
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+              Hi, I&apos;m Rajin Sakha<span className="text-primary">.</span>
+            </h1>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-primary">
               Front-end Developer
             </h1>
           </motion.div>
@@ -42,8 +54,11 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mb-8"
           >
-            <div className="h-16">
-              <TypewriterEffect words={words} className="text-xl md:text-2xl" />
+            <div className="h-16 flex items-center justify-center">
+              <TypewriterEffect
+                words={words}
+                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl"
+              />
             </div>
           </motion.div>
 
