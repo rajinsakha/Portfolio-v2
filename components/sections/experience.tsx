@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { Briefcase, GraduationCap} from "lucide-react";
+import { Briefcase, GraduationCap } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Timeline from "../ui/timeline";
@@ -31,7 +31,7 @@ export default function Experience() {
                   {experiences.map((experience, index) => (
                     <TimelineItem
                       key={index}
-                      icon={<Briefcase className="h-5 w-5" />}
+                      icon={<Briefcase className="size-4" />}
                       title={experience.title}
                       company={experience.company}
                       period={experience.period}
@@ -50,7 +50,7 @@ export default function Experience() {
                   {education.map((item, index) => (
                     <TimelineItem
                       key={index}
-                      icon={<GraduationCap className="h-5 w-5" />}
+                      icon={<GraduationCap className="size-4" />}
                       title={item.title}
                       company={item.company}
                       period={item.period}

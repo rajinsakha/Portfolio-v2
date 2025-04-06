@@ -4,6 +4,7 @@ import CTA from "@/components/sections/cta";
 import Experience from "@/components/sections/experience";
 import Hero from "@/components/sections/hero";
 import Projects from "@/components/sections/projects";
+import Skills from "@/components/sections/skills";
 import StructuredData from "@/components/sections/structured-data";
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
       <StructuredData />
       <Hero />
       <About />
+      <Skills />
       <Projects />
       <Experience />
       <CTA />

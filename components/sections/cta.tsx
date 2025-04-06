@@ -7,10 +7,24 @@ import { Button } from "@/components/ui/button";
 
 export default function CTA() {
   return (
-    <section className="py-16 md:py-24 bg-primary/5 relative overflow-hidden">
-      {/* Background pattern */}
+    <section className="py-16 md:py-24 bg-primary/5 relative overflow-hidden border-y border-primary/10">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+        {/* Subtle gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/3"></div>
+
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/3 rounded-full blur-3xl opacity-30 transform translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-primary/5 rounded-full blur-3xl opacity-30 transform -translate-x-1/2 translate-y-1/2"></div>
+
+        {/* Subtle dots pattern - more elegant than the grid */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, rgba(79, 79, 79, 0.15) 1px, transparent 1px)",
+            backgroundSize: "30px 30px",
+          }}
+        ></div>
       </div>
 
       <div className="container max-w-4xl">

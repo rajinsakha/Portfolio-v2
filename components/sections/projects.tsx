@@ -1,15 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import type React from "react";
 
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { SectionHeading } from "@/components/ui/section-heading";
+
+import { projects } from "@/constants/projects-data";
 import ProjectCard from "../ui/project-card";
 
-import { categories, projects } from "@/constants/project-data";
+// Project data
+
+// Filter categories
+const categories = ["All", "Web Application", "Mobile App", "SaaS Platform"];
 
 export default function Projects() {
   const [filter, setFilter] = useState("All");
@@ -20,7 +26,11 @@ export default function Projects() {
       : projects.filter((project) => project.category === filter);
 
   return (
-    <section id="projects" className="py-16 md:py-24">
+    <section
+      id="projects"
+      className="py-16 md:py-24"
+      aria-labelledby="projects-heading"
+    >
       <div className="container">
         <SectionHeading title="My Projects" subtitle="Recent work I've done" />
 
@@ -47,7 +57,7 @@ export default function Projects() {
         <div className="mt-12 text-center">
           <Button asChild>
             <Link href="/projects">
-              View All Projects <ArrowUpRight className="ml-2 h-4 w-4" />
+              View All Projects <ArrowUpRight className="ml-2 size-4" />
             </Link>
           </Button>
         </div>

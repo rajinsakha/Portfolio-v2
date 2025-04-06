@@ -6,9 +6,9 @@ export type Project = {
   technologies: string[];
   category: string;
   featured: boolean;
+  slug: string;
   links: {
     live: string;
     github: string;
-    caseStudy: string;
   };
 };

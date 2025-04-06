@@ -1,11 +1,6 @@
 import { Project } from "@/types";
 
-export const categories = [
-  "All",
-  "Web Application",
-  "Mobile App",
-  "SaaS Platform",
-];
+export const categories = ["All", "Web Apps", "Websites", "Mobile Apps"];
 
 export const projects: Project[] = [
   {
@@ -14,35 +9,28 @@ export const projects: Project[] = [
     description:
       "A comprehensive software solution designed to simplify payroll management for businesses of all sizes. Its primary goal is to help organizations effortlessly track daily employee attendance and manage payroll with ease.",
     image: "",
-    technologies: [
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "Redux",
-      "Rest API",
-      "WebSocket",
-    ],
+    technologies: ["React", "TypeScript", "Tailwind CSS", "GraphQL"],
     category: "Web Application",
     featured: true,
+    slug: "hajir-khata",
     links: {
       live: "#",
       github: "#",
-      caseStudy: "/projects/hajir-khata",
     },
   },
   {
     id: 2,
-    title: "Billing System",
+    title: "TaskFlow",
     description:
-      "A user-friendly web application that simplifies billing and record-keeping for businesses. It includes essential functionalities like inventory management, invoice generation, transaction tracking, and sales reporting.",
-    image: "/placeholder.svg?height=600&width=800", // Replace with your actual image path
-    technologies: ["Next.js", "Redux", "TypeScript"],
-    category: "Web Application",
+      "A project management tool that helps teams organize tasks, track progress, and collaborate effectively. Features include kanban boards, time tracking, and team communication tools.",
+    image: "/placeholder.svg?height=600&width=800",
+    technologies: ["Vue.js", "Node.js", "MongoDB", "Socket.io"],
+    category: "SaaS Platform",
     featured: false,
+    slug: "taskflow",
     links: {
-      live: "#", // Replace with live URL if available
-      github: "#", // Replace with GitHub repo if available
-      caseStudy: "/projects/billing-system",
+      live: "#",
+      github: "#",
     },
   },
   {
@@ -54,10 +42,10 @@ export const projects: Project[] = [
     technologies: ["React Native", "Firebase", "Redux", "Chart.js"],
     category: "Mobile App",
     featured: false,
+    slug: "fittrack",
     links: {
       live: "#",
       github: "#",
-      caseStudy: "/projects/fittrack",
     },
   },
   {
@@ -69,10 +57,10 @@ export const projects: Project[] = [
     technologies: ["Next.js", "Stripe", "MongoDB", "Tailwind CSS"],
     category: "Web Application",
     featured: false,
+    slug: "ecommerce",
     links: {
       live: "#",
       github: "#",
-      caseStudy: "/projects/ecommerce",
     },
   },
 ];

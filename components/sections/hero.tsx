@@ -58,7 +58,7 @@ export default function Hero() {
             <div className="h-16 flex items-center justify-center">
               <TypewriterEffect
                 words={words}
-                className="text-shadow-xs dark:text-shadow-white "
+                className="sm:text-shadow-xs dark:text-shadow-white "
               />
             </div>
           </motion.div>
