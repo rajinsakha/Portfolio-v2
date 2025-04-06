@@ -25,8 +25,7 @@ const projects = [
       - Employee self-service portal
       - Integration with popular accounting software
     `,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-vBBf2iedhfLFgK4Vp2DzCvu7n3Kq0j.png",
+    image: "/placeholder.svg?height=600&width=800",
     technologies: ["React", "TypeScript", "Tailwind CSS", "GraphQL"],
     category: "Web Application",
     featured: true,
