@@ -97,7 +97,7 @@ export default function Hero() {
             className="flex items-center justify-center gap-4 mt-10"
           >
             <Link
-              href="https://github.com"
+              href="https://github.com/rajinsakha"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
@@ -106,7 +106,7 @@ export default function Hero() {
               <span className="sr-only">GitHub</span>
             </Link>
             <Link
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/rajin-sakha-22003b229/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
@@ -115,7 +115,7 @@ export default function Hero() {
               <span className="sr-only">LinkedIn</span>
             </Link>
             <Link
-              href="mailto:contact@example.com"
+              href="mailto:rajinsakha07@gmail.com"
               className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
             >
               <Mail className="h-5 w-5" />

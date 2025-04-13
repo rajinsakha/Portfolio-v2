@@ -1,24 +1,34 @@
 import { Code, Wrench, Layers } from "lucide-react";
+import {
+  css3,
+  html5,
+  javascript,
+  nextjs,
+  react,
+  redux,
+  tailwindcss,
+  typescript,
+} from "@/assets/icons";
 // Tech categories with their respective technologies
 export const techCategories = [
   {
     icon: <Code className="size-5" />,
     title: "Languages",
     technologies: [
-      { name: "HTML5", icon: "/icons/html5.svg" },
-      { name: "CSS3", icon: "/icons/css3.svg" },
-      { name: "JavaScript", icon: "/icons/javascript.svg" },
-      { name: "TypeScript", icon: "/icons/typescript.svg" },
+      { name: "HTML5", icon: html5 },
+      { name: "CSS3", icon: css3 },
+      { name: "JavaScript", icon: javascript },
+      { name: "TypeScript", icon: typescript },
     ],
   },
   {
     icon: <Layers className="size-5" />,
-    title: "Frontend",
+    title: "Frameworks & Libraries",
     technologies: [
-      { name: "React", icon: "/icons/react.svg" },
-      { name: "Next.js", icon: "/icons/nextjs.svg" },
-      { name: "Tailwind CSS", icon: "/icons/tailwindcss.svg" },
-      { name: "Redux", icon: "/icons/redux.svg" },
+      { name: "React", icon: react },
+      { name: "Next.js", icon: nextjs },
+      { name: "Tailwind CSS", icon: tailwindcss },
+      { name: "Redux", icon: redux },
       { name: "React Query", icon: "/icons/react-query.svg" },
       { name: "Zustand", icon: "/icons/zustand.svg" },
     ],
