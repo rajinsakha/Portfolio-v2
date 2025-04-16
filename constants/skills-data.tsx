@@ -1,6 +1,8 @@
 import { Code, Wrench, Layers } from "lucide-react";
 import {
   css3,
+  git,
+  github,
   html5,
   javascript,
   nextjs,
@@ -29,8 +31,6 @@ export const techCategories = [
       { name: "Next.js", icon: nextjs },
       { name: "Tailwind CSS", icon: tailwindcss },
       { name: "Redux", icon: redux },
-      { name: "React Query", icon: "/icons/react-query.svg" },
-      { name: "Zustand", icon: "/icons/zustand.svg" },
     ],
   },
   //   {
@@ -49,12 +49,11 @@ export const techCategories = [
     icon: <Wrench className="size-5" />,
     title: "Tools",
     technologies: [
-      { name: "Git", icon: "/icons/git.svg" },
-      { name: "GitHub", icon: "/icons/github.svg" },
-      { name: "VS Code", icon: "/icons/vscode.svg" },
-      { name: "Webpack", icon: "/icons/webpack.svg" },
-      { name: "Jest", icon: "/icons/jest.svg" },
-      { name: "Testing Library", icon: "/icons/testing-library.svg" },
+      { name: "Git", icon: git },
+      { name: "GitHub", icon: github },
+      // { name: "Webpack", icon: "/icons/webpack.svg" },
+      // { name: "Jest", icon: "/icons/jest.svg" },
+      // { name: "Testing Library", icon: "/icons/testing-library.svg" },
     ],
   },
 ];

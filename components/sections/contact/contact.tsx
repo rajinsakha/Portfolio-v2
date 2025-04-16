@@ -4,12 +4,14 @@ import type React from "react";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Card, CardContent } from "@/components/ui/card";
+import { contactItems } from "@/constants/contact-data";
+import ContactItem from "./contact-item";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -68,25 +70,15 @@ export default function Contact() {
             </p>
 
             <div className="space-y-6">
-              <ContactItem
-                icon={<Mail className="h-5 w-5" />}
-                title="Email"
-                content="contact@example.com"
-                href="mailto:contact@example.com"
-              />
-
-              <ContactItem
-                icon={<Phone className="h-5 w-5" />}
-                title="Phone"
-                content="+1 (555) 123-4567"
-                href="tel:+15551234567"
-              />
-
-              <ContactItem
-                icon={<MapPin className="h-5 w-5" />}
-                title="Location"
-                content="San Francisco, CA"
-              />
+              {contactItems.map((item, index) => (
+                <ContactItem
+                  key={index}
+                  icon={item.icon}
+                  title={item.title}
+                  content={item.content}
+                  href={item.href}
+                />
+              ))}
             </div>
           </motion.div>
 
@@ -181,41 +173,5 @@ export default function Contact() {
         </div>
       </div>
     </section>
-  );
-}
-
-function ContactItem({
-  icon,
-  title,
-  content,
-  href,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  content: string;
-  href?: string;
-}) {
-  const ContentWrapper = href ? "a" : "div";
-  const props = href
-    ? { href, target: "_blank", rel: "noopener noreferrer" }
-    : {};
-
-  return (
-    <div className="flex items-start gap-4">
-      <div className="p-3 rounded-full bg-primary/10 text-primary">{icon}</div>
-      <div>
-        <h4 className="font-medium">{title}</h4>
-        <ContentWrapper
-          {...props}
-          className={
-            href
-              ? "text-muted-foreground hover:text-primary transition-colors"
-              : "text-muted-foreground"
-          }
-        >
-          {content}
-        </ContentWrapper>
-      </div>
-    </div>
   );
 }

@@ -19,9 +19,9 @@ export default function TechCategoryCard({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <Card className="h-full">
+      <Card className="h-full py-4">
         <CardContent className="p-6">
-          <div className="flex items-center gap-3 mb-5">
+          <div className="flex items-center gap-3 mb-8">
             <div className="p-2 rounded-md bg-primary/10 text-primary">
               {category.icon}
             </div>

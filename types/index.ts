@@ -12,3 +12,10 @@ export type Project = {
     github: string;
   };
 };
+
+export interface IContactItem {
+  icon: React.ReactNode;
+  title: string;
+  content: string;
+  href?: string;
+};
