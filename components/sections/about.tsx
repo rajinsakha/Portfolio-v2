@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
-import profile from "@/assets/about-img.jpg";
+import profile from "@/assets/images/about-img.jpg";
 
 export default function About() {
   return (
