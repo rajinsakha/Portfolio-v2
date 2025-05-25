@@ -4,55 +4,9 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { projects } from "@/constants/projects-data";
 
-// Project data - in a real app, this would come from a database or CMS
-const projects = [
-  {
-    id: 1,
-    title: "Hajir Khata",
-    description:
-      "A comprehensive software solution designed to simplify payroll management for businesses of all sizes. Its primary goal is to help organizations effortlessly track daily employee attendance and manage payroll with ease.",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-vBBf2iedhfLFgK4Vp2DzCvu7n3Kq0j.png",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "GraphQL"],
-    category: "Web Application",
-    featured: true,
-    slug: "hajir-khata",
-  },
-  {
-    id: 2,
-    title: "TaskFlow",
-    description:
-      "A project management tool that helps teams organize tasks, track progress, and collaborate effectively. Features include kanban boards, time tracking, and team communication tools.",
-    image: "/placeholder.svg?height=600&width=800",
-    technologies: ["Vue.js", "Node.js", "MongoDB", "Socket.io"],
-    category: "SaaS Platform",
-    featured: false,
-    slug: "taskflow",
-  },
-  {
-    id: 3,
-    title: "FitTrack",
-    description:
-      "A fitness tracking application that helps users monitor their workouts, nutrition, and progress. Includes features for creating custom workout plans and setting goals.",
-    image: "/placeholder.svg?height=600&width=800",
-    technologies: ["React Native", "Firebase", "Redux", "Chart.js"],
-    category: "Mobile App",
-    featured: false,
-    slug: "fittrack",
-  },
-  {
-    id: 4,
-    title: "E-Commerce Platform",
-    description:
-      "A fully-featured e-commerce platform with product listings, shopping cart, user authentication, and payment processing integration.",
-    image: "/placeholder.svg?height=600&width=800",
-    technologies: ["Next.js", "Stripe", "MongoDB", "Tailwind CSS"],
-    category: "Web Application",
-    featured: false,
-    slug: "ecommerce",
-  },
-];
+
 
 export const metadata = {
   title: "Projects | Portfolio",

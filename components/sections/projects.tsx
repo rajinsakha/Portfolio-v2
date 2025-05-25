@@ -9,13 +9,13 @@ import { Button } from "@/components/ui/button";
 
 import { SectionHeading } from "@/components/ui/section-heading";
 
-import { projects } from "@/constants/projects-data";
+import { categories, projects } from "@/constants/projects-data";
 import ProjectCard from "../ui/project-card";
 
 // Project data
 
 // Filter categories
-const categories = ["All", "Web Application", "Mobile App", "SaaS Platform"];
+
 
 export default function Projects() {
   const [filter, setFilter] = useState("All");
