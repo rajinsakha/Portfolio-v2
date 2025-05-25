@@ -33,6 +33,19 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // Cleanup function to restore scroll when component unmounts
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   return (
     <header
       className={cn(
@@ -87,7 +100,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-background/95 backdrop-blur-sm z-[100] md:hidden"
+            className="fixed inset-0 bg-background backdrop-blur-sm z-[100] md:hidden"
           >
             <div className="container h-full flex flex-col">
               <div className="flex items-center justify-between py-4">
