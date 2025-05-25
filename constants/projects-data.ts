@@ -15,14 +15,16 @@ export const projects: Project[] = [
       Hajir Khata is a comprehensive software solution designed to simplify payroll management for businesses of all sizes. Its primary goal is to help organizations effortlessly track daily employee attendance and manage payroll with ease.
       
       The application features a user-friendly interface that allows managers to monitor employee attendance in real-time, generate detailed reports, and automate payroll calculations based on attendance data. This significantly reduces the time and effort required for manual payroll processing.
-      
-      Key features include:
-      - Real-time attendance tracking
-      - Automated payroll calculation
-      - Detailed reporting and analytics
-      - Employee self-service portal
-      - Integration with popular accounting software
+
+      Detailed reporting and analytics are provided to give insights into workforce productivity and cost control.
     `,
+    keyFeatures: [
+      "Real-time attendance tracking",
+      "Automated payroll calculation",
+      "Detailed reporting and analytics",
+      "Employee self-service portal",
+      "Integration with popular accounting software",
+    ],
     image: hajirKhataImage.src,
     technologies: [
       "React",
@@ -31,8 +33,9 @@ export const projects: Project[] = [
       "Shadcn/ui",
       "Rest APIs",
       "WebSocket",
+      "Redux",
     ],
-    category: "Web Application",
+    category: "SaaS Platform",
     featured: true,
     slug: "hajir-khata",
     links: {
@@ -71,17 +74,14 @@ export const projects: Project[] = [
       "A robust billing system to streamline inventory, invoicing, transaction tracking, and reporting for SMBs.",
     fullDescription: `
     The Billing System is an all-in-one financial management tool designed for small to medium-sized businesses.
-    It features real-time inventory management with low-stock alerts, customizable invoice generation (including recurring billing),
+    It features real-time inventory management, customizable invoice generation,
     unified transaction tracking across multiple payment methods, and comprehensive reporting dashboards.
-
-    Key features include:
-    - Real-time stock adjustments and multi-warehouse support
-    - Customizable invoice templates with PDF export and email delivery
-    - Unified ledger for sales, purchases, payments, and refunds
-    - Detailed analytics: sales trends, aging receivables/payables, cash flow forecasts
-    - Role-based access controls and activity audit logs
-    - Integrations with QuickBooks, Xero, e-commerce platforms via API/webhooks
-  `,
+    `,
+    keyFeatures: [
+      "Inventory Management",
+      "Invoice generation with PDF export",
+      "Detailed analytics: sales trends, aging receivables/payables, cash flow forecasts",
+    ],
     image: billingSystemImage.src,
     technologies: [
       "Next JS",
@@ -89,12 +89,13 @@ export const projects: Project[] = [
       "Tailwind CSS",
       "Recharts",
       "React-pdf",
+      "Redux",
     ],
     category: "Web Application",
     featured: false,
     slug: "billing-system",
     links: {
-      live: "#",
+      live: "https://billings-system.vercel.app/login/?email=rajinsakha07@gmail.com&password=billingdemo@7",
       github: "#",
     },
     challenges: `
@@ -137,27 +138,16 @@ export const projects: Project[] = [
     Property owners can list rooms (or entire properties) for rent, set availability calendars, and manage bookings.
     Job seekers can browse opportunities by industry, location, and company, and apply directly through the portal.
     Employers can post job listings, review applications, and track candidate progress.
-
-    Key features include:
-    - Room rental listings with availability, pricing, and photo galleries
-    - Advanced search filters for location, budget, and amenities
-    - Job board with categorization by sector and region
-    - User dashboards for landlords and employers to manage listings and applications
-    - In-app messaging between tenants & landlords, and applicants & employers
-    - Secure authentication, profile verification, and payment integration
-  `,
-    image: workspaceImage.src,
-    technologies: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "Node.js",
-      "Express",
-      "PostgreSQL",
-      "Prisma",
-      "Socket.io",
+    `,
+    keyFeatures: [
+      "Room rental listings with availability, pricing, and photo galleries",
+      "Advanced search filters for location, budget, and amenities",
+      "Job board with categorization by sector and region",
+      "User dashboards for landlords and employers to manage listings and applications",
+      "In-app messaging between tenants & landlords, and applicants & employers",
     ],
+    image: workspaceImage.src,
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Redux"],
     category: "Web Application",
     featured: false,
     slug: "workspace-nepal",

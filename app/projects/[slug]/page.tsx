@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, Code2, ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Metadata } from "next";
@@ -114,7 +114,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               ))}
             </div>
 
-            <div className="mt-12">
+            <div className="mt-8">
+              <h2 className="text-2xl font-bold mb-4">Key Features</h2>
+              <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                {project.keyFeatures.map((feature, index) => (
+                  <li key={index} className="flex gap-2 items-center"><Code2 className="size-4" /> {feature}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* <div className="mt-12">
               <h2 className="text-2xl font-bold mb-4">Challenges</h2>
               <div className="prose prose-lg dark:prose-invert max-w-none">
                 {project.challenges.split("\n\n").map((paragraph, i) => (
@@ -134,7 +143,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </p>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div>
