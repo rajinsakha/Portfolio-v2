@@ -40,11 +40,11 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-shadow-xs dark:text-shadow-white">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
               Hi, I&apos;m Rajin Sakha
               <span className="text-primary text-shadow-none">.</span>
             </h1>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-primary text-shadow-xs">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-primary">
               Front-end Developer
             </h1>
           </motion.div>

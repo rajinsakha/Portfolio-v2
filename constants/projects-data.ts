@@ -3,7 +3,7 @@ import hajirKhataImage from "@/assets/images/hajirkhata.png";
 import billingSystemImage from "@/assets/images/billing-system.png";
 import workspaceImage from "@/assets/images/workspace-nepal.png";
 
-export const categories = ["All", "Web Apps", "Websites", "Mobile Apps"];
+export const categories = ["All", "Web Application", "Website", "Mobile Application"];
 
 export const projects: Project[] = [
   {
@@ -35,7 +35,7 @@ export const projects: Project[] = [
       "WebSocket",
       "Redux",
     ],
-    category: "SaaS Platform",
+    category: "Web Application",
     featured: true,
     slug: "hajir-khata",
     links: {
