@@ -17,7 +17,7 @@ export default function Footer() {
 
           <div className="flex items-center gap-4">
             <Link
-              href="https://github.com"
+              href="https://github.com/rajinsakha"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
@@ -26,7 +26,7 @@ export default function Footer() {
               <span className="sr-only">GitHub</span>
             </Link>
             <Link
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/rajin-sakha-22003b229/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
@@ -34,7 +34,7 @@ export default function Footer() {
               <Linkedin className="h-5 w-5" />
               <span className="sr-only">LinkedIn</span>
             </Link>
-            <Link
+            {/* <Link
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -42,9 +42,9 @@ export default function Footer() {
             >
               <Twitter className="h-5 w-5" />
               <span className="sr-only">Twitter</span>
-            </Link>
+            </Link> */}
             <Link
-              href="mailto:contact@example.com"
+              href="mailto:rajinsakha07@gmail.com"
               className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
             >
               <Mail className="h-5 w-5" />

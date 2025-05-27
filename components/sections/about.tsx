@@ -52,7 +52,7 @@ export default function About() {
                 combine aesthetic appeal with functional excellence.
               </p>
               <p className="text-sm sm:text-base ">
-                My journey in web development began 5 years ago, and since then,
+                My journey in web development began 3 years ago, and since then,
                 I&apos;ve had the opportunity to work on diverse projects
                 ranging from e-commerce platforms to complex enterprise
                 applications. I thrive in collaborative environments where open
@@ -61,7 +61,7 @@ export default function About() {
               <p className="text-sm sm:text-base ">
                 Beyond coding, I&apos;m passionate about staying current with
                 emerging technologies and design trends. I believe in continuous
-                learning and regularly participate in workshops and online
+                learning and regularly participate in online
                 courses to enhance my skills and bring fresh perspectives to my
                 work.
               </p>

@@ -5,7 +5,13 @@ export const experiences = [
     period: "March 2024 - Present",
     description:
       "Working on developing and maintaining front-end features for client projects, focusing on performance, responsiveness, and UI/UX improvements.",
-    technologies: ["React.js", "Next.js", "Tailwind CSS", "TypeScript"],
+    technologies: [
+      "React.js",
+      "Next.js",
+      "Tailwind CSS",
+      "TypeScript",
+      "Redux",
+    ],
   },
   {
     title: "Front-end Developer Intern",
@@ -13,7 +19,13 @@ export const experiences = [
     period: "December 2023 - March 2024",
     description:
       "Assisted in building UI components and fixing bugs across web projects, gaining hands-on experience with modern front-end tools and workflows.",
-    technologies: ["React.js", "Next.js", "Tailwind CSS", "TypeScript"],
+    technologies: [
+      "React.js",
+      "Next.js",
+      "Tailwind CSS",
+      "TypeScript",
+      "Redux",
+    ],
     isLast: true,
   },
 ];
@@ -42,5 +54,3 @@ export const education = [
     isLast: true,
   },
 ];
-
-

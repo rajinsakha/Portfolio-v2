@@ -2,7 +2,7 @@
 import { useState } from "react";
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Send } from "lucide-react";
+import { Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -111,7 +111,7 @@ const ContactForm = () => {
 
           <Button type="submit" className="w-full" disabled={isSubmitting}>
             {isSubmitting ? (
-              <>Sending...</>
+              <div className="flex items-center justify-center"><Loader2 className="h-4 w-4 animate-spin" /></div>
             ) : (
               <>
                 Send Message <Send className="ml-2 h-4 w-4" />
