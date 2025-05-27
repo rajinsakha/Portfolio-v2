@@ -31,7 +31,7 @@ export default function Experience() {
                   {experiences.map((experience, index) => (
                     <TimelineItem
                       key={index}
-                      icon={<Briefcase className="size-4" />}
+                      icon={<Briefcase className="size-4 text-white" />}
                       title={experience.title}
                       company={experience.company}
                       period={experience.period}
@@ -50,7 +50,7 @@ export default function Experience() {
                   {education.map((item, index) => (
                     <TimelineItem
                       key={index}
-                      icon={<GraduationCap className="size-4" />}
+                      icon={<GraduationCap className="size-4 text-white" />}
                       title={item.title}
                       company={item.company}
                       period={item.period}
