@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect,  } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
@@ -33,7 +33,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
+  const downloadResume = () => {
+    const resumeUrl = "/RajinSakha_Resume.pdf"; // Ensure that resume.pdf is placed in your public folder
+    const fileName = "RajinSakha_Resume.pdf";
+    const link = document.createElement("a");
+    link.href = resumeUrl;
+    link.setAttribute("download", fileName);
+    // Append the link to the body to support older browsers
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <header
@@ -71,7 +81,13 @@ export default function Navbar() {
             ))}
           </ul>
           <ModeToggle />
-          <Button size="sm">Resume</Button>
+          <Button
+            className="cursor-pointer"
+            onClick={() => downloadResume()}
+            size="sm"
+          >
+            Resume
+          </Button>
         </nav>
 
         {/* Mobile Navigation Toggle */}
@@ -131,7 +147,15 @@ export default function Navbar() {
                     </li>
                   ))}
                 </ul>
-                <Button onClick={() => setIsOpen(false)}>Resume</Button>
+                <Button
+                  onClick={() => {
+                    setIsOpen(false);
+                    downloadResume();
+                  }}
+                  className="cursor-pointer"
+                >
+                  Resume
+                </Button>
               </nav>
             </div>
           </motion.div>

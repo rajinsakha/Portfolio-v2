@@ -67,24 +67,7 @@ export default function About() {
               </p>
             </div>
 
-            {/* <div className="grid grid-cols-2 gap-4 mt-8">
-              <div>
-                <h4 className="font-medium mb-2">Name</h4>
-                <p className="text-muted-foreground">Rajin Sakha</p>
-              </div>
-              <div>
-                <h4 className="font-medium mb-2">Email</h4>
-                <p className="text-muted-foreground">contact@example.com</p>
-              </div>
-              <div>
-                <h4 className="font-medium mb-2">Location</h4>
-                <p className="text-muted-foreground">San Francisco, CA</p>
-              </div>
-              <div>
-                <h4 className="font-medium mb-2">Availability</h4>
-                <p className="text-muted-foreground">Open to opportunities</p>
-              </div>
-            </div> */}
+         
 
             <div className="mt-8">
               <Button size="lg">Download Resume</Button>
