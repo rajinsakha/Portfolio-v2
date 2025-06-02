@@ -89,18 +89,22 @@ export default function ProjectCard({
               variant="ghost"
               onClick={(e) => handleLinkClick(e, project.links.live)}
               aria-label={`View ${project.title} demo`}
+              className="cursor-pointer"
             >
               <ExternalLink className="size-4 mr-1" /> Demo
             </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={(e) => handleLinkClick(e, project.links.github)}
-              aria-label={`View ${project.title} source code`}
-            >
-              <Github className="size-4 mr-1" /> Code
-            </Button>
-            <Button size="sm" variant="default" className="ml-auto">
+            {project.links.github !== undefined && (
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={(e) => handleLinkClick(e, project.links.github || "")}
+                aria-label={`View ${project.title} source code`}
+                className="cursor-pointer"
+              >
+                <Github className="size-4 mr-1" /> Code
+              </Button>
+            )}
+            <Button size="sm" variant="default" className="ml-auto cursor-pointer">
               View Details
             </Button>
           </div>

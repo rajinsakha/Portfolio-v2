@@ -1,6 +1,6 @@
 interface ProjectLink {
   live: string;
-  github: string;
+  github?: string;
 }
 
 interface ProjectScreenshot {

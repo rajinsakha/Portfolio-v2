@@ -3,7 +3,12 @@ import hajirKhataImage from "@/assets/images/hajirkhata.png";
 import billingSystemImage from "@/assets/images/billing-system.png";
 import workspaceImage from "@/assets/images/workspace-nepal.png";
 
-export const categories = ["All", "Web Application", "Website", "Mobile Application"];
+export const categories = [
+  "All",
+  "Web Application",
+  "Website",
+  "Mobile Application",
+];
 
 export const projects: Project[] = [
   {
@@ -40,7 +45,6 @@ export const projects: Project[] = [
     slug: "hajir-khata",
     links: {
       live: "https://hajirkhata.com",
-      github: "#",
     },
     challenges: `
       One of the main challenges in developing Hajir Khata was creating a system that could handle various attendance scenarios while maintaining accuracy in payroll calculations. We needed to account for different work schedules, overtime, leaves, and holidays.
@@ -96,7 +100,7 @@ export const projects: Project[] = [
     slug: "billing-system",
     links: {
       live: "https://billings-system.vercel.app/login/?email=rajinsakha07@gmail.com&password=billingdemo@7",
-      github: "#",
+      github: "https://github.com/rajinsakha/Billing-System",
     },
     challenges: `
     Ensuring data consistency across inventory, invoicing, and transaction modules:
@@ -152,8 +156,8 @@ export const projects: Project[] = [
     featured: false,
     slug: "workspace-nepal",
     links: {
-      live: "#",
-      github: "#",
+      live: "https://workspacenepal.vercel.app/",
+      github: "https://github.com/rajinsakha/quick-job",
     },
     challenges: `
     Balancing two distinct marketplaces (housing and jobs) within a single cohesive UI:

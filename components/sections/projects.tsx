@@ -12,9 +12,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { categories, projects } from "@/constants/projects-data";
 import ProjectCard from "../ui/project-card";
 
-// Project data
 
-// Filter categories
 
 
 export default function Projects() {

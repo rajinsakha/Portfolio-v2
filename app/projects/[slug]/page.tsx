@@ -91,12 +91,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
 
         {/* Main image */}
-        <div className="relative w-full h-[50vh] mb-12 rounded-xl overflow-hidden">
+        <div className="relative w-full h-[400px] mb-12 rounded-xl overflow-hidden">
           <Image
             src={project.image || "/placeholder.svg"}
             alt={`${project.title} - Main Screenshot`}
             fill
-            className="object-cover"
+            className="object-cover object-top w-full h-full"
             priority
             sizes="100vw"
           />
@@ -118,32 +118,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <h2 className="text-2xl font-bold mb-4">Key Features</h2>
               <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                 {project.keyFeatures.map((feature, index) => (
-                  <li key={index} className="flex gap-2 items-center"><Code2 className="size-4" /> {feature}</li>
+                  <li key={index} className="flex gap-2 items-center">
+                    <Code2 className="size-4" /> {feature}
+                  </li>
                 ))}
               </ul>
             </div>
-
-            {/* <div className="mt-12">
-              <h2 className="text-2xl font-bold mb-4">Challenges</h2>
-              <div className="prose prose-lg dark:prose-invert max-w-none">
-                {project.challenges.split("\n\n").map((paragraph, i) => (
-                  <p key={i} className="mb-4 text-muted-foreground">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-12">
-              <h2 className="text-2xl font-bold mb-4">Solutions</h2>
-              <div className="prose prose-lg dark:prose-invert max-w-none">
-                {project.solutions.split("\n\n").map((paragraph, i) => (
-                  <p key={i} className="mb-4 text-muted-foreground">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            </div> */}
           </div>
 
           <div>
