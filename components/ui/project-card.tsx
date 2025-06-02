@@ -37,7 +37,7 @@ export default function ProjectCard({
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
       <Card
-        className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-md hover:-translate-y-1 cursor-pointer"
+        className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-md hover:-translate-y-1 cursor-pointer py-3"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleCardClick}
@@ -67,7 +67,7 @@ export default function ProjectCard({
           </div>
         </div>
 
-        <CardContent className="p-5 flex flex-col flex-grow">
+        <CardContent className="px-4 py-3 flex flex-col flex-grow">
           <h3 className="text-xl font-bold mb-2">{project.title}</h3>
           <p className="text-muted-foreground text-sm mb-4 line-clamp-3 flex-grow">
             {project.description}
