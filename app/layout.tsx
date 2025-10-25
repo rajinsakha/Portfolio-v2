@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import Navbar from "@/components/sections/navbar";
 import Footer from "@/components/sections/footer";
@@ -28,7 +28,6 @@ export const metadata: Metadata = {
     "React.js",
     "Next.js",
     "Web Development",
-    "UI/UX",
     "JavaScript",
     "TypeScript",
     "Rajin Sakha",
@@ -49,7 +48,7 @@ export const metadata: Metadata = {
     title: "Rajin Sakha | Front-end Developer",
     description:
       "Front-end Developer specializing in React.js and Next.js, creating responsive and user-friendly web applications.",
-    url: "https://rajinsakha.com", // Replace with your actual domain
+    url: "https://rajinsakha.com.np", // Replace with your actual domain
     siteName: "Rajin Sakha Portfolio",
     images: [
       {

@@ -2,26 +2,22 @@
 
 import type React from "react";
 
-import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { SectionHeading } from "@/components/ui/section-heading";
 
-import { categories, projects } from "@/constants/projects-data";
+import { projects } from "@/constants/projects-data";
 import ProjectCard from "../ui/project-card";
 
-
-
-
 export default function Projects() {
-  const [filter, setFilter] = useState("All");
+  // const [filter, setFilter] = useState("All");
 
-  const filteredProjects =
-    filter === "All"
-      ? projects
-      : projects.filter((project) => project.category === filter);
+  // const filteredProjects =
+  //   filter === "All"
+  //     ? projects
+  //     : projects.filter((project) => project.category === filter);
 
   return (
     <section
@@ -32,7 +28,7 @@ export default function Projects() {
       <div className="container">
         <SectionHeading title="My Projects" subtitle="Recent work I've done" />
 
-        <div className="flex flex-wrap justify-center gap-2 mt-8 mb-12">
+        {/* <div className="flex flex-wrap justify-center gap-2 mt-8 mb-12">
           {categories.map((category) => (
             <Button
               key={category}
@@ -44,10 +40,10 @@ export default function Projects() {
               {category}
             </Button>
           ))}
-        </div>
+        </div> */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-          {filteredProjects.map((project, index) => (
+          {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>

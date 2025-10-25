@@ -60,11 +60,11 @@ export default function ProjectCard({
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           </motion.div>
 
-          <div className="absolute top-3 left-3">
+          {/* <div className="absolute top-3 left-3">
             <Badge className="bg-primary/90 text-primary-foreground">
               {project.category}
             </Badge>
-          </div>
+          </div> */}
         </div>
 
         <CardContent className="px-4 py-3 flex flex-col flex-grow">
@@ -104,7 +104,11 @@ export default function ProjectCard({
                 <Github className="size-4 mr-1" /> Code
               </Button>
             )}
-            <Button size="sm" variant="default" className="ml-auto cursor-pointer">
+            <Button
+              size="sm"
+              variant="default"
+              className="ml-auto cursor-pointer"
+            >
               View Details
             </Button>
           </div>

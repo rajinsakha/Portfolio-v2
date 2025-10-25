@@ -2,6 +2,7 @@ import { Project } from "@/types";
 import hajirKhataImage from "@/assets/images/hajirkhata.png";
 import billingSystemImage from "@/assets/images/billing-system.png";
 import workspaceImage from "@/assets/images/workspace-nepal.png";
+import actualSaveImage from "@/assets/images/actual-save.png";
 
 export const categories = [
   "All",
@@ -88,7 +89,7 @@ export const projects: Project[] = [
     ],
     image: billingSystemImage.src,
     technologies: [
-      "Next JS",
+      "Next.js",
       "TypeScript",
       "Tailwind CSS",
       "Recharts",
@@ -186,6 +187,62 @@ export const projects: Project[] = [
       {
         url: "/placeholder.svg?height=600&width=800",
         caption: "Landlord & employer dashboard overview",
+      },
+    ],
+  },
+
+  {
+    id: 4,
+    title: "Actually Save",
+    description:
+      "A rewards and payments platform featuring a landing page and admin dashboard — designed to help users earn cashback and manage vendor operations efficiently.",
+    fullDescription: `
+    Actually Save is a digital rewards and payments ecosystem built to help customers earn points and cashback for purchases, while vendors manage transactions and visibility through a central admin dashboard.
+    
+    I contributed to developing the **landing page** and the **admin dashboard interface**. The landing page promotes app downloads, featured vendors, and reward workflows. The admin dashboard provides analytics, transaction summaries, and vendor/customer management tools.
+  `,
+    keyFeatures: [
+      "Responsive and SEO-optimized landing page showcasing app features and CTAs",
+      "Interactive admin dashboard with analytics and performance metrics",
+      "Vendor and customer management modules",
+      "Withdraw request and payment approval system",
+      "Role-based access and intuitive navigation",
+      "Real-time data visualization for earnings, receivables, and growth metrics",
+    ],
+    image: actualSaveImage.src,
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Shadcn/ui",
+      "Redux Toolkit",
+    ],
+    category: "Web Application",
+    featured: true,
+    slug: "actual-save",
+    links: {
+      live: "https://www.actualsave.com",
+    },
+    challenges: `
+    Designing a scalable dashboard layout that can display analytics, tables, and vendor/customer data without clutter.
+    Ensuring smooth performance for large datasets (transactions, vendors, users) while maintaining responsiveness and consistent UI.
+    Creating an engaging and fast marketing page that clearly communicates the product value.
+  `,
+    solutions: `
+    Built modular, reusable UI components with shadcn/ui and Tailwind CSS for clean, responsive design.
+    Implemented lazy loading and pagination on data-heavy views to improve render performance.
+    Structured landing page sections with optimized assets, CTA hierarchy, and SEO best practices for improved user engagement.
+  `,
+    screenshots: [
+      {
+        url: actualSaveImage.src,
+        caption:
+          "Admin Dashboard — overview of earnings, vendors, and top performers",
+      },
+      {
+        url: "/placeholder.svg?height=600&width=800",
+        caption: "Landing Page — product overview and app download section",
       },
     ],
   },

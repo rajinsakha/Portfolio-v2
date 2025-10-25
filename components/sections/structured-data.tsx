@@ -8,11 +8,11 @@ export default function StructuredData() {
     jobTitle: "Front-end Developer",
     worksFor: {
       "@type": "Organization",
-      name: "Tech Solutions Inc.", // Replace with your current company
+      name: "Hunchha Digital Pvt. Ltd.", // Replace with your current company
     },
     sameAs: [
       "https://github.com/rajinsakha", // Replace with your actual profiles
-      "https://linkedin.com/in/rajinsakha",
+      "https://www.linkedin.com/in/rajin-sakha-22003b229/",
       "https://twitter.com/rajinsakha",
     ],
     description:
@@ -23,15 +23,14 @@ export default function StructuredData() {
       "JavaScript",
       "TypeScript",
       "Web Development",
-      "UI/UX Design",
     ],
   };
 
   const portfolioSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Rajin Sakha Portfolio",
-    url: "https://rajinsakha.com", // Replace with your actual domain
+    name: "Rajin Sakha's Portfolio",
+    url: "https://rajinsakha.com.np",
     description:
       "Portfolio website of Rajin Sakha, a Front-end Developer specializing in React.js and Next.js.",
     author: {
