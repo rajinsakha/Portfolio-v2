@@ -1,13 +1,15 @@
 "use client";
 
+import type React from "react";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { Button } from "./button";
-import { Project } from "@/types";
+import { Button } from "@/components/ui/button";
+import type { Project } from "@/types";
 import { useRouter } from "next/navigation";
 
 export default function ProjectCard({
@@ -18,7 +20,13 @@ export default function ProjectCard({
   index: number;
 }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const router = useRouter();
+
+  const allImages = [
+    project.image,
+    ...project.screenshots.map((screenshot) => screenshot.url),
+  ];
 
   const handleCardClick = () => {
     router.push(`/projects/${project.slug}`);
@@ -27,6 +35,11 @@ export default function ProjectCard({
   const handleLinkClick = (e: React.MouseEvent, url: string) => {
     e.stopPropagation(); // Prevent the card click from triggering
     window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
   };
 
   return (
@@ -38,7 +51,7 @@ export default function ProjectCard({
     >
       <Card
         className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-md hover:-translate-y-1 cursor-pointer py-3"
-        onMouseEnter={() => setIsHovered(true)}
+        onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleCardClick}
       >
@@ -50,7 +63,7 @@ export default function ProjectCard({
             transition={{ duration: 0.4 }}
           >
             <Image
-              src={project.image || "/placeholder.svg"}
+              src={allImages[currentImageIndex] || "/placeholder.svg"}
               alt={`${project.title} - Project Screenshot`}
               width={600}
               height={300}
@@ -59,12 +72,6 @@ export default function ProjectCard({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           </motion.div>
-
-          {/* <div className="absolute top-3 left-3">
-            <Badge className="bg-primary/90 text-primary-foreground">
-              {project.category}
-            </Badge>
-          </div> */}
         </div>
 
         <CardContent className="px-4 py-3 flex flex-col flex-grow">

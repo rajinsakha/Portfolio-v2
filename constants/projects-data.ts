@@ -1,8 +1,15 @@
+import {
+  actualSaveImage,
+  hajirKhataImage,
+  workspaceImage,
+  billingSystemImage,
+  hajirKhataAdminDashboardImage,
+  actualSaveLandingPageImage,
+  generateBillPdfImage,
+  invoiceBillingImage,
+  productBillingImage,
+} from "@/assets/images";
 import { Project } from "@/types";
-import hajirKhataImage from "@/assets/images/hajirkhata.png";
-import billingSystemImage from "@/assets/images/billing-system.png";
-import workspaceImage from "@/assets/images/workspace-nepal.png";
-import actualSaveImage from "@/assets/images/actual-save.png";
 
 export const categories = [
   "All",
@@ -59,8 +66,8 @@ export const projects: Project[] = [
     `,
     screenshots: [
       {
-        url: "/placeholder.svg?height=600&width=800",
-        caption: "Dashboard view showing attendance overview",
+        url: hajirKhataAdminDashboardImage.src,
+        caption: "Admin Dashboard view showing attendance overview",
       },
       {
         url: "/placeholder.svg?height=600&width=800",
@@ -120,16 +127,17 @@ export const projects: Project[] = [
   `,
     screenshots: [
       {
-        url: "/placeholder.svg?height=600&width=800",
-        caption: "Inventory management dashboard with low-stock alerts",
+        url: productBillingImage.src,
+        caption: "Products Section",
+      },
+
+      {
+        url: invoiceBillingImage.src,
+        caption: "Bill Creation Screen",
       },
       {
-        url: "/placeholder.svg?height=600&width=800",
+        url: generateBillPdfImage.src,
         caption: "Custom invoice template editor and PDF preview",
-      },
-      {
-        url: "/placeholder.svg?height=600&width=800",
-        caption: "Transaction ledger with multiple payment methods",
       },
     ],
   },
@@ -241,7 +249,7 @@ export const projects: Project[] = [
           "Admin Dashboard — overview of earnings, vendors, and top performers",
       },
       {
-        url: "/placeholder.svg?height=600&width=800",
+        url: actualSaveLandingPageImage.src,
         caption: "Landing Page — product overview and app download section",
       },
     ],

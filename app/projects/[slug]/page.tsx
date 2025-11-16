@@ -7,8 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import { Metadata } from "next";
 import { projects } from "@/constants/projects-data";
 
-// Project data - in a real app, this would come from a database or CMS
-
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -59,14 +57,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Back button */}
         <div className="mb-8">
           <Button variant="ghost" asChild>
-            <Link href="/#projects">
-              <ArrowLeft className="mr-2 size-4" /> Back to Projects
+            <Link href="/#projects" className="hover:text-primary">
+              <ArrowLeft className="mr-2 size-4 " /> Back to Projects
             </Link>
           </Button>
         </div>
 
         {/* Project header */}
-        <div className="mb-12">
+        <div className="mb-8">
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <Badge className="bg-primary/90 text-primary-foreground">
               {project.category}
@@ -91,19 +89,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
 
         {/* Main image */}
-        <div className="relative w-full h-[400px] mb-12 rounded-xl overflow-hidden">
+        <div className="relative w-full h-auto">
           <Image
             src={project.image || "/placeholder.svg"}
-            alt={`${project.title} - Main Screenshot`}
-            fill
-            className="object-cover object-top w-full h-full"
-            priority
-            sizes="100vw"
+            alt={project.title}
+            width={800}
+            height={1000}
+            className="w-full h-auto object-contain"
           />
         </div>
 
         {/* Project details */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 my-8">
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold mb-4">Overview</h2>
             <div className="prose prose-lg dark:prose-invert max-w-none">

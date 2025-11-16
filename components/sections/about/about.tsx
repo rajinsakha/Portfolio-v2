@@ -61,13 +61,10 @@ export default function About() {
               <p className="text-sm sm:text-base ">
                 Beyond coding, I&apos;m passionate about staying current with
                 emerging technologies and design trends. I believe in continuous
-                learning and regularly participate in online
-                courses to enhance my skills and bring fresh perspectives to my
-                work.
+                learning and regularly participate in online courses to enhance
+                my skills and bring fresh perspectives to my work.
               </p>
             </div>
-
-         
 
             <div className="mt-8">
               <Button size="lg">Download Resume</Button>
