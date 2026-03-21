@@ -2,21 +2,31 @@ export const experiences = [
   {
     title: "Front-end Developer",
     company: "Hunchha Digital",
-    period: "March 2024 - Present",
+    period: "March 2024 - February 2026",
     description:
-      "Working on developing and maintaining front-end features for client projects, focusing on performance, responsiveness, and UI/UX improvements.",
+      "Developed and maintained front-end features for products and client projects, focusing on performance, responsiveness, and UI/UX improvements.",
     technologies: [
       "React.js",
       "Next.js",
       "Tailwind CSS",
       "TypeScript",
-      "Redux",
+      "Redux Toolkit",
+      "RTK Query",
+      "Shadcn UI",
+      "React Router",
+      "React Hook Form",
+      "Zod",
+      "ApexCharts",
+      "Recharts",
+      "Leaflet",
+      "WebSocket",
+      "Motion",
     ],
   },
   {
     title: "Front-end Developer Intern",
     company: "Hunchha Digital",
-    period: "December 2023 - March 2024",
+    period: "December 2023 - February 2024",
     description:
       "Assisted in building UI components and fixing bugs across web projects, gaining hands-on experience with modern front-end tools and workflows.",
     technologies: [

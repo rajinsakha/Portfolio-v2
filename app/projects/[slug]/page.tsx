@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Metadata } from "next";
 import { projects } from "@/constants/projects-data";
+import { ProjectScreenshotsGallery } from "@/components/project-screenshots-gallery";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -141,71 +142,55 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </div>
                 </div>
 
-                <div>
-                  <h4 className="text-sm uppercase text-muted-foreground font-medium mb-2">
-                    Links
-                  </h4>
-                  <div className="space-y-2">
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start"
-                      asChild
-                    >
-                      <a
-                        href={project.links.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <ExternalLink className="mr-2 size-4" /> Live Demo
-                      </a>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start"
-                      asChild
-                    >
-                      <a
-                        href={project.links.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Github className="mr-2 size-4" /> Source Code
-                      </a>
-                    </Button>
+                {(project.links.live && project.links.live !== "#") ||
+                  project.links.github ? (
+                  <div>
+                    <h4 className="text-sm uppercase text-muted-foreground font-medium mb-2">
+                      Links
+                    </h4>
+                    <div className="space-y-2">
+                      {project.links.live && project.links.live !== "#" && (
+                        <Button
+                          variant="outline"
+                          className="w-full justify-start"
+                          asChild
+                        >
+                          <a
+                            href={project.links.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <ExternalLink className="mr-2 size-4" /> Live Demo
+                          </a>
+                        </Button>
+                      )}
+                      {project.links.github && (
+                        <Button
+                          variant="outline"
+                          className="w-full justify-start"
+                          asChild
+                        >
+                          <a
+                            href={project.links.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Github className="mr-2 size-4" /> Source Code
+                          </a>
+                        </Button>
+                      )}
+                    </div>
                   </div>
-                </div>
+                ) : null}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Screenshots */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">Project Screenshots</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {project.screenshots.map((screenshot, index) => (
-              <div
-                key={index}
-                className="rounded-xl overflow-hidden border border-border/50"
-              >
-                <div className="relative aspect-video">
-                  <Image
-                    src={screenshot.url || "/placeholder.svg"}
-                    alt={screenshot.caption}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                </div>
-                <div className="p-4 bg-card">
-                  <p className="text-sm text-muted-foreground">
-                    {screenshot.caption}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <ProjectScreenshotsGallery
+          screenshots={project.screenshots}
+          fallbackImage={project.image}
+        />
 
         {/* Next/Prev navigation */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-border pt-8">

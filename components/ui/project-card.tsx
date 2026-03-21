@@ -91,15 +91,17 @@ export default function ProjectCard({
           </div>
 
           <div className="flex gap-2 mt-auto">
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={(e) => handleLinkClick(e, project.links.live)}
-              aria-label={`View ${project.title} demo`}
-              className="cursor-pointer"
-            >
-              <ExternalLink className="size-4 mr-1" /> Demo
-            </Button>
+            {project.links.live && project.links.live !== "#" && (
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={(e) => handleLinkClick(e, project.links.live)}
+                aria-label={`View ${project.title} demo`}
+                className="cursor-pointer"
+              >
+                <ExternalLink className="size-4 mr-1" /> Demo
+              </Button>
+            )}
             {project.links.github !== undefined && (
               <Button
                 size="sm"

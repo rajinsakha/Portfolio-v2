@@ -1,13 +1,18 @@
 import {
-  actualSaveImage,
   hajirKhataImage,
   workspaceImage,
   billingSystemImage,
   hajirKhataAdminDashboardImage,
-  actualSaveLandingPageImage,
   generateBillPdfImage,
   invoiceBillingImage,
   productBillingImage,
+  pimsLeadDashboardImage,
+  pimsDocumentLibraryImage,
+  pimsCalendarImage,
+  pimsExperienceManagementImage,
+  pimsShortlistedImage,
+  pimsLeadsImage,
+  pimsSettingsThemeImage,
 } from "@/assets/images";
 import { Project } from "@/types";
 
@@ -23,7 +28,7 @@ export const projects: Project[] = [
     id: 1,
     title: "Hajir Khata",
     description:
-      "A comprehensive software solution designed to simplify payroll management for businesses of all sizes. Its primary goal is to help organizations effortlessly track daily employee attendance and manage payroll with ease.",
+      "A multi-tenant SaaS web application for payroll and workforce management: organizations subscribe to manage employees, attendance, leave, claims, and payroll—with role-based access, per-organization settings, and real-time updates.",
     fullDescription: `
       Hajir Khata is a comprehensive software solution designed to simplify payroll management for businesses of all sizes. Its primary goal is to help organizations effortlessly track daily employee attendance and manage payroll with ease.
       
@@ -32,21 +37,38 @@ export const projects: Project[] = [
       Detailed reporting and analytics are provided to give insights into workforce productivity and cost control.
     `,
     keyFeatures: [
-      "Real-time attendance tracking",
-      "Automated payroll calculation",
-      "Detailed reporting and analytics",
-      "Employee self-service portal",
-      "Integration with popular accounting software",
+      "Central dashboard to manage daily HR and payroll operations in one place",
+      "Separate employee self-service dashboard for employees, distinct from admin-facing workflows",
+      "Employee management with profiles, status tracking, and organization-wide visibility",
+      "Attendance operations including employee attendance, self attendance, and attendance monitoring views",
+      "Leave workflows for requests, approvals, allocations, and substitute leave handling",
+      "Payroll operations with salary components, payroll processing, and payroll history views",
+      "Claims management for advance, proposed, and overtime claims from submission to review",
+      "Announcement and event modules to keep teams aligned on internal updates",
+      "Device and geofence management for attendance control across office and field contexts",
+      "User, role, and permission management for controlled access across modules",
+      "Reporting and analytics across attendance, payroll, tax, leave, and other operational records",
     ],
     image: hajirKhataImage.src,
     technologies: [
       "React",
+      "Next.js",
       "TypeScript",
+      "Vite",
       "Tailwind CSS",
-      "Shadcn/ui",
-      "Rest APIs",
+      "Shadcn UI",
+      "Redux Toolkit",
+      "redux-persist",
+      "React Router",
+      "Axios",
+      "REST APIs",
       "WebSocket",
-      "Redux",
+      "React Hook Form",
+      "Zod",
+      "ApexCharts",
+      "Recharts",
+
+      "Motion",
     ],
     category: "Web Application",
     featured: true,
@@ -201,56 +223,74 @@ export const projects: Project[] = [
 
   {
     id: 4,
-    title: "Actually Save",
+    title: "Project Information Management System",
     description:
-      "A rewards and payments platform featuring a landing page and admin dashboard — designed to help users earn cashback and manage vendor operations efficiently.",
-    fullDescription: `
-    Actually Save is a digital rewards and payments ecosystem built to help customers earn points and cashback for purchases, while vendors manage transactions and visibility through a central admin dashboard.
-    
-    I contributed to developing the **landing page** and the **admin dashboard interface**. The landing page promotes app downloads, featured vendors, and reward workflows. The admin dashboard provides analytics, transaction summaries, and vendor/customer management tools.
-  `,
+      "A single workspace for business development and project teams to run the full lifecycle from first lead to delivery — pipeline and calendars, proposals and shortlisting, contracts, roster, finance (bills & payments), assets, and a toolkit (experience, documents, checklists, settings) so status, people, and money stay aligned.",
+    fullDescription:
+      "PIMS replaces fragmented spreadsheets and disconnected tools with one system for how opportunities become projects. Business development can capture and qualify leads, run proposals against checklists and deadlines, move work through shortlisting and contractual steps, and hand off cleanly into active delivery — with the same entities (clients, partners, vendors, experts) and documents visible end to end.\n\nProject and operations teams get calendars and project views tied to milestones and deadlines, while finance and admin see bills, payments, and expense structure alongside asset inventory, handover, repair, land, and vehicle tracking. Dashboards summarize lead health, project progress, finance, assets, expenses, and operations so leadership can spot risk early instead of reconciling reports manually.\n\nA configurable settings layer (themes, categories, fiscal year, master data for clients/partners/vendors, expenses, assets, and file types) keeps the product adaptable without one-off hardcoding. Together, the app is built as a long-lived internal platform: consistent navigation, role-aware access, and reusable patterns across dozens of screens.",
     keyFeatures: [
-      "Responsive and SEO-optimized landing page showcasing app features and CTAs",
-      "Interactive admin dashboard with analytics and performance metrics",
-      "Vendor and customer management modules",
-      "Withdraw request and payment approval system",
-      "Role-based access and intuitive navigation",
-      "Real-time data visualization for earnings, receivables, and growth metrics",
+      "Six dashboards (Lead, Project, Finance, Assets, Expenses, Operations) plus a project management hub for calendars, milestones, deadlines, and at-a-glance delivery/financial risk",
+      "End-to-end lead-to-award workflow with checklist-driven proposals, submissions/results, round-based shortlisting, contractual steps, and clean handoff into project creation",
+      "Unified master roster for clients, organizations, partners, vendors, and experts so proposals, contracts, and project records stay consistent across modules",
+      "Operational and financial control through expenses, bills, payments, and full asset lifecycle tracking (inventory, handover, repair, land, and vehicles)",
+      "Role-based access with granular permissions, a productivity toolkit (documents, checklists, experience/letter tools, imports/exports), and deep configurable settings including Nepali date support",
     ],
-    image: actualSaveImage.src,
+    image: pimsLeadDashboardImage.src,
     technologies: [
-      "Next.js",
       "React",
       "TypeScript",
+      "Vite",
       "Tailwind CSS",
-      "Shadcn/ui",
+      "Shadcn/ui & Radix UI",
       "Redux Toolkit",
+      "React Router",
+      "React Hook Form & Zod",
+      "Axios",
+      "Recharts",
     ],
     category: "Web Application",
     featured: true,
-    slug: "actual-save",
+    slug: "project-information-management-system",
     links: {
-      live: "https://www.actualsave.com",
+      live: "#",
     },
-    challenges: `
-    Designing a scalable dashboard layout that can display analytics, tables, and vendor/customer data without clutter.
-    Ensuring smooth performance for large datasets (transactions, vendors, users) while maintaining responsiveness and consistent UI.
-    Creating an engaging and fast marketing page that clearly communicates the product value.
-  `,
-    solutions: `
-    Built modular, reusable UI components with shadcn/ui and Tailwind CSS for clean, responsive design.
-    Implemented lazy loading and pagination on data-heavy views to improve render performance.
-    Structured landing page sections with optimized assets, CTA hierarchy, and SEO best practices for improved user engagement.
-  `,
+    challenges:
+      "Shipping a single UX that stays understandable while the product spans dashboards, CRM-like pipeline, contracts, roster, finance, assets, and admin settings — without every screen feeling like a different app.\n\nModeling a lead lifecycle that is strict enough to be auditable (checklists, stages, documents) yet flexible enough for real-world variance — unsuccessful paths, multiple shortlist rounds, and different contract types.\n\nKeeping configuration powerful (many master-data dimensions) without letting inconsistent settings break downstream lists, filters, and reports — especially as tables and libraries grow.\n\nImplementing access control that matches how organizations actually delegate work: not just “logged in,” but read/write boundaries per module and action, aligned with backend rules.",
+    solutions:
+      "Defined a consistent app shell: grouped navigation, searchable command palette, and repeatable list/detail/form patterns so new modules plug into the same mental model instead of inventing new UX each time.\n\nImplemented a stage-based lead experience with clear status, checklist usage, and document touchpoints so the path from proposal to contract to project is visible in the UI — not only in spreadsheets.\n\nCentralized master data in Settings (grouped by domain: general, assets, expenses, file types) so categories, fiscal year, and document/expense semantics stay authoritative for the rest of the app.\n\nUsed a layered frontend architecture — service modules for REST integration, typed forms with validation, Redux for session and cross-cutting UI state, and route-level permission guards — so behavior stays predictable as the surface area grows.\n\nPrioritized heavy lists (documents, long tables) with patterns that stay performant and usable (infinite scroll, clear loading states) so operational users aren’t blocked at scale.",
     screenshots: [
       {
-        url: actualSaveImage.src,
+        url: pimsLeadDashboardImage.src,
         caption:
-          "Admin Dashboard — overview of earnings, vendors, and top performers",
+          "Lead Dashboard — summary cards and opportunity submitted status chart",
       },
       {
-        url: actualSaveLandingPageImage.src,
-        caption: "Landing Page — product overview and app download section",
+        url: pimsDocumentLibraryImage.src,
+        caption:
+          "Document Library — upload, create folder, and grid view of files",
+      },
+      {
+        url: pimsExperienceManagementImage.src,
+        caption:
+          "Experience Management — generic experience table with assignments and contracts",
+      },
+      {
+        url: pimsSettingsThemeImage.src,
+        caption: "Settings — Theme management under General Settings",
+      },
+      {
+        url: pimsCalendarImage.src,
+        caption: "Calendar — project calendar with upcoming deadlines",
+      },
+      {
+        url: pimsShortlistedImage.src,
+        caption:
+          "Lead detail — shortlisted phase with rounds and proposal workflow",
+      },
+      {
+        url: pimsLeadsImage.src,
+        caption:
+          "Proposal step — choose checklist and multi-step proposal flow",
       },
     ],
   },
