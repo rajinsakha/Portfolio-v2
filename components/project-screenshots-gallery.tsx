@@ -72,7 +72,7 @@ export function ProjectScreenshotsGallery({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
           showCloseButton
-          className="!w-[96vw] !max-w-[1280px] border-border bg-card p-3 sm:p-5"
+          className="!w-[96vw] !max-w-[1280px]  p-4"
           aria-label="Screenshot gallery"
         >
           <DialogTitle className="sr-only">Project screenshots</DialogTitle>
@@ -82,7 +82,7 @@ export function ProjectScreenshotsGallery({
           <Carousel
             key={activeIndex}
             opts={{ startIndex: activeIndex, align: "center" }}
-            className="w-full overflow-hidden pt-2"
+            className="w-full overflow-hidden"
           >
             <CarouselContent>
               {screenshots.map((screenshot, index) => (
@@ -105,8 +105,8 @@ export function ProjectScreenshotsGallery({
             </CarouselContent>
             {screenshots.length > 1 && (
               <>
-                <CarouselPrevious className="left-2 border-border bg-background/95 shadow-md sm:left-4" />
-                <CarouselNext className="right-2 border-border bg-background/95 shadow-md sm:right-4" />
+                <CarouselPrevious className="left-2 border-border bg-background/95 shadow-md sm:left-4 text-black!" />
+                <CarouselNext className="right-2 border-border bg-background/95 shadow-md sm:right-4 text-black!" />
               </>
             )}
           </Carousel>
