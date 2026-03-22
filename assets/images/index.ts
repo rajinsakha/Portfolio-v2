@@ -14,6 +14,10 @@ import pimsExperienceManagementImage from "@/assets/images/experience-table.png"
 import pimsLeadsImage from "@/assets/images/leads-section.png";
 import pimsShortlistedImage from "@/assets/images/lead-shortlisted.png";
 import pimsSettingsThemeImage from "@/assets/images/settings.png";
+import siteIqDashboardImage from "@/assets/images/site-iq-dashboard.png";
+import siteIqEmployeeDetailsImage from "@/assets/images/employee-details-site-iq.png";
+import siteIqMapViewImage from "@/assets/images/site-iq-map-view.png";
+import siteIqMarketingLandingImage from "@/assets/images/site-iq-landing.png";
 
 export {
   workspaceImage,
@@ -32,4 +36,8 @@ export {
   pimsLeadsImage,
   pimsShortlistedImage,
   pimsSettingsThemeImage,
+  siteIqDashboardImage,
+  siteIqEmployeeDetailsImage,
+  siteIqMapViewImage,
+  siteIqMarketingLandingImage,
 };

@@ -13,6 +13,10 @@ import {
   pimsShortlistedImage,
   pimsLeadsImage,
   pimsSettingsThemeImage,
+  siteIqDashboardImage,
+  siteIqEmployeeDetailsImage,
+  siteIqMapViewImage,
+  siteIqMarketingLandingImage,
 } from "@/assets/images";
 import { Project } from "@/types";
 
@@ -225,7 +229,7 @@ export const projects: Project[] = [
     id: 4,
     title: "Project Information Management System",
     description:
-      "A single workspace for business development and project teams to run the full lifecycle from first lead to delivery — pipeline and calendars, proposals and shortlisting, contracts, roster, finance (bills & payments), assets, and a toolkit (experience, documents, checklists, settings) so status, people, and money stay aligned.",
+      "A SaaS platform for business development and project operations teams to manage the full project lifecycle — from lead capture and proposal submission to shortlisting, contracts, delivery tracking, finance, assets, and documents — in one system.",
     fullDescription:
       "PIMS replaces fragmented spreadsheets and disconnected tools with one system for how opportunities become projects. Business development can capture and qualify leads, run proposals against checklists and deadlines, move work through shortlisting and contractual steps, and hand off cleanly into active delivery — with the same entities (clients, partners, vendors, experts) and documents visible end to end.\n\nProject and operations teams get calendars and project views tied to milestones and deadlines, while finance and admin see bills, payments, and expense structure alongside asset inventory, handover, repair, land, and vehicle tracking. Dashboards summarize lead health, project progress, finance, assets, expenses, and operations so leadership can spot risk early instead of reconciling reports manually.\n\nA configurable settings layer (themes, categories, fiscal year, master data for clients/partners/vendors, expenses, assets, and file types) keeps the product adaptable without one-off hardcoding. Together, the app is built as a long-lived internal platform: consistent navigation, role-aware access, and reusable patterns across dozens of screens.",
     keyFeatures: [
@@ -241,10 +245,11 @@ export const projects: Project[] = [
       "TypeScript",
       "Vite",
       "Tailwind CSS",
-      "Shadcn/ui & Radix UI",
+      "Shadcn/ui",
       "Redux Toolkit",
       "React Router",
-      "React Hook Form & Zod",
+      "React Hook Form",
+      "Zod",
       "Axios",
       "Recharts",
     ],
@@ -291,6 +296,77 @@ export const projects: Project[] = [
         url: pimsLeadsImage.src,
         caption:
           "Proposal step — choose checklist and multi-step proposal flow",
+      },
+    ],
+  },
+
+  {
+    id: 5,
+    title: "Site IQ",
+    description:
+      "A multi-tenant SaaS web application for construction and field operations teams to manage employees, job sites, shifts, leave, claims, supervisors, sub-contractors, communications, and payroll-related settings—with maps, live location tracking, role-based access, and reporting—in one place.",
+    fullDescription:
+      "Site IQ is a React single-page application backed by a REST API. Each organization uses its own API host; the client attaches the bearer token and calls versioned endpoints under `/api/v1/`. Authentication supports login, registration, OTP, password reset, Google OAuth (dependency present), and an onboarding flow to create an organization before entering the dashboard.\n\nDay-to-day work is organized in the sidebar: a home dashboard (summary stats, department chart, attendance, pending leave, birthdays, events), full employee lifecycle screens (list, add/edit with Zod-validated forms, detail with tabs for attendance, timesheet, leave calendar, site map card, shift changes), job sites with map integration, a dedicated map view with WebSocket-updated positions, leave management, overtime claims, supervisors, shifts, and sub-contractors. Communication modules include notifications, one-way messaging, and events/meetings.\n\nAdministration adds users and roles with granular permission strings per module (dashboard, employees, job sites, map view, leave, claims, shifts, supervisors, sub-contractors, notifications, messages, events, adjustments, reports, settings, etc.), reports for payroll/wages and archives, standalone adjustment workflows, and a settings area for master data: departments, positions, leave types, adjustment definitions, and tax slabs. The UI uses a consistent dashboard shell (sidebar, header, scrollable main), error boundaries on the dashboard route, lazy-loaded pages, and patterns like infinite scroll and command-palette-style searchable selects where appropriate.\n\nA separate public marketing site (SiteIQPro) presents the product as attendance, HR, and payroll software for SMBs, with demo CTAs and trust messaging—while the authenticated app is the operational console described above.",
+    keyFeatures: [
+      "Multi-tenant API access: per-organization domain base URL with JWT access tokens and mutex-serialized refresh to prevent concurrent refresh races",
+      "Operational dashboard: stats cards, department chart (Recharts), attendance widget, pending leave requests, birthdays and events",
+      "Employee management: rich forms (React Hook Form + Zod), file upload, links to departments, positions, shifts, job sites, sub-contractors; employee detail with attendance, timesheet, leave, documents, and bank details",
+      "Job sites and Map view: Google Maps API provider at layout level; map view uses WebSockets for live employee location updates with employee and site filters",
+      "Workforce modules: leave, shifts, supervisors, overtime claims, sub-contractors",
+      "Communication: notifications, one-way messaging, events and meetings",
+      "Administration: users, roles, permission-guarded routes, reports (payroll/wages, archive employees, archive contractors), adjustments",
+      "Settings hub: departments, positions, leave types, adjustments, tax slabs",
+      "UX and resilience: lazy routes, Suspense loaders, react-error-boundary on dashboard, Sonner toasts, theme support (next-themes), Excel export tooling where used",
+    ],
+    image: "siteIqDashboardImage.src",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "Shadcn UI",
+      "Redux Toolkit",
+      "React Router",
+      "React Hook Form",
+      "Zod",
+      "Axios",
+      "async-mutex",
+      "Recharts",
+      "ApexCharts",
+      "Google Maps (@vis.gl/react-google-maps)",
+      "react-use-websocket",
+      "@react-oauth/google",
+    ],
+    category: "Web Application",
+    featured: true,
+    slug: "site-iq",
+    links: {
+      live: "#",
+    },
+    challenges:
+      "Representing a wide surface area—HR, maps, real-time location, messaging, and payroll-related configuration—behind one navigation model without overwhelming users.\n\nMulti-tenant correctness: every API call must use the right organization domain; token refresh must stay safe under parallel requests.\n\nAligning the frontend permission model with backend rules across many modules (read/write/update/delete per feature) so routes and actions stay consistent.\n\nHeavy forms and long tables (employees, lists) need good loading, validation, and performance patterns (infinite scroll, debounced search, paginated dropdowns).",
+    solutions:
+      "Central dashboard layout with grouped sidebar sections (General, Communication, Administration) and `PermissionWrapper` on routes so access matches role capabilities.\n\nAxios instance with request interceptor for domain and Authorization; response interceptor with mutex-gated refresh and retry of the original request.\n\nTyped forms with Zod schemas and shared UI primitives (Radix-based components, command-style searchable selects).\n\nMaps wrapped in `APIProvider`; WebSocket consumers isolated in map view and header for live updates.\n\nRedux for auth, filters, table refetch toggles, and other cross-cutting UI state; persisted store where configured.",
+    screenshots: [
+      {
+        url: siteIqDashboardImage.src,
+        caption:
+          "Dashboard — attendance summary (present, absent, late, on leave), department bar chart, unavailable list, pending leave requests, and birthdays.",
+      },
+      {
+        url: siteIqEmployeeDetailsImage.src,
+        caption:
+          "Employee details — profile, contact and work info, Summary / Insight / Attendance & Leave tabs, other details, timesheet, documents, and bank details with actions (change shift, assign site, archive, edit).",
+      },
+      {
+        url: siteIqMapViewImage.src,
+        caption:
+          "Map view — live map of Kathmandu with employee and site filters, markers for people and sites, and status highlighting.",
+      },
+      {
+        url: siteIqMarketingLandingImage.src,
+        caption:
+          "SiteIQPro marketing site — hero for Attendance, HR & Payroll, feature strip, demo CTAs, and trusted-by logos.",
       },
     ],
   },
