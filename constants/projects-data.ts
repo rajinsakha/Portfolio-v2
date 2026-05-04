@@ -167,66 +167,66 @@ export const projects: Project[] = [
       },
     ],
   },
+  // {
+  //   id: 3,
+  //   title: "WorkSpace Nepal",
+  //   description:
+  //     "A platform where users can list rooms for rent and explore job opportunities across Nepal, connecting property owners with tenants and employers with job seekers.",
+  //   fullDescription: `
+  //   Workspace Nepal is a dual-purpose platform designed to simplify housing and employment in Nepal.
+  //   Property owners can list rooms (or entire properties) for rent, set availability calendars, and manage bookings.
+  //   Job seekers can browse opportunities by industry, location, and company, and apply directly through the portal.
+  //   Employers can post job listings, review applications, and track candidate progress.
+  //   `,
+  //   keyFeatures: [
+  //     "Room rental listings with availability, pricing, and photo galleries",
+  //     "Advanced search filters for location, budget, and amenities",
+  //     "Job board with categorization by sector and region",
+  //     "User dashboards for landlords and employers to manage listings and applications",
+  //     "In-app messaging between tenants & landlords, and applicants & employers",
+  //   ],
+  //   image: workspaceImage.src,
+  //   technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Redux"],
+  //   category: "Web Application",
+  //   featured: false,
+  //   slug: "workspace-nepal",
+  //   links: {
+  //     live: "https://workspacenepal.vercel.app/",
+  //     github: "https://github.com/rajinsakha/quick-job",
+  //   },
+  //   challenges: `
+  //   Balancing two distinct marketplaces (housing and jobs) within a single cohesive UI:
+  //   We needed to ensure that navigation and discoverability work intuitively for both tenants and job seekers.
+
+  //   Verifying user identities and preventing fraudulent listings:
+  //   Trust and safety are critical when handling rentals and employment.
+
+  //   Scaling search and filtering across geographic regions:
+  //   Nepal’s diverse regions require performant queries and flexible filtering.
+  // `,
+  //   solutions: `
+  //   Designed separate but unified dashboards for landlords and employers, with contextual navigation and shared components.
+  //   Implemented email/SMS verification and document upload workflows to validate user identities and property ownership.
+  //   Used PostgreSQL full-text search and indexed geographic data; added caching for popular queries and paginated results for large listings.
+  // `,
+  //   screenshots: [
+  //     {
+  //       url: "/placeholder.svg?height=600&width=800",
+  //       caption: "Room listing page with map and filter panel",
+  //     },
+  //     {
+  //       url: "/placeholder.svg?height=600&width=800",
+  //       caption: "Job board view with sector filters",
+  //     },
+  //     {
+  //       url: "/placeholder.svg?height=600&width=800",
+  //       caption: "Landlord & employer dashboard overview",
+  //     },
+  //   ],
+  // },
+
   {
     id: 3,
-    title: "WorkSpace Nepal",
-    description:
-      "A platform where users can list rooms for rent and explore job opportunities across Nepal, connecting property owners with tenants and employers with job seekers.",
-    fullDescription: `
-    Workspace Nepal is a dual-purpose platform designed to simplify housing and employment in Nepal.
-    Property owners can list rooms (or entire properties) for rent, set availability calendars, and manage bookings.
-    Job seekers can browse opportunities by industry, location, and company, and apply directly through the portal.
-    Employers can post job listings, review applications, and track candidate progress.
-    `,
-    keyFeatures: [
-      "Room rental listings with availability, pricing, and photo galleries",
-      "Advanced search filters for location, budget, and amenities",
-      "Job board with categorization by sector and region",
-      "User dashboards for landlords and employers to manage listings and applications",
-      "In-app messaging between tenants & landlords, and applicants & employers",
-    ],
-    image: workspaceImage.src,
-    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Redux"],
-    category: "Web Application",
-    featured: false,
-    slug: "workspace-nepal",
-    links: {
-      live: "https://workspacenepal.vercel.app/",
-      github: "https://github.com/rajinsakha/quick-job",
-    },
-    challenges: `
-    Balancing two distinct marketplaces (housing and jobs) within a single cohesive UI:
-    We needed to ensure that navigation and discoverability work intuitively for both tenants and job seekers.
-
-    Verifying user identities and preventing fraudulent listings:
-    Trust and safety are critical when handling rentals and employment.
-
-    Scaling search and filtering across geographic regions:
-    Nepal’s diverse regions require performant queries and flexible filtering.
-  `,
-    solutions: `
-    Designed separate but unified dashboards for landlords and employers, with contextual navigation and shared components.
-    Implemented email/SMS verification and document upload workflows to validate user identities and property ownership.
-    Used PostgreSQL full-text search and indexed geographic data; added caching for popular queries and paginated results for large listings.
-  `,
-    screenshots: [
-      {
-        url: "/placeholder.svg?height=600&width=800",
-        caption: "Room listing page with map and filter panel",
-      },
-      {
-        url: "/placeholder.svg?height=600&width=800",
-        caption: "Job board view with sector filters",
-      },
-      {
-        url: "/placeholder.svg?height=600&width=800",
-        caption: "Landlord & employer dashboard overview",
-      },
-    ],
-  },
-
-  {
-    id: 4,
     title: "Project Information Management System",
     description:
       "A SaaS platform for business development and project operations teams to manage the full project lifecycle — from lead capture and proposal submission to shortlisting, contracts, delivery tracking, finance, assets, and documents — in one system.",
@@ -301,7 +301,7 @@ export const projects: Project[] = [
   },
 
   {
-    id: 5,
+    id: 4,
     title: "Site IQ",
     description:
       "A multi-tenant workforce platform for construction and field teams: attendance and HR in one place—employees, job sites, live map tracking, shifts, leave, claims, messaging, and admin reporting.",

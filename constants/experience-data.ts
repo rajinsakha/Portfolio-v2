@@ -1,8 +1,52 @@
 export const experiences = [
   {
+    title: "Software Developer",
+    company: "Kennedy Studio",
+    period: "February 2026 - Present",
+    description: "Developing and maintaining web applications",
+    technologies: [
+      "React.js",
+      "Next.js",
+      "Nest.js",
+      "Shopify",
+      "Squarespace",
+      "Tailwind CSS",
+      "Redux Toolkit",
+      "RTK Query",
+      "Shadcn UI",
+      "React Hook Form",
+      "Zod",
+      "Redis",
+      "BullMQ",
+      "Resend",
+      "Docker",
+    ],
+  },
+
+  {
+    title: "Software Developer",
+    company: "FiveOne",
+    period: "August 2025 - Present",
+    description: "Building full-stack web and mobile applications",
+    technologies: [
+      "React.js",
+      "Next.js",
+      "React Native",
+      "Nest.js",
+      "Tailwind CSS",
+      "Redux Toolkit",
+      "RTK Query",
+      "Shadcn UI",
+      "React Hook Form",
+      "Zod",
+      "Redis",
+      "Socket.io",
+    ],
+  },
+  {
     title: "Front-end Developer",
     company: "Hunchha Digital",
-    period: "March 2024 - February 2026",
+    period: "March 2024 - January 2026",
     description:
       "Developed and maintained front-end features for products and client projects, focusing on performance, responsiveness, and UI/UX improvements.",
     technologies: [
