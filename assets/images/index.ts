@@ -18,6 +18,12 @@ import siteIqDashboardImage from "@/assets/images/site-iq-dashboard.png";
 import siteIqEmployeeDetailsImage from "@/assets/images/employee-details-site-iq.png";
 import siteIqMapViewImage from "@/assets/images/site-iq-map-view.png";
 import siteIqMarketingLandingImage from "@/assets/images/site-iq-landing.png";
+import mithoImage from "@/assets/images/mitho.png";
+import mithoHomeImage from "@/assets/images/mitho-1-home.png";
+import mithoRecommendImage from "@/assets/images/mitho-2-recommend.png";
+import mithoDetailImage from "@/assets/images/mitho-3-detail.png";
+import mithoNotificationsImage from "@/assets/images/mitho-4-notifications.png";
+import mithoHomeDarkImage from "@/assets/images/mitho-5-home-dark.png";
 
 export {
   workspaceImage,
@@ -40,4 +46,10 @@ export {
   siteIqEmployeeDetailsImage,
   siteIqMapViewImage,
   siteIqMarketingLandingImage,
+  mithoImage,
+  mithoHomeImage,
+  mithoRecommendImage,
+  mithoDetailImage,
+  mithoNotificationsImage,
+  mithoHomeDarkImage,
 };

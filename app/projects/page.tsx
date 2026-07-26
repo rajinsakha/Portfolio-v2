@@ -5,17 +5,27 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { projects } from "@/constants/projects-data";
+import type { Metadata } from "next";
 
-
-
-export const metadata = {
-  title: "Projects | Portfolio",
-  description: "Explore my portfolio of web and mobile application projects.",
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Explore Rajin Sakha's portfolio of React.js and Next.js web application projects — SaaS platforms, dashboards, and billing systems built with TypeScript and Tailwind CSS.",
+  alternates: {
+    canonical: "/projects",
+  },
+  openGraph: {
+    title: "Projects | Rajin Sakha",
+    description:
+      "Explore Rajin Sakha's portfolio of React.js and Next.js web application projects.",
+    url: "/projects",
+    type: "website",
+  },
 };
 
 export default function ProjectsPage() {
   return (
-    <main className="py-16 md:py-24">
+    <div className="py-16 md:py-24">
       <div className="container">
         <div className="mb-8">
           <Button variant="ghost" asChild>
@@ -26,7 +36,7 @@ export default function ProjectsPage() {
         </div>
 
         <div className="mb-12 max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">My Projects</h1>
+          <h1 className="font-display text-5xl md:text-6xl font-normal mb-6">My Projects</h1>
           <p className="text-xl text-muted-foreground">
             Explore my portfolio of web and mobile application projects. Each
             project represents unique challenges and solutions.
@@ -82,6 +92,6 @@ export default function ProjectsPage() {
           ))}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -14,6 +14,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -40,7 +46,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://rajinsakha.com.np"), // Replace with your actual domain
+  metadataBase: new URL("https://rajinsakha.com.np"),
   alternates: {
     canonical: "/",
   },
@@ -48,16 +54,8 @@ export const metadata: Metadata = {
     title: "Rajin Sakha | Front-end Developer",
     description:
       "Front-end Developer specializing in React.js and Next.js, creating responsive and user-friendly web applications.",
-    url: "https://rajinsakha.com.np", // Replace with your actual domain
+    url: "https://rajinsakha.com.np",
     siteName: "Rajin Sakha Portfolio",
-    images: [
-      {
-        url: "/og-image.jpg", // Create this image (1200x630px recommended)
-        width: 1200,
-        height: 630,
-        alt: "Rajin Sakha - Front-end Developer",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -66,8 +64,7 @@ export const metadata: Metadata = {
     title: "Rajin Sakha | Front-end Developer",
     description:
       "Front-end Developer specializing in React.js and Next.js, creating responsive and user-friendly web applications.",
-    images: ["/twitter-image.jpg"], // Create this image (1200x600px recommended)
-    creator: "@rajinsakha", // Replace with your Twitter handle
+    creator: "@rajinsakha",
   },
   robots: {
     index: true,
@@ -80,9 +77,13 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "your-google-verification-code", // Replace with your verification code
-  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+  ],
 };
 
 export default function RootLayout({
@@ -93,12 +94,20 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark">
+          <a
+            href="#main-content"
+            className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:left-4 focus-visible:top-4 focus-visible:z-[200] focus-visible:rounded-md focus-visible:bg-primary focus-visible:px-4 focus-visible:py-2 focus-visible:text-primary-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            Skip to content
+          </a>
           <div className="flex min-h-screen flex-col">
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
             <Footer />
           </div>
         </ThemeProvider>

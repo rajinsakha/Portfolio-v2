@@ -1,56 +1,62 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function CTA() {
   return (
-    <section className="py-16 md:py-24 bg-primary/5 relative overflow-hidden border-y border-primary/10">
-      <div className="absolute inset-0 -z-10">
-        {/* Subtle gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/3"></div>
-
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/3 rounded-full blur-3xl opacity-30 transform translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-primary/5 rounded-full blur-3xl opacity-30 transform -translate-x-1/2 translate-y-1/2"></div>
-
-        {/* Subtle dots pattern - more elegant than the grid */}
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, rgba(79, 79, 79, 0.15) 1px, transparent 1px)",
-            backgroundSize: "30px 30px",
-          }}
-        ></div>
-      </div>
-
-      <div className="container max-w-4xl">
+    <section className="py-16 md:py-24">
+      <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center"
+          className="relative overflow-hidden rounded-3xl border border-border/60 bg-card px-6 py-16 text-center md:px-12 md:py-20"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          {/* Decorative glow + dot texture */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-10"
+          >
+            <div className="absolute left-1/2 top-0 h-64 w-[36rem] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 blur-3xl" />
+            <div
+              className="absolute inset-0 opacity-[0.15]"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle, var(--muted-foreground) 1px, transparent 1px)",
+                backgroundSize: "28px 28px",
+                maskImage:
+                  "radial-gradient(ellipse 60% 60% at 50% 0%, #000 30%, transparent 75%)",
+                WebkitMaskImage:
+                  "radial-gradient(ellipse 60% 60% at 50% 0%, #000 30%, transparent 75%)",
+              }}
+            />
+          </div>
+
+          <h2 className="font-display mx-auto max-w-2xl text-4xl font-normal tracking-tight md:text-6xl">
             Ready to bring your ideas to life?
           </h2>
-          <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-            I&apos;m currently available for freelance work and open to new
-            opportunities. If you have a project that needs some creative touch,
-            I&apos;d love to hear about it.
+          <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground md:text-lg">
+            Whether it&apos;s a freelance project or a new opportunity, I&apos;d
+            love to hear what you&apos;re building.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" asChild>
+          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button size="lg" asChild className="group w-full sm:w-auto">
               <Link href="#contact">
-                Let&apos;s Talk <ArrowRight className="ml-2 h-4 w-4" />
+                Let&apos;s Talk
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" asChild>
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="w-full sm:w-auto"
+            >
               <Link href="/projects">View My Work</Link>
             </Button>
           </div>

@@ -2,10 +2,16 @@
 import { useState } from "react";
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Loader2, Send } from "lucide-react";
+import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { contactItems } from "@/constants/contact-data";
+
+const CONTACT_EMAIL =
+  contactItems.find((item) => item.title === "Email")?.content ??
+  "rajinsakha07@gmail.com";
+
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -15,6 +21,7 @@ const ContactForm = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSent, setIsSent] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -23,30 +30,29 @@ const ContactForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    const subject = formData.subject || `New message from ${formData.name}`;
+    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`;
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+    const mailtoUrl = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+
+    // Open the visitor's email client with the message pre-filled.
+    window.location.href = mailtoUrl;
+
+    setFormData({ name: "", email: "", subject: "", message: "" });
     setIsSubmitting(false);
-
-    // Show success message (in a real app, you'd use a toast or alert)
-    alert("Message sent successfully!");
+    setIsSent(true);
   };
 
   return (
     <Card>
       <CardContent className="px-6">
-        <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
+        <h3 className="font-display text-2xl font-normal mb-6">Send Me a Message</h3>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -57,9 +63,10 @@ const ContactForm = () => {
               <Input
                 id="name"
                 name="name"
+                autoComplete="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="John Doe"
+                placeholder="Jane Doe"
                 required
               />
             </div>
@@ -72,9 +79,12 @@ const ContactForm = () => {
                 id="email"
                 name="email"
                 type="email"
+                inputMode="email"
+                autoComplete="email"
+                spellCheck={false}
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="john@example.com"
+                placeholder="jane@example.com"
                 required
               />
             </div>
@@ -87,6 +97,7 @@ const ContactForm = () => {
             <Input
               id="subject"
               name="subject"
+              autoComplete="off"
               value={formData.subject}
               onChange={handleChange}
               placeholder="How can I help you?"
@@ -103,7 +114,7 @@ const ContactForm = () => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              placeholder="Your message here..."
+              placeholder="Your message here…"
               rows={5}
               required
             />
@@ -111,13 +122,31 @@ const ContactForm = () => {
 
           <Button type="submit" className="w-full" disabled={isSubmitting}>
             {isSubmitting ? (
-              <div className="flex items-center justify-center"><Loader2 className="h-4 w-4 animate-spin" /></div>
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                Sending…
+              </>
             ) : (
               <>
-                Send Message <Send className="ml-2 h-4 w-4" />
+                Send Message <Send className="ml-2 h-4 w-4" aria-hidden="true" />
               </>
             )}
           </Button>
+
+          {isSent && (
+            <p
+              role="status"
+              className="flex items-center justify-center gap-2 text-sm text-muted-foreground"
+            >
+              <CheckCircle2 className="h-4 w-4 text-primary" />
+              Your email app should open with the message ready to send. You can
+              also reach me directly at{" "}
+              <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary underline">
+                {CONTACT_EMAIL}
+              </a>
+              .
+            </p>
+          )}
         </form>
       </CardContent>
     </Card>

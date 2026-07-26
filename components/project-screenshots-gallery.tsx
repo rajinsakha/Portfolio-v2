@@ -44,7 +44,7 @@ export function ProjectScreenshotsGallery({
   return (
     <>
       <div className="mb-16">
-        <h2 className="mb-6 text-2xl font-bold">Project Screenshots</h2>
+        <h2 className="font-display mb-6 text-3xl font-normal">Project Screenshots</h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {screenshots.map((screenshot, index) => (
             <button

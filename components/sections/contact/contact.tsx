@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 import { SectionHeading } from "@/components/ui/section-heading";
 
@@ -23,7 +23,7 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+            <h3 className="font-display text-2xl font-normal mb-6">Contact Information</h3>
             <p className="text-muted-foreground mb-8">
               Feel free to reach out to me for any questions or opportunities.
               I&apos;m always open to discuss new projects, creative ideas,

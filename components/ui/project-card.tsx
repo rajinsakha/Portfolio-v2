@@ -3,14 +3,14 @@
 import type React from "react";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import type { Project } from "@/types";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function ProjectCard({
   project,
@@ -21,25 +21,20 @@ export default function ProjectCard({
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const router = useRouter();
 
-  const allImages = [
-    project.image,
-    ...project.screenshots.map((screenshot) => screenshot.url),
-  ];
+  // Mobile screenshots are tall portrait frames that crop badly in the card's
+  // landscape slot, so those cards stay on their feature graphic and don't cycle.
+  const isStaticCard = project.category === "Mobile Application";
 
-  const handleCardClick = () => {
-    router.push(`/projects/${project.slug}`);
-  };
-
-  const handleLinkClick = (e: React.MouseEvent, url: string) => {
-    e.stopPropagation(); // Prevent the card click from triggering
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
+  const allImages = isStaticCard
+    ? [project.image]
+    : [project.image, ...project.screenshots.map((screenshot) => screenshot.url)];
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+    if (!isStaticCard) {
+      setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+    }
   };
 
   return (
@@ -50,10 +45,9 @@ export default function ProjectCard({
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
       <Card
-        className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-md hover:-translate-y-1 cursor-pointer py-3"
+        className="group relative overflow-hidden h-full flex flex-col transition-[box-shadow,transform] duration-300 hover:shadow-md hover:-translate-y-1 py-3 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={handleCardClick}
       >
         <div className="relative h-48 overflow-hidden">
           <motion.div
@@ -90,35 +84,50 @@ export default function ProjectCard({
             </div>
           </div>
 
-          <div className="flex gap-2 mt-auto">
+          <div className="relative z-10 flex gap-2 mt-auto">
             {project.links.live && project.links.live !== "#" && (
               <Button
                 size="sm"
                 variant="ghost"
-                onClick={(e) => handleLinkClick(e, project.links.live)}
+                asChild
                 aria-label={`View ${project.title} demo`}
-                className="cursor-pointer"
               >
-                <ExternalLink className="size-4 mr-1" /> Demo
+                <a
+                  href={project.links.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalLink className="size-4 mr-1" aria-hidden="true" />{" "}
+                  Demo
+                </a>
               </Button>
             )}
-            {project.links.github !== undefined && (
+            {project.links.github && (
               <Button
                 size="sm"
                 variant="ghost"
-                onClick={(e) => handleLinkClick(e, project.links.github || "")}
+                asChild
                 aria-label={`View ${project.title} source code`}
-                className="cursor-pointer"
               >
-                <Github className="size-4 mr-1" /> Code
+                <a
+                  href={project.links.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Github className="size-4 mr-1" aria-hidden="true" /> Code
+                </a>
               </Button>
             )}
-            <Button
-              size="sm"
-              variant="default"
-              className="ml-auto cursor-pointer"
-            >
-              View Details
+            {/* Stretched link makes the whole card navigable while keeping the
+                action links above independently clickable. */}
+            <Button size="sm" variant="default" asChild className="ml-auto">
+              <Link
+                href={`/projects/${project.slug}`}
+                className="after:absolute after:inset-0 after:content-['']"
+                aria-label={`View ${project.title} details`}
+              >
+                View Details
+              </Link>
             </Button>
           </div>
         </CardContent>

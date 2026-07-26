@@ -7,10 +7,16 @@ import { Badge } from "@/components/ui/badge";
 import { Metadata } from "next";
 import { projects } from "@/constants/projects-data";
 import { ProjectScreenshotsGallery } from "@/components/project-screenshots-gallery";
+import { SITE_URL } from "@/app/sitemap";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+// Pre-render every project page at build time for faster crawling and indexing.
+export function generateStaticParams() {
+  return projects.map((project) => ({ slug: project.slug }));
+}
 
 export async function generateMetadata({
   params,
@@ -23,23 +29,38 @@ export async function generateMetadata({
     return {
       title: "Project Not Found",
       description: "The requested project could not be found.",
+      robots: { index: false, follow: false },
     };
   }
 
+  const canonical = `/projects/${project.slug}`;
+
   return {
-    title: `${project.title} | Project Case Study`,
+    title: `${project.title} | Case Study`,
     description: project.description,
+    keywords: [...project.technologies, project.category, "Rajin Sakha"],
+    alternates: {
+      canonical,
+    },
     openGraph: {
-      title: `${project.title} | Project Case Study`,
+      title: `${project.title} | Case Study`,
       description: project.description,
+      url: canonical,
+      type: "article",
       images: [
         {
           url: project.image,
           width: 1200,
           height: 630,
-          alt: project.title,
+          alt: `${project.title} — ${project.category} by Rajin Sakha`,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Case Study`,
+      description: project.description,
+      images: [project.image],
     },
   };
 }
@@ -52,8 +73,55 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  const projectUrl = `${SITE_URL}/projects/${project.slug}`;
+
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: project.title,
+    description: project.description,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    url: projectUrl,
+    image: `${SITE_URL}${project.image}`,
+    author: {
+      "@type": "Person",
+      name: "Rajin Sakha",
+      url: SITE_URL,
+    },
+    keywords: project.technologies.join(", "),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Projects",
+        item: `${SITE_URL}/projects`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: project.title,
+        item: projectUrl,
+      },
+    ],
+  };
+
   return (
-    <main className="py-16 md:py-24">
+    <article className="py-16 md:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <div className="container">
         {/* Back button */}
         <div className="mb-8">
@@ -80,7 +148,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             )}
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          <h1 className="font-display text-5xl md:text-6xl font-normal mb-6">
             {project.title}
           </h1>
 
@@ -103,7 +171,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Project details */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 my-8">
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold mb-4">Overview</h2>
+            <h2 className="font-display text-3xl font-normal mb-4">Overview</h2>
             <div className="prose prose-lg dark:prose-invert max-w-none">
               {project.fullDescription.split("\n\n").map((paragraph, i) => (
                 <p key={i} className="mb-4 text-muted-foreground">
@@ -113,7 +181,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
 
             <div className="mt-8">
-              <h2 className="text-2xl font-bold mb-4">Key Features</h2>
+              <h2 className="font-display text-3xl font-normal mb-4">Key Features</h2>
               <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                 {project.keyFeatures.map((feature, index) => (
                   <li key={index} className="flex gap-2 items-center">
@@ -130,7 +198,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-sm uppercase text-muted-foreground font-medium mb-2">
+                  <h4 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
                     Technologies
                   </h4>
                   <div className="flex flex-wrap gap-2">
@@ -145,7 +213,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {(project.links.live && project.links.live !== "#") ||
                   project.links.github ? (
                   <div>
-                    <h4 className="text-sm uppercase text-muted-foreground font-medium mb-2">
+                    <h4 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
                       Links
                     </h4>
                     <div className="space-y-2">
@@ -201,6 +269,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </Button>
         </div>
       </div>
-    </main>
+    </article>
   );
 }

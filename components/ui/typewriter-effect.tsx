@@ -3,6 +3,7 @@
 import type React from "react";
 
 import { useState, useEffect } from "react";
+import { useReducedMotion } from "motion/react";
 
 interface TypewriterEffectProps {
   words: { text: string }[];
@@ -13,6 +14,7 @@ export const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
   words,
   className,
 }) => {
+  const shouldReduceMotion = useReducedMotion();
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -20,6 +22,9 @@ export const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
   const pauseDuration = 1500; // Pause duration after each word
 
   useEffect(() => {
+    // Skip the typing animation entirely when the user prefers reduced motion.
+    if (shouldReduceMotion) return;
+
     const type = () => {
       const i = currentWordIndex % words.length;
       const fullText = words[i].text;
@@ -52,13 +57,14 @@ export const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
     words,
     pauseDuration,
     typingSpeed,
+    shouldReduceMotion,
   ]);
 
   return (
     <span
       className={`font-medium text-xl sm:text-2xl md:text-3xl lg:text-4xl ${className}`}
     >
-      {currentText}
+      {shouldReduceMotion ? words[0]?.text : currentText}
     </span>
   );
 };

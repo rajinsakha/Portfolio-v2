@@ -1,6 +1,6 @@
 import {
   hajirKhataImage,
-  workspaceImage,
+  // workspaceImage,
   billingSystemImage,
   hajirKhataAdminDashboardImage,
   generateBillPdfImage,
@@ -17,6 +17,12 @@ import {
   siteIqEmployeeDetailsImage,
   siteIqMapViewImage,
   siteIqMarketingLandingImage,
+  mithoImage,
+  mithoHomeImage,
+  mithoRecommendImage,
+  mithoDetailImage,
+  mithoNotificationsImage,
+  mithoHomeDarkImage,
 } from "@/assets/images";
 import { Project } from "@/types";
 
@@ -365,6 +371,90 @@ export const projects: Project[] = [
         url: siteIqMarketingLandingImage.src,
         caption:
           "SiteIQPro marketing site — hero for Attendance, HR & Payroll, feature strip, demo CTAs, and trusted-by logos.",
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: "Mitho",
+    description:
+      "A published Android app that answers “what should I eat?” for Nepali food: pick a mood and a budget, tap once, and get a single meal suggestion that fits both—with favorites, dish details, and optional mealtime reminders.",
+    fullDescription: `
+      Mitho is a meal-decision app built around Nepali food and cravings rather than generic recipe listings. Instead of returning a long list to scroll through, it commits to one suggestion at a time: choose a vibe—comfort, quick, healthy, or a full feast—set what you are willing to spend, and tap Surprise Me.
+
+      The app covers the full loop around that single decision: dish details with price range, spice level and ingredients so you know what you are committing to, favorites for meals worth repeating, dietary preferences that filter every suggestion, and optional local reminders at mealtimes so the choice happens before you are already hungry.
+
+      Built solo with Expo and React Native, using Supabase for authentication and Redux Toolkit with persistence for state that survives restarts. Shipped to the Play Store, with a companion web build and marketing site.
+    `,
+    keyFeatures: [
+      "Single-suggestion recommendation flow driven by mood and budget, rather than an endless scrollable list",
+      "Budget ceiling honoured on every suggestion, so nothing surfaced falls outside what the user will spend",
+      "Dish detail view with price range, spice level and ingredients before committing to cook or order",
+      "Favorites and dietary preferences persisted locally across app restarts",
+      "Optional local mealtime notifications, scheduled to the user's own routine",
+      "Light and dark themes, plus language and appearance settings",
+      "Supabase authentication with Google sign-in via Expo Auth Session",
+    ],
+    image: mithoImage.src,
+    technologies: [
+      "React Native",
+      "Expo",
+      "Expo Router",
+      "TypeScript",
+      "Supabase",
+      "Redux Toolkit",
+      "redux-persist",
+      "React Navigation",
+      "Expo Notifications",
+      "Reanimated",
+      "Next.js",
+    ],
+    category: "Mobile Application",
+    featured: true,
+    slug: "mitho",
+    links: {
+      // Play listing (play.google.com/store/apps/details?id=com.rajinsakha.mitho)
+      // still 404s publicly — swap `live` to it once the listing resolves.
+      live: "https://mitho.rajinsakha.com.np",
+    },
+    challenges: `
+      The core problem is decision fatigue, so the usual answer—show more options—makes the product worse. The interface had to resist becoming a browsable catalogue while still giving enough information to trust a suggestion.
+
+      Recommendations also had to respect several constraints at once: mood, budget ceiling and dietary preference, without frequently returning nothing at all.
+
+      As a solo build, the app needed authentication, persisted state and scheduled notifications without a backend service to maintain alongside it.
+    `,
+    solutions: `
+      The home screen is built around one action. Surprise Me returns a single meal, with re-spin and save as the only follow-ups, so the decision stays small; detail and browsing live one level deeper for when a suggestion needs checking.
+
+      Filtering runs over bundled seed data through pure helper functions, keeping recommendation logic testable and instant offline, with preferences applied as constraints rather than post-hoc filters.
+
+      Supabase covers authentication so there is no server to run, and Redux Toolkit with redux-persist keeps favorites, dietary settings and appearance choices intact between sessions. Reminders use Expo's local notifications, which need no push infrastructure.
+    `,
+    screenshots: [
+      {
+        url: mithoHomeImage.src,
+        caption:
+          "Home — one tap on Surprise Me returns a single meal rather than a list.",
+      },
+      {
+        url: mithoRecommendImage.src,
+        caption:
+          "Recommendations tuned to the selected mood and budget ceiling.",
+      },
+      {
+        url: mithoDetailImage.src,
+        caption:
+          "Dish detail — price range, spice level and ingredients before committing.",
+      },
+      {
+        url: mithoNotificationsImage.src,
+        caption:
+          "Optional local mealtime reminders, scheduled to the user's routine.",
+      },
+      {
+        url: mithoHomeDarkImage.src,
+        caption: "Home screen in dark theme.",
       },
     ],
   },

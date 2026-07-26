@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="container py-8 md:py-12">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col items-center md:items-start gap-2">
-            <Link href="/" className="font-bold text-xl">
+            <Link href="/" className="font-display text-2xl">
               Rajin<span className="text-primary">.</span>
             </Link>
             <p className="text-sm text-muted-foreground text-center md:text-left">

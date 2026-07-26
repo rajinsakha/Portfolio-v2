@@ -6,7 +6,12 @@ import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import profile from "@/assets/images/about-img.jpg";
 
+// Year I started web development — keeps the "X years" copy from going stale.
+const CAREER_START_YEAR = 2023;
+
 export default function About() {
+  const yearsOfExperience = new Date().getFullYear() - CAREER_START_YEAR;
+
   return (
     <section id="about" className="py-16 md:py-24">
       <div className="container">
@@ -38,7 +43,7 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="flex flex-col justify-center"
           >
-            <h3 className="text-2xl font-bold mb-4">
+            <h3 className="font-display text-3xl font-normal mb-4">
               Front-end Developer with a passion for creating exceptional user
               experiences
             </h3>
@@ -52,7 +57,8 @@ export default function About() {
                 combine aesthetic appeal with functional excellence.
               </p>
               <p className="text-sm sm:text-base ">
-                My journey in web development began 3 years ago, and since then,
+                My journey in web development began {yearsOfExperience} years
+                ago, and since then,
                 I&apos;ve had the opportunity to work on diverse projects
                 ranging from e-commerce platforms to complex enterprise
                 applications. I thrive in collaborative environments where open
@@ -67,7 +73,11 @@ export default function About() {
             </div>
 
             <div className="mt-8">
-              <Button size="lg">Download Resume</Button>
+              <Button size="lg" asChild>
+                <a href="/RajinSakha_Resume.pdf" download="RajinSakha_Resume.pdf">
+                  Download Resume
+                </a>
+              </Button>
             </div>
           </motion.div>
         </div>

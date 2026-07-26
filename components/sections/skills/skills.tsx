@@ -15,7 +15,11 @@ export default function Skills() {
       aria-labelledby="skills-heading"
     >
       <div className="container">
-        <SectionHeading title="Skills" subtitle="Technologies I work with" />
+        <SectionHeading
+          id="skills-heading"
+          title="Skills"
+          subtitle="Technologies I work with"
+        />
 
         <div className="mt-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
