@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -179,4 +180,73 @@
 
 .animate-blink {
   animation: blink 0.8s infinite alternate;
+}
+
+/* ---------- Blog post typography ---------- */
+
+.prose-post :is(h2, h3, h4) {
+  scroll-margin-top: 6rem;
+}
+
+.prose-post :is(h2, h3, h4) .heading-anchor {
+  margin-left: 0.35rem;
+  color: var(--primary);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.prose-post :is(h2, h3, h4):hover .heading-anchor,
+.prose-post .heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+.prose-post .heading-anchor:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Scrollable code blocks and tables are focusable regions; make that visible. */
+.prose-post [tabindex="0"]:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+/* ---------- Shiki dual theme ---------- */
+
+[data-rehype-pretty-code-figure] pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background-color: var(--shiki-light-bg);
+  color: var(--shiki-light);
+}
+
+[data-rehype-pretty-code-figure] pre span {
+  color: var(--shiki-light);
+}
+
+.dark [data-rehype-pretty-code-figure] pre {
+  background-color: var(--shiki-dark-bg);
+  color: var(--shiki-dark);
+}
+
+.dark [data-rehype-pretty-code-figure] pre span {
+  color: var(--shiki-dark);
+}
+
+[data-rehype-pretty-code-figure] code {
+  display: grid;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  background-color: transparent;
+  padding: 0;
+}
+
+[data-rehype-pretty-code-figure] code::before,
+[data-rehype-pretty-code-figure] code::after {
+  content: none;
 }
