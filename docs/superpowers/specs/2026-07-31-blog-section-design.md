@@ -75,13 +75,21 @@ the italic subtitle line are removed from the body — the page renders them fro
 | package | why |
 |---|---|
 | `gray-matter` | parse frontmatter |
-| `react-markdown` | render markdown in a Server Component |
+| `unified` + `remark-parse` + `remark-rehype` + `rehype-stringify` | markdown → HTML pipeline |
 | `remark-gfm` | tables, strikethrough, autolinks |
 | `rehype-pretty-code` | syntax highlighting |
 | `shiki` | highlighter engine for `rehype-pretty-code` |
 | `rehype-slug` | heading ids |
 | `rehype-autolink-headings` | anchor links on headings |
+| `unist-util-visit` | used by the local accessibility rehype plugin |
 | `@tailwindcss/typography` | prose styles |
+
+`react-markdown` was considered and rejected: it runs unified synchronously, and
+`rehype-pretty-code` is asynchronous because shiki loads grammars and themes on
+demand. The pipeline is therefore run directly and awaited inside an async Server
+Component, producing an HTML string rendered with `dangerouslySetInnerHTML`. The
+content is authored in this repository and processed at build time, so there is no
+untrusted input.
 
 All markdown processing happens at build time inside Server Components. No client
 JavaScript is added by the blog beyond what the site already ships.
@@ -132,25 +140,38 @@ export interface BlogPost extends BlogPostMeta {
 }
 ```
 
+### `lib/format-date.ts`
+
+Client-safe. `formatPostDate(isoDate: string): string` renders a `YYYY-MM-DD` string
+as a long-form date, pinned to UTC so the published date does not shift by timezone.
+Kept separate from `lib/blog.ts` because that module imports `node:fs`.
+
+### `lib/markdown.ts` and `lib/rehype-a11y.ts`
+
+`lib/markdown.ts` owns the unified pipeline and exports
+`renderMarkdown(markdown: string): Promise<string>`.
+
+`lib/rehype-a11y.ts` is a small local rehype plugin holding the accessibility
+post-processing, kept separate so the pipeline configuration stays readable.
+
 ### `components/blog/markdown-content.tsx`
 
-Server Component. Takes `{ content: string }`, returns rendered markdown wrapped in a
-`prose` container themed to the site tokens.
+Async Server Component. Takes `{ content: string }`, calls `renderMarkdown`, and wraps
+the result in a `prose` container themed to the site tokens.
 
-It owns the remark/rehype plugin configuration and the component overrides:
+The pipeline applies these transforms:
 
 - `table` — wrapped in a `div` with `overflow-x-auto`, `tabIndex={0}`,
   `role="region"`, and an `aria-label`, so a horizontally scrollable table is
   reachable by keyboard.
 - `pre` — same treatment: `tabIndex={0}`, `role="region"`, `aria-label` naming the
   language when `rehype-pretty-code` provides it.
-- `a` — external links get `target="_blank"` and `rel="noopener noreferrer"`;
-  internal links render through `next/link`.
+- `a` — external links get `target="_blank"` and `rel="noopener noreferrer"`.
 - Heading anchors from `rehype-autolink-headings` use `aria-label` (`"Link to section:
-  <heading text>"`) and are `opacity-0 focus-visible:opacity-100 group-hover:opacity-100`
-  so they are reachable by keyboard, not hover-only.
+  <heading text>"`) and are hidden until hover or keyboard focus, so they are reachable
+  by keyboard rather than hover-only.
 
-Consumers pass markdown in and get elements out. Changing the plugin set does not
+Consumers pass markdown in and get styled markup out. Changing the plugin set does not
 affect any caller.
 
 ### `components/ui/blog-post-card.tsx`
@@ -231,7 +252,7 @@ content/blog/*.md
    -> lib/blog.ts        (fs read, gray-matter parse, validate, sort)
    -> BlogPostMeta[]     (index page, homepage section, sitemap, generateStaticParams)
    -> BlogPost           (post page)
-   -> MarkdownContent    (remark/rehype -> React elements)
+   -> MarkdownContent    (lib/markdown.ts: remark/rehype -> HTML string)
 ```
 
 Only `lib/blog.ts` touches the filesystem. Everything downstream consumes typed
