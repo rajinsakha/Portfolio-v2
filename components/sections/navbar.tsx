@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ const navItems = [
   { name: "Skills", href: "/#skills", id: "skills" },
   { name: "Projects", href: "/#projects", id: "projects" },
   { name: "Experience", href: "/#experience", id: "experience" },
+  { name: "Blog", href: "/blog", id: "blog" },
   { name: "Contact", href: "/#contact", id: "contact" },
 ];
 
@@ -22,6 +24,14 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+
+  const pathname = usePathname();
+  const isBlogRoute = pathname.startsWith("/blog");
+
+  // Section highlighting is only meaningful on the homepage; on a route like
+  // /blog the nav highlights the route itself instead.
+  const isActiveItem = (id: string) =>
+    isBlogRoute ? id === "blog" : pathname === "/" && activeSection === id;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -111,12 +121,10 @@ export default function Navbar() {
               <li key={item.name}>
                 <Link
                   href={item.href}
-                  aria-current={activeSection === item.id ? "page" : undefined}
+                  aria-current={isActiveItem(item.id) ? "page" : undefined}
                   className={cn(
                     "text-sm font-medium transition-colors hover:text-primary",
-                    activeSection === item.id
-                      ? "text-primary"
-                      : "text-muted-foreground"
+                    isActiveItem(item.id) ? "text-primary" : "text-muted-foreground"
                   )}
                 >
                   {item.name}
@@ -187,14 +195,10 @@ export default function Navbar() {
                       <li key={item.name}>
                         <Link
                           href={item.href}
-                          aria-current={
-                            activeSection === item.id ? "page" : undefined
-                          }
+                          aria-current={isActiveItem(item.id) ? "page" : undefined}
                           className={cn(
                             "text-lg font-medium transition-colors hover:text-primary",
-                            activeSection === item.id
-                              ? "text-primary"
-                              : "text-muted-foreground"
+                            isActiveItem(item.id) ? "text-primary" : "text-muted-foreground"
                           )}
                           onClick={() => setIsOpen(false)}
                         >
