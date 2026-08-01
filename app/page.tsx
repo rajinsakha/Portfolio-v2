@@ -7,6 +7,7 @@ import Hero from "@/components/sections/hero/hero";
 import Projects from "@/components/sections/projects";
 import Skills from "@/components/sections/skills/skills";
 import StructuredData from "@/components/sections/structured-data";
+import Writing from "@/components/sections/writing";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <About />
       <Skills />
       <Projects />
+      <Writing />
       <Experience />
       <CTA />
       <Contact />
