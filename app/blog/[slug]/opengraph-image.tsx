@@ -6,6 +6,9 @@ export const alt = "Blog post by Rajin Sakha";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Only slugs that exist as files are served; anything else 404s at the route level.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
 }
