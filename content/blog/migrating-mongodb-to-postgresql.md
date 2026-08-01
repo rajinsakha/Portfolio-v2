@@ -74,7 +74,7 @@ The lesson isn't "chunk your queries." It's that **a verification tool that degr
 
 ## Surprise 2: 1.35 million orphaned rows
 
-The load dropped 1,348,977 rows. The bulk of it: **1,164,377 messages — 74% of every message ever sent — referencing 119,242 chat ids that don't exist.**
+The load dropped 1,348,977 rows. The bulk of it: **1,164,377 messages — 77% of every message ever sent — referencing 119,242 chat ids that don't exist.**
 
 The app deletes chats without deleting their messages. MongoDB doesn't enforce referential integrity, so this accumulated invisibly for years. PostgreSQL's foreign keys made it visible in a single run.
 
@@ -157,7 +157,7 @@ Byte-identical in the MongoDB export, and the resolver was unchanged from the pr
 - 18,665 users, 64,197 media records, 348,320 messages migrated with counts reconciled against a frozen source baseline
 - Original MongoDB ObjectIds preserved throughout — no forced logouts, no broken client caches
 - ~40 minutes of planned downtime
-- $60/month → **$17.95/month**
+- Right-sized from $60/month to **$17.95/month** — most of which a correctly sized Atlas tier would also have delivered, without the migration
 - Referential integrity now enforced, and 1.35M rows of hidden data rot surfaced and accounted for
 
 ## What I'd tell myself before starting
