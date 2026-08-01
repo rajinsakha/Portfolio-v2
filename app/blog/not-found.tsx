@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
+export const metadata = {
+  title: "Post Not Found",
+  description: "Sorry, the post you are looking for does not exist.",
+};
+
 export default function BlogNotFound() {
   return (
     <div className="container flex flex-col items-center justify-center min-h-[70vh] text-center px-4">

@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/app/sitemap";
+import { SITE_URL } from "@/lib/site";
 
 export default function StructuredData() {
   const personSchema = {

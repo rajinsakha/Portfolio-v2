@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Metadata } from "next";
 import { projects } from "@/constants/projects-data";
 import { ProjectScreenshotsGallery } from "@/components/project-screenshots-gallery";
-import { SITE_URL } from "@/app/sitemap";
+import { SITE_URL } from "@/lib/site";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;

@@ -1,3 +1,4 @@
+import "server-only";
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
@@ -85,7 +86,7 @@ function readAllPosts(): BlogPost[] {
     .readdirSync(BLOG_DIR)
     .filter((fileName) => fileName.endsWith(".md"))
     .map(parsePost)
-    .sort((a, b) => b.date.localeCompare(a.date));
+    .sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
 }
 
 /** Metadata for every post, newest first. Bodies are omitted. */

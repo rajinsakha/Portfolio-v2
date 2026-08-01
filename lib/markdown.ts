@@ -27,6 +27,10 @@ function headingText(node: Element): string {
  * `rehype-pretty-code` is asynchronous — shiki loads grammars and themes on
  * demand — which is why the pipeline is awaited here rather than run through a
  * synchronous renderer.
+ *
+ * `remarkRehype` runs with its defaults, so raw inline HTML in the markdown
+ * (e.g. `<kbd>Esc</kbd>`) is intentionally stripped rather than rendered —
+ * this is what makes the `dangerouslySetInnerHTML` in the post page safe.
  */
 export async function renderMarkdown(markdown: string): Promise<string> {
   const file = await unified()
@@ -36,6 +40,10 @@ export async function renderMarkdown(markdown: string): Promise<string> {
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, {
       behavior: "append",
+      // remark-gfm's footnote label heading (`#footnote-label`) is visually
+      // hidden (`sr-only`), so an autolink appended to it would be a
+      // keyboard-focusable stop with no visible focus indicator. Skip it.
+      test: (node) => node.properties?.id !== "footnote-label",
       properties(node: Element) {
         return {
           className: ["heading-anchor"],

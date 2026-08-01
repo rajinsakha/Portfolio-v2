@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/constants/projects-data";
 import { getAllPosts } from "@/lib/blog";
+import { SITE_URL } from "@/lib/site";
 
-export const SITE_URL = "https://rajinsakha.com.np";
+export { SITE_URL };
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

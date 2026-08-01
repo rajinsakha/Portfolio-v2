@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import BlogPostCard from "@/components/ui/blog-post-card";
 import { getAllPosts } from "@/lib/blog";
-import { SITE_URL } from "@/app/sitemap";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -73,11 +73,14 @@ export default function BlogPage() {
         {posts.length === 0 ? (
           <p className="text-muted-foreground">No posts published yet. Check back soon.</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post) => (
-              <BlogPostCard key={post.slug} post={post} />
-            ))}
-          </div>
+          <>
+            <h2 className="sr-only">All posts</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {posts.map((post) => (
+                <BlogPostCard key={post.slug} post={post} />
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>

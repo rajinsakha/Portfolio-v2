@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import MarkdownContent from "@/components/blog/markdown-content";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { formatPostDate } from "@/lib/format-date";
-import { SITE_URL } from "@/app/sitemap";
+import { SITE_URL } from "@/lib/site";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -90,11 +90,35 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     publisher: { "@id": `${SITE_URL}/#person` },
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: `${SITE_URL}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: postUrl,
+      },
+    ],
+  };
+
   return (
     <div className="py-16 md:py-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(postSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <div className="container">
@@ -113,6 +137,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <span aria-hidden="true">·</span>
               <span>{post.readingTime} min read</span>
             </div>
+
+            {post.updated !== post.date && (
+              <div className="mt-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                <time dateTime={post.updated}>Updated {formatPostDate(post.updated)}</time>
+              </div>
+            )}
 
             <h1 className="mt-4 font-display text-4xl md:text-5xl font-normal tracking-tight text-balance">
               {post.title}
