@@ -91,12 +91,38 @@ The other pattern is more uncomfortable. Three of the four were invisible to my 
 
 The honest lesson isn't "write more tests." It's that a green suite tells you the things you thought of are still true. It says nothing at all about the things you didn't.
 
+## A fifth, of a different kind: the credentials authorized nothing
+
+The last piece was the app side — mint the click, append `fvclid`, open the browser. The ads were already rendering in the feed on a branch, fetching from `/ad/delivery` with client credentials. So I expected to add one call and be done.
+
+The delivery request was going to fail.
+
+The three API clients our dating app backend hands out carried the scopes `campaigns:read`, `campaigns:write`, `ads:read`. None of those exist in the platform's scope enum, which defines `ads:delivery`, `ads:preview`, `ads:click` and `ads:impression`.
+
+The enum's own comment explains it, and the explanation is the interesting part:
+
+> These were previously stored on the client record but never checked, so every credential could reach every consumer endpoint regardless of what it was issued for.
+
+The scopes had always been decorative. A security-hardening pass started enforcing them — correctly — and in doing so silently invalidated every credential that had been issued against the permissive behaviour. The integration had been written in the window where the field existed and meant nothing.
+
+Nothing failed loudly. The rows are still there, still `isActive: true`, still look plausible. They just authorize nothing.
+
 ## Where it actually stands
 
-The pipeline is built and verified end to end: 282 tests, both ingestion doors, deduplication confirmed by direct row count, the origin check, the attribution window, the tenant boundary.
+The pipeline is built and verified: 282 tests, both ingestion doors, deduplication confirmed by direct row count, the origin check, the attribution window, the tenant boundary.
 
-And it is not producing a single attributed conversion, because nothing appends `fvclid` to the destination URL yet. That's a small change in the mobile app — call the click endpoint, read the token from the response, append it, then open the browser — and until it lands, every conversion arrives with no ticket and gets stored unattributed.
+The click passthrough now exists too, and I checked it against the running backend rather than trusting the code:
 
-Which is, at least, the correct behaviour. The dashboard shows unattributed conversions as their own number rather than quietly discarding them, so the gap is visible instead of looking like the feature working badly.
+```
+POST /ad/clicked  →  { "recorded": true,  "clickId": "j1m2-MYSAoRpKdV2QPaxdg" }
+repeat            →  { "recorded": false, "reason": "duplicate",
+                       "clickId": "j1m2-MYSAoRpKdV2QPaxdg" }
+```
 
-The last thing on my list is the one I'd most like to skip and won't: install the snippet on a scratch domain and watch a `PageView` land in a real browser. Surprise 1 is the entire argument for why.
+The duplicate returning the *same* token is deliberate. A user who taps twice inside the dedup window still lands on a tracked URL, and both taps attribute to one click rather than billing twice.
+
+One decision in that handler I'd defend anywhere: tracking never blocks the link. If the click call fails, or is rate limited, or the user has no id yet, the plain destination URL still opens. A lost attribution costs a row in a report. A dead call-to-action costs the advertiser the sale and us the relationship.
+
+What's left is honest to state. It lives on a branch, not in a release build. Impressions still aren't reported, so reach and CTR read zero. And nobody has yet installed the snippet on a scratch domain and watched a `PageView` land in a real browser.
+
+That last one is the item I'd most like to skip and won't. Surprise 1 is the entire argument for why: I have a green test suite, a verified end-to-end run, and direct proof from the database — and none of that would have caught a feature that was completely dead in every browser on earth.
