@@ -16,7 +16,12 @@ export const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
 }) => {
   const shouldReduceMotion = useReducedMotion();
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [currentText, setCurrentText] = useState("");
+  // Seed with the first word so the server HTML and the first client render agree.
+  // useReducedMotion() cannot read matchMedia during SSR, so the two render branches
+  // below must produce identical output on first paint or reduced-motion users hit a
+  // hydration mismatch. Starting "fully typed" is also a valid loop entry: the first
+  // effect tick sees currentText === fullText and moves straight into the delete phase.
+  const [currentText, setCurrentText] = useState(words[0]?.text ?? "");
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingSpeed, setTypingSpeed] = useState(150); // Base typing speed
   const pauseDuration = 1500; // Pause duration after each word

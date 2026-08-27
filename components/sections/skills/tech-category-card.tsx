@@ -8,7 +8,7 @@ export default function TechCategoryCard({
   category: {
     icon: React.ReactNode;
     title: string;
-    technologies: { name: string; icon: string }[];
+    technologies: { name: string; icon: string; invertInDark?: boolean }[];
   };
   index: number;
 }) {
@@ -19,9 +19,11 @@ export default function TechCategoryCard({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <Card className="h-full py-4">
+      {/* py-0 on the Card so CardContent's p-6 is the single source of vertical
+          padding — the two were stacking to 40px top and bottom. */}
+      <Card className="h-full py-0">
         <CardContent className="p-6">
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex items-center gap-3 mb-6">
             <div className="p-2 rounded-md bg-primary/10 text-primary">
               {category.icon}
             </div>
@@ -35,7 +37,11 @@ export default function TechCategoryCard({
                 className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors"
               >
                 <div className="relative w-10 h-10 ">
-                  <TechLogo name={tech.name} icon={tech.icon} />
+                  <TechLogo
+                    name={tech.name}
+                    icon={tech.icon}
+                    invertInDark={tech.invertInDark}
+                  />
                 </div>
                 <span className="text-sm text-center font-medium">
                   {tech.name}

@@ -135,7 +135,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Project header */}
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-3 mb-4">
-            <Badge className="bg-primary/90 text-primary-foreground">
+            <Badge className="bg-primary-fill text-primary-foreground">
               {project.category}
             </Badge>
             {project.featured && (

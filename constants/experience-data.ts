@@ -1,6 +1,6 @@
 export const experiences = [
   {
-    title: "Software Developer",
+    title: "Full-stack Developer",
     company: "Kennedy Studio",
     period: "February 2026 - Present",
     description: "Developing and maintaining web applications",
@@ -24,7 +24,7 @@ export const experiences = [
   },
 
   {
-    title: "Software Developer",
+    title: "Full-stack Developer",
     company: "FiveOne",
     period: "August 2025 - Present",
     description: "Building full-stack web and mobile applications",

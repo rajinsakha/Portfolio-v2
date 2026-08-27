@@ -24,17 +24,21 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: {
-    default: "Rajin Sakha | Front-end Developer",
+    default: "Rajin Sakha | Full-stack Developer",
     template: "%s | Rajin Sakha",
   },
   description:
-    "Front-end Developer specializing in React.js and Next.js, creating responsive and user-friendly web applications with a focus on exceptional user experiences.",
+    "Full-stack Developer building web and mobile products end to end \u2014 React, Next.js and React Native frontends on top of Nest.js APIs, PostgreSQL, Redis and background job queues.",
   keywords: [
-    "Front-end Developer",
+    "Full-stack Developer",
     "React.js",
     "Next.js",
+    "Nest.js",
+    "Node.js",
+    "React Native",
+    "PostgreSQL",
+    "Redis",
     "Web Development",
-    "JavaScript",
     "TypeScript",
     "Rajin Sakha",
   ],
@@ -51,9 +55,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Rajin Sakha | Front-end Developer",
+    title: "Rajin Sakha | Full-stack Developer",
     description:
-      "Front-end Developer specializing in React.js and Next.js, creating responsive and user-friendly web applications.",
+      "Full-stack Developer building web and mobile products end to end with React, Next.js, React Native, Nest.js, PostgreSQL and Redis.",
     url: "https://rajinsakha.com.np",
     siteName: "Rajin Sakha Portfolio",
     locale: "en_US",
@@ -61,9 +65,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rajin Sakha | Front-end Developer",
+    title: "Rajin Sakha | Full-stack Developer",
     description:
-      "Front-end Developer specializing in React.js and Next.js, creating responsive and user-friendly web applications.",
+      "Full-stack Developer building web and mobile products end to end with React, Next.js, React Native, Nest.js, PostgreSQL and Redis.",
     creator: "@rajinsakha",
   },
   robots: {
@@ -96,10 +100,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
           <a
             href="#main-content"
-            className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:left-4 focus-visible:top-4 focus-visible:z-[200] focus-visible:rounded-md focus-visible:bg-primary focus-visible:px-4 focus-visible:py-2 focus-visible:text-primary-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:left-4 focus-visible:top-4 focus-visible:z-[200] focus-visible:rounded-md focus-visible:bg-primary-fill focus-visible:px-4 focus-visible:py-2 focus-visible:text-primary-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             Skip to content
           </a>

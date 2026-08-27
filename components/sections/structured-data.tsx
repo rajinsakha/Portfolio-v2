@@ -8,7 +8,7 @@ export default function StructuredData() {
     name: "Rajin Sakha",
     url: SITE_URL,
     image: `${SITE_URL}/opengraph-image`,
-    jobTitle: "Front-end Developer",
+    jobTitle: "Full-stack Developer",
     email: "mailto:rajinsakha07@gmail.com",
     address: {
       "@type": "PostalAddress",
@@ -25,17 +25,22 @@ export default function StructuredData() {
       "https://twitter.com/rajinsakha",
     ],
     description:
-      "Front-end Developer specializing in React.js and Next.js, creating responsive and user-friendly web applications.",
+      "Full-stack Developer building web and mobile products end to end with React, Next.js, React Native, Nest.js, PostgreSQL and Redis.",
     knowsAbout: [
       "React.js",
       "Next.js",
-      "JavaScript",
+      "React Native",
+      "Nest.js",
+      "Node.js",
       "TypeScript",
+      "PostgreSQL",
+      "Redis",
+      "REST APIs",
+      "Docker",
       "Tailwind CSS",
       "Redux Toolkit",
-      "Web Development",
+      "Full-stack Development",
       "Web Performance",
-      "Responsive Design",
     ],
   };
 
@@ -46,7 +51,7 @@ export default function StructuredData() {
     name: "Rajin Sakha's Portfolio",
     url: SITE_URL,
     description:
-      "Portfolio website of Rajin Sakha, a Front-end Developer specializing in React.js and Next.js.",
+      "Portfolio website of Rajin Sakha, a Full-stack Developer working across React, Next.js, React Native and Nest.js.",
     inLanguage: "en",
     author: {
       "@id": `${SITE_URL}/#person`,

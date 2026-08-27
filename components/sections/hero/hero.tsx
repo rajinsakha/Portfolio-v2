@@ -17,9 +17,9 @@ export default function Hero() {
 
           <MotionWrapper delay={0.2}>
             <p className="mx-auto mb-8 max-w-2xl text-xs text-muted-foreground sm:text-base lg:text-lg">
-              I create engaging web experiences that blend creativity with
-              technical expertise. Specializing in React.js and Next.js to
-              build modern, responsive applications.
+              I build products end to end &mdash; interfaces people enjoy using,
+              on top of APIs and data models built to last. React, Next.js and
+              React Native on the front; Nest.js, PostgreSQL and Redis behind.
             </p>
           </MotionWrapper>
 

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Rajin Sakha - Front-end Developer";
+export const alt = "Rajin Sakha - Full-stack Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -34,7 +34,7 @@ export default function OpenGraphImage() {
           <span style={{ color: "#e2503f" }}>.</span>
         </div>
         <div style={{ fontSize: 44, color: "#e2503f", marginTop: 8 }}>
-          Front-end Developer
+          Full-stack Developer
         </div>
         <div
           style={{
@@ -44,7 +44,8 @@ export default function OpenGraphImage() {
             maxWidth: 900,
           }}
         >
-          Building modern, responsive web applications with React.js & Next.js
+          Building product end to end — React & Next.js on top of Nest.js
+          APIs, PostgreSQL, and Redis
         </div>
       </div>
     ),

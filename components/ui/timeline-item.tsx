@@ -35,7 +35,7 @@ const TimelineItem = ({
 
       {/* Timeline dot */}
       <div
-        className="absolute left-4 top-1.5 w-6 h-6 rounded-full bg-primary flex items-center justify-center"
+        className="absolute left-4 top-1.5 w-6 h-6 rounded-full bg-primary-fill flex items-center justify-center"
         style={{ transform: "translateX(-50%)" }}
       >
         {icon}

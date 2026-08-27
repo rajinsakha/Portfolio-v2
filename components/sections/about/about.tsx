@@ -44,31 +44,26 @@ export default function About() {
             className="flex flex-col justify-center"
           >
             <h3 className="font-display text-3xl font-normal mb-4">
-              Front-end Developer with a passion for creating exceptional user
-              experiences
+              Full-stack Developer who ships product end to end
             </h3>
 
             <div className="space-y-4 text-muted-foreground">
               <p className="text-sm sm:text-base ">
-                I&apos;m Rajin Sakha, a detail-oriented Front-end Developer with
-                expertise in building responsive and user-friendly web
-                applications. With a strong foundation in React.js and Next.js,
-                I specialize in creating seamless digital experiences that
-                combine aesthetic appeal with functional excellence.
+                I&apos;m Rajin Sakha, a full-stack developer who builds products
+                from the interface down to the database. I work across React, Next.js and React Native on the frontend, and NestJS, PostgreSQL, Redis, background job queues and Docker on the backend.
               </p>
               <p className="text-sm sm:text-base ">
-                My journey in web development began {yearsOfExperience} years
-                ago, and since then,
-                I&apos;ve had the opportunity to work on diverse projects
-                ranging from e-commerce platforms to complex enterprise
-                applications. I thrive in collaborative environments where open
-                communication and innovative thinking are valued.
+                My journey in software began {yearsOfExperience} years ago as a
+                frontend developer, and I&apos;ve since grown into owning whole
+                features: schema design, API endpoints, auth and integrations,
+                then the UI that consumes them. That range covers e-commerce
+                platforms, enterprise dashboards and AI-driven ad tooling.
               </p>
               <p className="text-sm sm:text-base ">
-                Beyond coding, I&apos;m passionate about staying current with
-                emerging technologies and design trends. I believe in continuous
-                learning and regularly participate in online courses to enhance
-                my skills and bring fresh perspectives to my work.
+                Working across the stack means I can trace a bug from a slow
+                page straight through to the query causing it, and design APIs
+                that the UI actually wants to consume. I care about performance,
+                accessibility and code that stays readable once the team grows.
               </p>
             </div>
 

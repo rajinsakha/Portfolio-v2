@@ -16,7 +16,7 @@ export default function HeroHeading() {
           <span className="text-primary text-shadow-none">.</span>
         </h1>
         <p className="mb-6 font-mono text-xs font-medium uppercase tracking-[0.2em] text-primary sm:text-sm">
-          Front-end Developer
+          Full-stack Developer
         </p>
       </div>
 

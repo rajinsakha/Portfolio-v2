@@ -62,7 +62,7 @@ export default function ProjectsPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
                   <div className="absolute top-3 left-3">
-                    <Badge className="bg-primary/90 text-primary-foreground">
+                    <Badge className="bg-primary-fill text-primary-foreground">
                       {project.category}
                     </Badge>
                   </div>
@@ -70,7 +70,7 @@ export default function ProjectsPage() {
 
                 <CardContent className="p-5 flex flex-col flex-grow">
                   <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3 flex-grow">
+                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
                     {project.description}
                   </p>
 
