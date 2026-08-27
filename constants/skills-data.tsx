@@ -2,6 +2,7 @@ import { Wrench, Layers, Database } from "lucide-react";
 import {
   docker,
   expo,
+  express,
   git,
   github,
   javascript,
@@ -37,6 +38,7 @@ export const techCategories = [
     title: "Backend",
     technologies: [
       { name: "Node.js", icon: nodejs },
+      { name: "Express", icon: express, invertInDark: true },
       { name: "Nest.js", icon: nestjs },
       { name: "PostgreSQL", icon: postgresql },
       { name: "MongoDB", icon: mongodb },

@@ -14,6 +14,7 @@ import postgresql from "@/assets/icons/postgresql-icon.svg";
 import redis from "@/assets/icons/redis-icon.svg";
 import mongodb from "@/assets/icons/mongodb-icon.svg";
 import expo from "@/assets/icons/expo-icon.svg";
+import express from "@/assets/icons/express-icon.svg";
 import docker from "@/assets/icons/docker-icon.svg";
 
 export {
@@ -33,5 +34,6 @@ export {
   redis,
   mongodb,
   expo,
+  express,
   docker,
 };
