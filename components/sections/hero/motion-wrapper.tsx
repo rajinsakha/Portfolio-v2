@@ -1,7 +1,4 @@
-"use client";
-
-import type { ReactNode } from "react";
-import { motion } from "motion/react";
+import type { CSSProperties, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -11,23 +8,26 @@ type MotionWrapperProps = {
   delay?: number;
 };
 
+/**
+ * Staggered entrance for hero content, driven entirely by CSS.
+ *
+ * This used to be a `motion.div` with `initial={{ opacity: 0 }}`, which meant the
+ * prerendered HTML shipped `style="opacity:0"` and nothing above the fold became
+ * visible until React had hydrated and the animation had run. That put LCP behind
+ * the whole client bundle. A CSS keyframe starts as soon as styles resolve, so the
+ * content paints on the first frame regardless of when JS arrives.
+ */
 export default function MotionWrapper({
   children,
   className,
   delay = 0.3,
 }: MotionWrapperProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.4,
-        ease: "easeOut",
-        delay,
-      }}
-      className={cn("relative", className)}
+    <div
+      className={cn("relative animate-rise-in", className)}
+      style={{ "--rise-in-delay": `${delay}s` } as CSSProperties}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

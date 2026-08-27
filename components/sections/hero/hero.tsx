@@ -11,11 +11,11 @@ export default function Hero() {
 
       <div className="container relative z-10 flex min-h-[calc(100svh-var(--navbar-height))] items-center py-14 md:py-20">
         <div className="mx-auto max-w-3xl text-center">
-          <MotionWrapper delay={0.1}>
-            <HeroHeading />
-          </MotionWrapper>
+          {/* Not wrapped: the h1 here is the LCP element, so it paints on the
+              first frame instead of fading in. */}
+          <HeroHeading />
 
-          <MotionWrapper delay={0.2}>
+          <MotionWrapper delay={0.1}>
             <p className="mx-auto mb-8 max-w-2xl text-xs text-muted-foreground sm:text-base lg:text-lg">
               I build products end to end &mdash; interfaces people enjoy using,
               on top of APIs and data models built to last. React, Next.js and
@@ -23,11 +23,11 @@ export default function Hero() {
             </p>
           </MotionWrapper>
 
-          <MotionWrapper delay={0.3}>
+          <MotionWrapper delay={0.2}>
             <HeroActions />
           </MotionWrapper>
 
-          <MotionWrapper delay={0.4}>
+          <MotionWrapper delay={0.3}>
             <HeroSocialLinks />
           </MotionWrapper>
         </div>
