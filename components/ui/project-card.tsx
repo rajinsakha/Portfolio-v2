@@ -45,7 +45,7 @@ export default function ProjectCard({
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
       <Card
-        className="group relative overflow-hidden h-full flex flex-col transition-[box-shadow,transform] duration-300 hover:shadow-md hover:-translate-y-1 py-3 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background"
+        className="group relative overflow-hidden h-full flex flex-col transition-[box-shadow,transform] duration-300 hover:shadow-md hover:-translate-y-1 gap-0 py-0 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -68,7 +68,7 @@ export default function ProjectCard({
           </motion.div>
         </div>
 
-        <CardContent className="px-4 py-3 flex flex-col flex-grow">
+        <CardContent className="px-4 pt-4 pb-3 flex flex-col flex-grow">
           <h3 className="text-xl font-bold mb-2">{project.title}</h3>
           <p className="text-muted-foreground text-sm mb-4 line-clamp-3 flex-grow">
             {project.description}

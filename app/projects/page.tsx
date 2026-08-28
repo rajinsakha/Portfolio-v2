@@ -50,7 +50,7 @@ export default function ProjectsPage() {
               href={`/projects/${project.slug}`}
               className="block h-full"
             >
-              <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+              <Card className="overflow-hidden h-full flex flex-col gap-0 py-0 transition-all duration-300 hover:shadow-md hover:-translate-y-1">
                 <div className="relative aspect-video">
                   <Image
                     src={project.image || "/placeholder.svg"}
