@@ -168,12 +168,14 @@
     opacity: 0;
   }
 
-  /* Same vignette the static grid uses, so swapping between them is invisible
-     at the edges. */
+  /* Vignette shared by both dot layers, so swapping between them is invisible.
+     farthest-corner matters here: a 50%/50% ellipse stops short of the four
+     corners and clips them to nothing. */
+  .hero-static-dots,
   [data-dot-grid] {
     mask-image: radial-gradient(
-      ellipse 50% 50% at 50% 50%,
-      #000 70%,
+      ellipse farthest-corner at 50% 50%,
+      #000 45%,
       transparent 100%
     );
   }

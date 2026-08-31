@@ -21,8 +21,8 @@ gsap.registerPlugin(InertiaPlugin);
  * parent, so this component always animates once mounted.
  */
 
-const DOT_SIZE = 6;
-const GAP = 22;
+const DOT_SIZE = 4;
+const GAP = 20;
 const PROXIMITY = 150;
 const SPEED_TRIGGER = 100;
 const SHOCK_RADIUS = 220;
