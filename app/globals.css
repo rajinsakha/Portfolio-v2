@@ -157,6 +157,26 @@
       color-mix(in oklch, var(--background) 30%, transparent) 100%
     );
   }
+
+  /* The interactive canvas paints its own dots. When it mounts, fade the
+     static grid out so the two don't ghost against each other. */
+  .hero-static-dots {
+    transition: opacity 200ms ease;
+  }
+
+  section:has(> [data-dot-grid]) > .hero-static-dots {
+    opacity: 0;
+  }
+
+  /* Same vignette the static grid uses, so swapping between them is invisible
+     at the edges. */
+  [data-dot-grid] {
+    mask-image: radial-gradient(
+      ellipse 50% 50% at 50% 50%,
+      #000 70%,
+      transparent 100%
+    );
+  }
 }
 
 /* Entrance animation for above-the-fold content.

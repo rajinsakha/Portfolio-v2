@@ -1,3 +1,4 @@
+import DotGridLayer from "@/components/sections/hero/dot-grid-layer";
 import { cn } from "@/lib/utils";
 
 type DottedBackgroundProps = {
@@ -10,7 +11,7 @@ export default function DottedBackground({ className }: DottedBackgroundProps) {
       <div
         aria-hidden="true"
         className={cn(
-          "pointer-events-none absolute inset-0 -z-10",
+          "hero-static-dots pointer-events-none absolute inset-0 -z-10",
           "bg-[radial-gradient(#e5e7eb_1px,transparent_1px)]",
           "dark:bg-[radial-gradient(#212121_1px,transparent_1px)]",
           "[background-size:16px_16px]",
@@ -18,6 +19,10 @@ export default function DottedBackground({ className }: DottedBackgroundProps) {
           className,
         )}
       />
+      {/* Interactive grid. Renders nothing until it decides the device wants
+          it, at which point the static dots above fade out. */}
+      <DotGridLayer />
+
       <div
         aria-hidden="true"
         className="hero-edge-fade pointer-events-none absolute inset-0 -z-10"
