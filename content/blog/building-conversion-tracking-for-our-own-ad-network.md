@@ -1,6 +1,6 @@
 ---
 title: "Building Conversion Tracking for Our Own Ad Network"
-description: "Every test passed and the feature was completely dead. Four bugs from building a pixel, and why only a browser could find the worst one."
+description: "We run ads inside our own dating app. Here's how we built cross-domain attribution without third-party cookies, and the review process that caught five silent failure modes before launch."
 date: "2026-08-11"
 updated: "2026-08-11"
 tags: ["NestJS", "Prisma", "PostgreSQL", "Next.js", "Ad Tech", "Attribution"]
@@ -13,7 +13,7 @@ That works fine until an advertiser asks the only question they actually care ab
 
 Impressions and clicks happen inside our app, so we own that data completely. The sale happens on the advertiser's website, in a different browser, possibly four days later. No shared session. No shared login. And third-party cookies — the thing that used to bridge exactly this gap — are dead in Safari, dead in Firefox, and dying in Chrome.
 
-So I built the bridge. This post is about the four bugs that survived until the very last review, and what they have in common.
+So I built the bridge.
 
 ## The mechanism, in one paragraph
 
@@ -21,97 +21,33 @@ You can't follow a user across the boundary, so you hand them something on the w
 
 The cookie being first-party is the whole reason this design outlived third-party cookies. We never needed one.
 
-Everything after that is bookkeeping: a second server-to-server ingestion door because browsers are lossy, an advertiser-supplied `eventId` so the same purchase arriving through both doors counts once, and an hourly job that collapses raw events into one row per ad per day. That daily row is also what we'd invoice from, which is the detail that made the rest of this stressful.
+Everything after that is bookkeeping: a second server-to-server ingestion door because browsers are lossy, an advertiser-supplied `eventId` so the same purchase arriving through both doors counts once, and an hourly job that collapses raw events into one row per ad per day. That daily row is also what we'd invoice from.
 
-## Surprise 1: the feature was dead, and every test passed
+## What the review process caught before launch
 
-The pixel is loaded by a `<script src>` on someone else's domain. I'd thought carefully about CORS — the endpoint echoes the origin, the allowlist is checked per pixel, all of it tested.
+Attribution touches billing, so every part of the pipeline went through a deliberate pass looking for failure modes that a green test suite wouldn't surface. Five held up the release.
 
-CORS was never the problem.
+**Cross-origin delivery.** The pixel is loaded by a `<script src>` on someone else's domain — a no-cors subresource request, governed by `Cross-Origin-Resource-Policy` rather than CORS. Our default security headers set that policy to same-origin platform-wide, which meant the pixel route needed an explicit opt-out or no browser would ever load it. The catch: tooling like `curl` doesn't enforce CORP at all, so this class of failure is invisible to anything that isn't an actual browser. Fix was one header override on the pixel route, plus adding a real-browser check to the release process rather than trusting `curl`-based smoke tests.
 
-A `<script src>` is a **no-cors subresource request**, and those are governed by a different header entirely: `Cross-Origin-Resource-Policy`. We use `helmet` for security defaults, and helmet sets `Cross-Origin-Resource-Policy: same-origin` on every response.
+**Attribution ownership.** The original lookup matched a conversion to a click purely by click ID, without confirming the click and the reporting pixel belonged to the same advertiser. Since click IDs travel in a plain URL parameter, that's a spoofable link between two independent tenants. Fixed by resolving the click's owner and refusing the match unless it agrees with the pixel's owner — the same ownership check we'd already applied on the pixel side, extended to the click side for symmetry.
 
-So a browser would fetch `/t.js`, read that header, and refuse to hand the script to the page. `window.fiveone` never gets defined. The queue never drains. Not a single event ever fires.
+**Numeric bounds.** Conversion values are advertiser-supplied and land in a fixed-precision decimal column. Without an upper bound, a single oversized value fails the insert, and because the hourly rollup wrote a full day's ads in one transaction, one bad value could abort every ad's row for that day — silently halting billing until someone found it. Fixed with a sane per-event ceiling and by splitting the rollup so one ad's failure can't take the batch down with it.
 
-The part that stuck with me: **`curl` does not implement CORP.** It requests the script, gets a 200, and prints the body. Every integration test I had — status code, content type, cache header, body contents — passed against a completely non-functional feature. The end-to-end verification I'd written passed too, because it also used `curl`.
+**Deduplication vs. attribution.** Advertisers send every conversion through both doors — pixel and server — because ad blockers and Safari's ITP drop 20–40% of browser events. The dedup key is the advertiser's own order ID, first arrival wins. That's correct for duplicates but wrong for the case the second door exists to rescue: pixel fires without a click ID (cookie was capped), server fires milliseconds later with one, and first-write-wins keeps the worse copy permanently. Fixed by upgrading a stored row when a later delivery carries attribution the first one lacked.
 
-```ts
-// The route serving the pixel has to opt out explicitly.
-res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin')
-```
-
-One line. The browser-pixel door had been dead the entire time, and nothing in my toolchain could see it.
-
-## Surprise 2: any advertiser could bill conversions to a competitor
-
-Attribution matched a conversion to a click by looking up the click ID. That's it. That was the whole check.
-
-Here's the attack, and it needs no special access at all. Advertiser B is a normal user of our dating app. B scrolls the feed, taps advertiser A's ad, and lands on A's website — with `?fvclid=…` sitting in the address bar. B copies it.
-
-B owns a pixel. B posts a conversion through their own pixel, from their own registered domain, with their own credentials, carrying A's click ID:
-
-```json
-{ "pixelId": "<B's pixel>", "eventName": "Purchase",
-  "eventId": "x1", "clickId": "<A's click>", "value": 999999999999.99 }
-```
-
-Every authorization check passes, because every one of them is about B. The click ID resolves to **A's** campaign, and the hourly rollup sums it into A's daily row — the invoice line. A sees conversions they never earned, with no trace of where they came from, and B can repeat it forever with fresh event IDs.
-
-The fix is that attribution has to resolve the click's owner and refuse unless it matches the pixel's owner. What makes this one worth writing down is that we'd already found and fixed a *pixel*-ownership hole earlier in the same module — and closing it made the *click* side look like it was covered. It wasn't. Fixing half of a symmetry is worse than fixing neither, because it retires the suspicion.
-
-## Surprise 3: one bad number could stop billing for everyone
-
-`value` on a conversion is advertiser-supplied. I'd validated it as a non-negative number with at most two decimal places, and stopped there.
-
-The column is `Decimal(14,2)` — twelve integer digits. Two failures fall out of that gap.
-
-A single event with a large enough value passes validation and then fails at insert with a Postgres numeric overflow. That's a 500 on advertiser input, which the design doc I'd written explicitly forbids.
-
-The second one is worse. Roughly a thousand max-value events against one ad make that ad's *summed* daily value exceed the column. The rollup wrote all of a day's rows in a single transaction, so the overflow aborted the whole thing — and no ad got a row for that day at all. Not impressions, not clicks, not spend. Every subsequent hourly run failed identically. **Billing for that day would have stopped silently until someone deleted the poisoned rows by hand.**
-
-Two fixes, because either alone leaves the door ajar: an upper bound on the per-event value, and splitting the batch so one ad's failure can't take down the day.
-
-## Surprise 4: the deduplication threw away the better copy
-
-We tell advertisers to send every conversion twice — once from the browser pixel, once from their server. That sounds wasteful and isn't. Ad blockers and Safari's ITP eat 20–40% of browser events, and some conversions never touch a browser at all. Neither door is complete.
-
-The `eventId` — their own order number — is what makes the duplicate safe. Unique constraint on `(pixel, eventId)`, second arrival dropped.
-
-Except "dropped" was doing more work than I realised. Consider the case the server door exists for: the pixel fires first, but ITP had capped the cookie, so it arrives **without** a click ID and gets stored unattributed. Milliseconds later the server posts the same `eventId` **with** the click ID. First-write-wins drops it.
-
-The conversion is now permanently unattributed — in exactly the scenario the second door was built to rescue. Our own documentation recommended the setup that triggered it.
-
-The dedup now upgrades the stored row when a later delivery carries attribution the first one lacked, guarded so it never overwrites an attribution that's already there.
+**Credential scope drift.** A separate security-hardening pass started enforcing API scopes that had previously existed on client records but were never checked. That correctly closed a real gap — but any credential issued before enforcement carried scopes that no longer matched what the delivery endpoint required, and failed with no visible signal at the credential level. Caught during integration by testing against the live delivery endpoint rather than trusting that an active-looking credential still worked.
 
 ## What these have in common
 
-I keep coming back to the fact that all four survived a review of every individual piece of work. Each one lives at a seam: between a security default and a route, between two ownership checks, between validation and a column type, between a dedup rule and the advice we give advertisers. Reviewing each unit in isolation is exactly the process that cannot see them.
+All five sit at a seam — between a security default and a route, between two ownership checks, between validation and a column type, between a dedup rule and the advice we give advertisers, between a scope enum and a credential issued before it existed. Reviewing each piece of the system in isolation is exactly the process that can't see a seam between two pieces.
 
-The other pattern is more uncomfortable. Three of the four were invisible to my tooling — not hard to find, *invisible*. `curl` doesn't enforce CORP. Unit tests don't have two advertisers. Dev data never overflows a numeric column.
+The other pattern: most of these were invisible to standard tooling, not hard to find. `curl` doesn't enforce CORP. A single-tenant test suite doesn't have two advertisers. Dev-scale data never overflows a numeric column. The takeaway isn't "write more tests" — a green suite confirms the things you already thought to check. It says nothing about the things you didn't.
 
-The honest lesson isn't "write more tests." It's that a green suite tells you the things you thought of are still true. It says nothing at all about the things you didn't.
-
-## A fifth, of a different kind: the credentials authorized nothing
-
-The last piece was the app side — mint the click, append `fvclid`, open the browser. The ads were already rendering in the feed on a branch, fetching from `/ad/delivery` with client credentials. So I expected to add one call and be done.
-
-The delivery request was going to fail.
-
-The three API clients our dating app backend hands out carried the scopes `campaigns:read`, `campaigns:write`, `ads:read`. None of those exist in the platform's scope enum, which defines `ads:delivery`, `ads:preview`, `ads:click` and `ads:impression`.
-
-The enum's own comment explains it, and the explanation is the interesting part:
-
-> These were previously stored on the client record but never checked, so every credential could reach every consumer endpoint regardless of what it was issued for.
-
-The scopes had always been decorative. A security-hardening pass started enforcing them — correctly — and in doing so silently invalidated every credential that had been issued against the permissive behaviour. The integration had been written in the window where the field existed and meant nothing.
-
-Nothing failed loudly. The rows are still there, still `isActive: true`, still look plausible. They just authorize nothing.
-
-## Where it actually stands
+## Where it stands
 
 The pipeline is built and verified: 282 tests, both ingestion doors, deduplication confirmed by direct row count, the origin check, the attribution window, the tenant boundary.
 
-The click passthrough now exists too, and I checked it against the running backend rather than trusting the code:
+The click passthrough exists too, verified against the running backend:
 
 ```
 POST /ad/clicked  →  { "recorded": true,  "clickId": "j1m2-MYSAoRpKdV2QPaxdg" }
@@ -119,10 +55,8 @@ repeat            →  { "recorded": false, "reason": "duplicate",
                        "clickId": "j1m2-MYSAoRpKdV2QPaxdg" }
 ```
 
-The duplicate returning the *same* token is deliberate. A user who taps twice inside the dedup window still lands on a tracked URL, and both taps attribute to one click rather than billing twice.
+A repeat tap returning the *same* token is deliberate — both taps attribute to one click rather than billing twice.
 
-One decision in that handler I'd defend anywhere: tracking never blocks the link. If the click call fails, or is rate limited, or the user has no id yet, the plain destination URL still opens. A lost attribution costs a row in a report. A dead call-to-action costs the advertiser the sale and us the relationship.
+One decision I'd defend anywhere: tracking never blocks the link. If the click call fails, is rate limited, or the user has no id yet, the plain destination URL still opens. A lost attribution costs a row in a report. A dead call-to-action costs the advertiser the sale.
 
-What's left is honest to state. It lives on a branch, not in a release build. Impressions still aren't reported, so reach and CTR read zero. And nobody has yet installed the snippet on a scratch domain and watched a `PageView` land in a real browser.
-
-That last one is the item I'd most like to skip and won't. Surprise 1 is the entire argument for why: I have a green test suite, a verified end-to-end run, and direct proof from the database — and none of that would have caught a feature that was completely dead in every browser on earth.
+Remaining before general release: impression reporting (reach and CTR still read zero), and a live end-to-end check of the pixel snippet against a real browser on a real domain — the one class of failure that a test suite, by definition, can't rule out for itself.
