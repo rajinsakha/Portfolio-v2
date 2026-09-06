@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import type { Project } from "@/types";
+import ProjectSurfaces from "@/components/ui/project-surfaces";
 import Link from "next/link";
 
 export default function ProjectCard({
@@ -70,6 +71,7 @@ export default function ProjectCard({
 
         <CardContent className="px-4 pt-4 pb-3 flex flex-col flex-grow">
           <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+          <ProjectSurfaces surfaces={project.surfaces} className="mb-3" />
           <p className="text-muted-foreground text-sm mb-4 line-clamp-3 flex-grow">
             {project.description}
           </p>
