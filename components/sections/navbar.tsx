@@ -16,7 +16,6 @@ const navItems = [
   { name: "Skills", href: "/#skills", id: "skills" },
   { name: "Projects", href: "/#projects", id: "projects" },
   { name: "Experience", href: "/#experience", id: "experience" },
-  { name: "Blog", href: "/blog", id: "blog" },
   { name: "Contact", href: "/#contact", id: "contact" },
 ];
 
@@ -26,12 +25,11 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
 
   const pathname = usePathname();
-  const isBlogRoute = pathname.startsWith("/blog");
 
-  // Section highlighting is only meaningful on the homepage; on a route like
-  // /blog the nav highlights the route itself instead.
+  // Every nav item now points at a homepage section, so highlighting only
+  // applies on the homepage itself.
   const isActiveItem = (id: string) =>
-    isBlogRoute ? id === "blog" : pathname === "/" && activeSection === id;
+    pathname === "/" && activeSection === id;
 
   useEffect(() => {
     const handleScroll = () => {

@@ -38,17 +38,4 @@ export interface IContactItem {
   href?: string;
 }
 
-export interface BlogPostMeta {
-  slug: string;
-  title: string;
-  description: string;
-  date: string;
-  updated: string;
-  tags: string[];
-  featured: boolean;
-  readingTime: number;
-}
 
-export interface BlogPost extends BlogPostMeta {
-  content: string;
-}
