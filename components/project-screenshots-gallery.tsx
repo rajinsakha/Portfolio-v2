@@ -105,8 +105,13 @@ export function ProjectScreenshotsGallery({
             </CarouselContent>
             {screenshots.length > 1 && (
               <>
-                <CarouselPrevious className="left-2 border-border bg-background/95 shadow-md sm:left-4 text-black!" />
-                <CarouselNext className="right-2 border-border bg-background/95 shadow-md sm:right-4 text-black!" />
+                {/* Both halves of the control have to be themed together. The
+                    arrow follows `text-foreground`, and the circle needs the
+                    explicit `dark:` background because the button's outline
+                    variant otherwise drops to a near-transparent `bg-input/30`
+                    in dark mode, leaving the arrow floating on the backdrop. */}
+                <CarouselPrevious className="left-2 border-border bg-background/95 text-foreground shadow-md hover:bg-background hover:text-foreground sm:left-4 dark:bg-background/95 dark:hover:bg-background" />
+                <CarouselNext className="right-2 border-border bg-background/95 text-foreground shadow-md hover:bg-background hover:text-foreground sm:right-4 dark:bg-background/95 dark:hover:bg-background" />
               </>
             )}
           </Carousel>
