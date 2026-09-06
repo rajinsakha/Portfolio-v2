@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import { projects } from "@/constants/projects-data";
 import { ProjectScreenshotsGallery } from "@/components/project-screenshots-gallery";
 import { SITE_URL } from "@/lib/site";
+import ProjectSurfaces from "@/components/ui/project-surfaces";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -197,6 +198,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <h3 className="text-xl font-bold mb-4">Project Details</h3>
 
               <div className="space-y-6">
+                {project.surfaces?.length ? (
+                  <div>
+                    <h4 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                      Surfaces Built
+                    </h4>
+                    <ProjectSurfaces surfaces={project.surfaces} />
+                  </div>
+                ) : null}
+
                 <div>
                   <h4 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
                     Technologies

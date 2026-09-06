@@ -27,6 +27,8 @@ import mithoRecommendImage from "@/assets/images/mitho-2-recommend.png";
 import mithoDetailImage from "@/assets/images/mitho-3-detail.png";
 import mithoNotificationsImage from "@/assets/images/mitho-4-notifications.png";
 import mithoHomeDarkImage from "@/assets/images/mitho-5-home-dark.png";
+import mithoLandingHeroImage from "@/assets/images/mitho-landing-hero.png";
+import mithoLandingFeaturesImage from "@/assets/images/mitho-landing-features.png";
 
 import kennedyImage from "@/assets/images/kennedy-ai-studio.png";
 import kennedyProductPreviewImage from "@/assets/images/kennedy-product-preview.png";
@@ -80,6 +82,8 @@ export {
   mithoDetailImage,
   mithoNotificationsImage,
   mithoHomeDarkImage,
+  mithoLandingHeroImage,
+  mithoLandingFeaturesImage,
   kennedyImage,
   kennedyProductPreviewImage,
   kennedyHowItWorksImage,

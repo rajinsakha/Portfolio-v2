@@ -26,6 +26,8 @@ import {
   mithoDetailImage,
   mithoNotificationsImage,
   mithoHomeDarkImage,
+  mithoLandingHeroImage,
+  mithoLandingFeaturesImage,
   kennedyImage,
   kennedyProductPreviewImage,
   kennedyHowItWorksImage,
@@ -57,6 +59,18 @@ export const categories = [
   "Mobile Application",
 ];
 
+// The closed set every project's `surfaces` draws from. Kept small on purpose:
+// the point is to show at a glance which projects were owned across several
+// surfaces, and that reads only if the same words repeat between projects.
+export const projectSurfaces = [
+  "Marketing Site",
+  "Web App",
+  "Mobile App",
+  "Admin Console",
+  "Backend API",
+  "E-commerce Storefront",
+] as const;
+
 export const projects: Project[] = [
   {
     id: 8,
@@ -86,6 +100,7 @@ export const projects: Project[] = [
       "Cloudflare",
     ],
     category: "Website",
+    surfaces: ["E-commerce Storefront"],
     featured: false,
     slug: "vaanyard",
     links: {
@@ -167,6 +182,7 @@ export const projects: Project[] = [
       "PostHog",
     ],
     category: "Web Application",
+    surfaces: ["Marketing Site", "Web App", "Admin Console", "Backend API"],
     featured: true,
     slug: "kennedy-ai-studio",
     links: {
@@ -291,6 +307,7 @@ export const projects: Project[] = [
       "PostHog",
     ],
     category: "Mobile Application",
+    surfaces: ["Mobile App", "Marketing Site", "Backend API"],
     featured: true,
     slug: "five-one",
     links: {
@@ -367,6 +384,7 @@ export const projects: Project[] = [
       "Motion",
     ],
     category: "Web Application",
+    surfaces: ["Admin Console", "Web App", "Mobile App", "Marketing Site"],
     featured: true,
     slug: "hajir-khata",
     links: {
@@ -636,6 +654,7 @@ export const projects: Project[] = [
       "Google OAuth",
     ],
     category: "Web Application",
+    surfaces: ["Web App", "Admin Console", "Marketing Site"],
     featured: true,
     slug: "site-iq",
     links: {
@@ -688,6 +707,7 @@ export const projects: Project[] = [
       "Optional local mealtime notifications, scheduled to the user's own routine",
       "Light and dark themes, plus language and appearance settings",
       "Supabase authentication with Google sign-in via Expo Auth Session",
+      "Next.js marketing site and companion web build alongside the Play Store listing, so the product has a public front door as well as an install",
     ],
     image: mithoImage.src,
     technologies: [
@@ -704,6 +724,7 @@ export const projects: Project[] = [
       "Next.js",
     ],
     category: "Mobile Application",
+    surfaces: ["Mobile App", "Web App", "Marketing Site"],
     featured: true,
     slug: "mitho",
     links: {
@@ -749,6 +770,16 @@ export const projects: Project[] = [
       {
         url: mithoHomeDarkImage.src,
         caption: "Home screen in dark theme.",
+      },
+      {
+        url: mithoLandingHeroImage.src,
+        caption:
+          "Marketing site hero — the premise in one line, with the Play Store install and the web build side by side.",
+      },
+      {
+        url: mithoLandingFeaturesImage.src,
+        caption:
+          "Marketing site feature grid — vibe, budget, favorites and reminders laid out over Nepali food photography.",
       },
     ],
   },

@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { projects } from "@/constants/projects-data";
 import type { Metadata } from "next";
+import ProjectSurfaces from "@/components/ui/project-surfaces";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -70,6 +71,7 @@ export default function ProjectsPage() {
 
                 <CardContent className="p-5 flex flex-col flex-grow">
                   <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                  <ProjectSurfaces surfaces={project.surfaces} className="mb-3" />
                   <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
                     {project.description}
                   </p>

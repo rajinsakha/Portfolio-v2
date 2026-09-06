@@ -1,6 +1,6 @@
 ---
 title: "Migrating a Production Dating App from MongoDB to PostgreSQL"
-description: "How 1.8 million documents, a 40-minute maintenance window, and four surprises taught me more than the plan did."
+description: "How we moved 1.8 million documents across a 40-minute maintenance window, right-sized our database spend, and what the verification process caught before it reached users."
 date: "2026-07-31"
 updated: "2026-07-31"
 tags: ["PostgreSQL", "MongoDB", "Prisma", "Data Migration", "NestJS"]
@@ -17,7 +17,7 @@ The app is a dating platform — around 18,000 users, chat, stories, a swipe fee
 
 The obvious read: MongoDB is expensive, move to PostgreSQL, save money.
 
-The honest read, which took me longer to arrive at: **we were paying for a tier sized for roughly 30× the data we actually had.** A smaller Atlas tier would have captured most of that saving without touching a line of code.
+The more accurate read: **we were paying for a tier sized for roughly 30× the data we actually had.** A smaller Atlas tier would have captured most of that saving without touching a line of code.
 
 I want to lead with that because it's the part most migration write-ups skip. The port was still worth doing — we wanted referential integrity, a schema we could reason about, and control over our own tier rather than climbing someone else's pricing ladder. But "we migrated and saved 70%" would be a misleading way to describe it. We *right-sized*, and the migration is what let us do that on our terms.
 
@@ -36,89 +36,25 @@ model User {
 }
 ```
 
-That single decision made the ETL idempotent for free. Every write became an upsert keyed on the original `_id`, so the pipeline could be run repeatedly without duplicating anything — which mattered more than I expected during rehearsals.
+That single decision made the ETL idempotent for free. Every write became an upsert keyed on the original `_id`, so the pipeline could be run repeatedly without duplicating anything — which mattered during rehearsals.
 
 The pipeline itself: `mongoexport` each collection to JSONL, then load into PostgreSQL in dependency order, validating foreign keys against an in-memory registry built as each collection lands.
 
-## Surprise 1: The verifier that lied
+## What the verification process caught before cutover
 
-After every load I ran a parity check — row counts reconciled, sample rows deep-compared field by field, ids confirmed preserved.
+Rehearsing against production-scale data — not just production-shaped sample data — surfaced four issues that dev-scale testing never would have.
 
-Against the full production dataset, it reported `PASS`. And it was wrong.
+**A verifier that reported green while skipping work.** The parity check compared every migrated row against the source. At production scale, four collections — including `messages`, the largest — silently failed to be checked at all: the count query exceeded a query-builder limit at 345,962 ids, the error was caught per-collection, and the run still summarized as `PASS`. Fixed by chunking the count query, with care taken that summed per-chunk counts still matched the true distinct count. The broader fix was procedural: treat a verification tool that can degrade silently as worse than no tool, and design it to fail loud instead.
 
-Four collections — including `messages`, the largest — hadn't actually been checked. The verifier collected every accepted id and passed them into a single query:
+**1.35 million orphaned rows.** The app deleted chats without deleting their messages, and MongoDB never enforced the relationship, so it accumulated invisibly for years — 1,164,377 messages (77% of every message ever sent) referencing chat ids that no longer existed. PostgreSQL's foreign keys made this visible on the first load attempt. Those rows were already unreachable in the product, so we took the loss with explicit written sign-off rather than fabricating placeholder parents or dropping the integrity constraint we were migrating to get.
 
-```ts
-await prisma.message.count({ where: { id: { in: parentIds } } })
-```
+**A database version that didn't match the console selection.** RDS provisioned PostgreSQL 18 despite 16 being selected, which surfaced as a client/server mismatch that initially looked like corruption. Moving local and dev environments up to match uncovered a second wrinkle — Postgres 18's official Docker image relocated its data directory, so an existing PG16 volume needs a new volume name rather than reuse. Two habits came out of it: verify the running version with `select version()`, not the form you filled in, and always give a database major-version bump a new volume so the old cluster survives as a rollback path.
 
-With 345,962 ids, Prisma's query builder blew its call stack. The error was caught per-collection, the collection was marked unprobed, and the run still summarised as passing.
-
-The fix was chunking:
-
-```ts
-async function countByIds(delegate, distinctIds) {
-  let total = 0
-  for (let i = 0; i < distinctIds.length; i += ID_CHUNK) {
-    total += await delegate.count({
-      where: { id: { in: distinctIds.slice(i, i + ID_CHUNK) } }
-    })
-  }
-  return total
-}
-```
-
-Note `distinctIds`. Summing per-chunk counts only equals the single-query count when no id repeats across chunks — SQL's `IN` deduplicates implicitly, chunked sums don't. Getting that wrong would have produced inflated counts that *looked* like a successful check.
-
-The lesson isn't "chunk your queries." It's that **a verification tool that degrades silently is worse than no verification tool** — it converts uncertainty into false confidence. Dev-scale data never triggered it. Only production volume did.
-
-## Surprise 2: 1.35 million orphaned rows
-
-The load dropped 1,348,977 rows. The bulk of it: **1,164,377 messages — 77% of every message ever sent — referencing 119,242 chat ids that don't exist.**
-
-The app deletes chats without deleting their messages. MongoDB doesn't enforce referential integrity, so this accumulated invisibly for years. PostgreSQL's foreign keys made it visible in a single run.
-
-Those messages were already unreachable — no parent chat means no conversation to open them from. Users couldn't see them before the migration and won't miss them after. But it's worth sitting with what that number means: **three quarters of a core table was garbage nobody knew about.**
-
-Keeping them would have meant dropping the `chatId` foreign key — discarding the integrity guarantee we were migrating *for* — or fabricating 119,242 placeholder chat rows. We took the loss, with explicit written sign-off rather than a quiet decision buried in a script.
-
-## Surprise 3: The database wasn't the version I picked
-
-I selected PostgreSQL 16.8 in the RDS console. Everything — local Docker, the dev box, every rehearsal — was on 16.
-
-The instance came up on **18.3**.
-
-I found out because a `psql` 16 client threw `column d.daticulocale does not exist` against it, which reads like database corruption and is actually a client/server version mismatch.
-
-Rather than rebuild, I moved local and dev up to 18. That surfaced a second trap: PostgreSQL 18's official Docker image **relocated the data directory**. The mount has to be `/var/lib/postgresql`, not `/var/lib/postgresql/data`, and the container refuses to start on an existing PG16 volume.
-
-Two habits came out of this:
-
-- **Verify the version with `select version()`, not the form you filled in.**
-- When bumping a database major version in Docker, use a **new volume name**. The old cluster stays intact as a rollback instead of being deleted to make room.
-
-## Surprise 4: The failure that was silent at startup
-
-Cutover night. App stopped, data exported, loaded, verified, restored into RDS — every row count matched. Published the release. Container came up. Logs read:
-
-```
-Nest application successfully started
-```
-
-Then the first real request returned a 500:
-
-```
-Invalid `prisma.pickupLine.findMany()` invocation:
-Error opening a TLS connection: self-signed certificate in certificate chain
-```
-
-RDS requires TLS. I'd set `sslmode=require` accordingly. But `sslmode=require` makes node-postgres **verify the certificate chain** against Node's built-in CA store — which doesn't include the Amazon RDS regional root CA. Every query failed. `sslmode=no-verify` keeps the connection encrypted without chain verification, and that fixed it.
-
-The part worth internalising: **the container started cleanly and reported healthy.** Nothing connects to the database until the first query, so every startup signal was green while the app was completely broken. A boot log is not proof that your database works. Only a query is.
+**A startup log that proved nothing.** Every row count matched, the release deployed, and the container logged "Nest application successfully started." The first real request then failed — RDS requires TLS, and the driver's default certificate verification didn't trust Amazon's regional root CA, so every query failed against a server that reported itself healthy. A boot log confirms the process started, not that the database connection works; only a real query does. Fixed the trust configuration and added a live query to the deploy's health check rather than relying on startup logs alone.
 
 ## The cutover
 
-Because the FK registry is built from the export being processed, an incremental catch-up pass wasn't possible — a partial export would reject new rows whose parents were absent and silently drop them. So the export and load both had to sit inside the freeze window.
+Because the foreign-key registry is built from the export being processed, an incremental catch-up pass wasn't possible — a partial export would reject and silently drop new rows whose parents were absent. So export and load both had to sit inside the freeze window.
 
 Measured, not estimated:
 
@@ -136,21 +72,9 @@ One deliberate choice: **the ETL never ran against RDS.** It wraps every row in 
 
 ## A red herring worth including
 
-The day after cutover: *bot profile pictures aren't loading in chat.*
+The day after cutover: *bot profile pictures aren't loading in chat.* Exactly the shape of a migration bug. It wasn't one.
 
-Exactly the shape of a migration bug. It wasn't one.
-
-The data was intact — every affected bot had a valid media row with all URLs populated. But `media.url` pointed at an S3 key containing a **Google Drive link**. Someone had passed a Drive URL where a filename was expected. The upload succeeded; the URL was built by raw string concatenation:
-
-```ts
-const url = `https://${bucket}.s3.${region}.amazonaws.com/${key}`
-```
-
-No percent-encoding. So `?usp=drive_link` in the key gets parsed as a **query string**, and S3 looks up a key that ends early. Percent-encode it and the object returns 200 with 487 KB — the image was never lost, just unreachable.
-
-Why only chat screens? Chat resolves avatars through `getMediaUrl()`, which reads `media.url`. Every other screen uses a different helper that reads the compressed variant — and compressed uploads are keyed `compressed-${uuid}`, ignoring the original filename entirely. That one difference is the whole bug surface.
-
-Byte-identical in the MongoDB export, and the resolver was unchanged from the pre-migration build. It had been broken for months. **The migration didn't cause it; it just made us look.**
+The data was intact — every affected bot had a valid media row with all URLs populated. The URL was assembled by raw string concatenation of bucket, region, and key, with no percent-encoding. One key happened to contain characters that get parsed as a query string once unescaped, so the object lookup ended early and 404'd. Percent-encoding the key fixed it — the image had never been lost, just unreachable through one code path. It only affected chat because chat resolved avatars through a helper that read the original key, while every other screen read a differently-keyed compressed variant. Byte-identical before and after the migration: it had been broken for months, and the migration just made someone look at that screen.
 
 ## Results
 
@@ -162,7 +86,7 @@ Byte-identical in the MongoDB export, and the resolver was unchanged from the pr
 
 ## What I'd tell myself before starting
 
-**Rehearse against production-scale data, not production-shaped data.** Every bug that mattered — the verifier, the orphan volume, the query-builder stack overflow — only appeared at real volume. Dev-scale rehearsals were green throughout and taught me nothing.
+**Rehearse against production-scale data, not production-shaped data.** Every issue that mattered — the verifier, the orphan volume, the query-builder limit — only appeared at real volume. Dev-scale rehearsals were green throughout and taught me nothing.
 
 **Distrust green.** The verifier passed while skipping four collections. The container logged "successfully started" while every query failed. Both were technically accurate and completely misleading. Ask what a passing signal actually proves.
 
