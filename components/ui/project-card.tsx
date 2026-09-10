@@ -92,6 +92,7 @@ export default function ProjectCard({
                 size="sm"
                 variant="ghost"
                 asChild
+                className="relative z-20"
                 aria-label={`View ${project.title} demo`}
               >
                 <a
@@ -109,6 +110,7 @@ export default function ProjectCard({
                 size="sm"
                 variant="ghost"
                 asChild
+                className="relative z-20"
                 aria-label={`View ${project.title} source code`}
               >
                 <a
@@ -120,8 +122,10 @@ export default function ProjectCard({
                 </a>
               </Button>
             )}
-            {/* Stretched link makes the whole card navigable while keeping the
-                action links above independently clickable. */}
+            {/* Stretched link makes the whole card navigable. Its ::after
+                covers the entire card and, coming last in DOM order, paints
+                over its siblings — so the action links above it need a higher
+                z-index or the overlay swallows their clicks. */}
             <Button size="sm" variant="default" asChild className="ml-auto">
               <Link
                 href={`/projects/${project.slug}`}
