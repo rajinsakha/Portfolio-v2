@@ -29,6 +29,10 @@ import mithoNotificationsImage from "@/assets/images/mitho-4-notifications.png";
 import mithoHomeDarkImage from "@/assets/images/mitho-5-home-dark.png";
 import mithoLandingHeroImage from "@/assets/images/mitho-landing-hero.png";
 import mithoLandingFeaturesImage from "@/assets/images/mitho-landing-features.png";
+import mithoLandingHowImage from "@/assets/images/mitho-landing-how.png";
+import mithoLandingTourImage from "@/assets/images/mitho-landing-tour.jpg";
+import mithoLandingRecipesImage from "@/assets/images/mitho-landing-recipes.jpg";
+import mithoLandingHeroDarkImage from "@/assets/images/mitho-landing-hero-dark.png";
 
 import kennedyImage from "@/assets/images/kennedy-ai-studio.png";
 import kennedyProductPreviewImage from "@/assets/images/kennedy-product-preview.png";
@@ -84,6 +88,10 @@ export {
   mithoHomeDarkImage,
   mithoLandingHeroImage,
   mithoLandingFeaturesImage,
+  mithoLandingHowImage,
+  mithoLandingTourImage,
+  mithoLandingRecipesImage,
+  mithoLandingHeroDarkImage,
   kennedyImage,
   kennedyProductPreviewImage,
   kennedyHowItWorksImage,

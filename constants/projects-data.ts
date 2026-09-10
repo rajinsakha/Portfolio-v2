@@ -28,6 +28,10 @@ import {
   mithoHomeDarkImage,
   mithoLandingHeroImage,
   mithoLandingFeaturesImage,
+  mithoLandingHowImage,
+  mithoLandingTourImage,
+  mithoLandingRecipesImage,
+  mithoLandingHeroDarkImage,
   kennedyImage,
   kennedyProductPreviewImage,
   kennedyHowItWorksImage,
@@ -707,7 +711,7 @@ export const projects: Project[] = [
       "Optional local mealtime notifications, scheduled to the user's own routine",
       "Light and dark themes, plus language and appearance settings",
       "Supabase authentication with Google sign-in via Expo Auth Session",
-      "Next.js marketing site and companion web build alongside the Play Store listing, so the product has a public front door as well as an install",
+      "Next.js marketing site and companion web build alongside the Play Store listing, including a browsable recipes page covering all 80 dishes, so the product has a public front door as well as an install",
     ],
     image: mithoImage.src,
     technologies: [
@@ -780,6 +784,26 @@ export const projects: Project[] = [
         url: mithoLandingFeaturesImage.src,
         caption:
           "Marketing site feature grid — vibe, budget, favorites and reminders laid out over Nepali food photography.",
+      },
+      {
+        url: mithoLandingHowImage.src,
+        caption:
+          "How it works — the whole product reduced to three steps: set the mood, spin, eat.",
+      },
+      {
+        url: mithoLandingTourImage.src,
+        caption:
+          "Product tour on the marketing site, walking through the app screen by screen before anyone installs it.",
+      },
+      {
+        url: mithoLandingRecipesImage.src,
+        caption:
+          "The recipes page — 80 Nepali dishes with ingredients and pricing, grouped by the same moods that drive the app.",
+      },
+      {
+        url: mithoLandingHeroDarkImage.src,
+        caption:
+          "The marketing site in dark theme. Both themes are first-class here too, not just inside the app.",
       },
     ],
   },
