@@ -21,7 +21,7 @@ export default function StructuredData() {
     },
     sameAs: [
       "https://github.com/rajinsakha",
-      "https://www.linkedin.com/in/rajin-sakha-22003b229/",
+      "https://www.linkedin.com/in/rajinsakha/",
       "https://twitter.com/rajinsakha",
     ],
     description:
