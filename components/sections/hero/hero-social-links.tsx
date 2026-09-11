@@ -8,7 +8,7 @@ const socialLinks = [
     icon: Github,
   },
   {
-    href: "https://www.linkedin.com/in/rajin-sakha-22003b229/",
+    href: "https://www.linkedin.com/in/rajinsakha/",
     label: "LinkedIn",
     icon: Linkedin,
   },
