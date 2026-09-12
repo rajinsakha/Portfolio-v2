@@ -58,6 +58,7 @@ const TECH_TO_ICON: Record<string, string> = {
   "expo": "expo",
   "expo notifications": "expo",
   "expo router": "expo",
+  firebase: "firebase",
   "firebase auth": "firebase",
   "firebase messaging": "firebase",
   "framer motion": "framer",
