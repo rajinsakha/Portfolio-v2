@@ -6,7 +6,8 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, ExternalLink } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { TechBadge } from "@/components/ui/tech-badge";
+import { resolveTechIcons } from "@/constants/tech-icons";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import type { Project } from "@/types";
@@ -78,11 +79,11 @@ export default function ProjectCard({
 
           <div className="mb-4">
             <div className="flex flex-wrap gap-1.5 mt-2">
-              {project.technologies.map((tech: string) => (
-                <Badge key={tech} variant="outline" className="text-xs">
-                  {tech}
-                </Badge>
-              ))}
+              {resolveTechIcons(project.technologies).map(
+                ({ tech, iconPath }) => (
+                  <TechBadge key={tech} tech={tech} iconPath={iconPath} />
+                )
+              )}
             </div>
           </div>
 

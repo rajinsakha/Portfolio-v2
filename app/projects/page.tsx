@@ -3,6 +3,8 @@ import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { TechBadge } from "@/components/ui/tech-badge";
+import { resolveTechIcons } from "@/constants/tech-icons";
 import { Card, CardContent } from "@/components/ui/card";
 import { projects } from "@/constants/projects-data";
 import type { Metadata } from "next";
@@ -77,11 +79,11 @@ export default function ProjectsPage() {
                   </p>
 
                   <div className="flex flex-wrap gap-1.5 mt-auto">
-                    {project.technologies.slice(0, 3).map((tech) => (
-                      <Badge key={tech} variant="outline" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
+                    {resolveTechIcons(project.technologies.slice(0, 3)).map(
+                      ({ tech, iconPath }) => (
+                        <TechBadge key={tech} tech={tech} iconPath={iconPath} />
+                      )
+                    )}
                     {project.technologies.length > 3 && (
                       <Badge variant="outline" className="text-xs">
                         +{project.technologies.length - 3} more
