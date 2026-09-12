@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Code2, ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { TechBadge } from "@/components/ui/tech-badge";
+import { resolveTechIcons } from "@/constants/tech-icons";
 import { Metadata } from "next";
 import { projects } from "@/constants/projects-data";
 import { ProjectScreenshotsGallery } from "@/components/project-screenshots-gallery";
@@ -212,11 +214,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     Technologies
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <Badge key={tech} variant="outline">
-                        {tech}
-                      </Badge>
-                    ))}
+                    {resolveTechIcons(project.technologies).map(
+                      ({ tech, iconPath }) => (
+                        <TechBadge key={tech} tech={tech} iconPath={iconPath} />
+                      )
+                    )}
                   </div>
                 </div>
 
