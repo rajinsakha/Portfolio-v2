@@ -16,10 +16,11 @@ export default function Hero() {
           <HeroHeading />
 
           <MotionWrapper delay={0.1}>
-            <p className="mx-auto mb-8 max-w-2xl text-xs text-muted-foreground sm:text-base lg:text-lg">
-              I build products end to end &mdash; interfaces people enjoy using,
-              on top of APIs and data models built to last. React, Next.js and
-              React Native on the front; Nest.js, PostgreSQL and Redis behind.
+            <p className="mx-auto mb-8 max-w-2xl text-base text-muted-foreground lg:text-lg">
+              I build web and mobile products end to end for teams abroad
+              &mdash; from the database to the interface. Recent work: an AI
+              ads platform, a dating app past 20,000 downloads, and HR software
+              running 40+ organisations.
             </p>
           </MotionWrapper>
 
