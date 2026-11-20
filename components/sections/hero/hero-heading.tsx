@@ -6,7 +6,16 @@ export default function HeroHeading() {
         <span className="text-primary text-shadow-none">.</span>
       </h1>
       <p className="mb-8 font-mono text-xs font-medium uppercase tracking-[0.2em] text-balance text-primary sm:text-sm">
-        Full-stack Developer · Remote from Nepal
+        {/* Each segment is unbreakable so narrow screens wrap between
+            segments, never inside "Web & Mobile". */}
+        {["Full-stack Developer", "Web & Mobile", "Based in Nepal"].map(
+          (segment, i) => (
+            <span key={segment}>
+              {i > 0 && " · "}
+              <span className="whitespace-nowrap">{segment}</span>
+            </span>
+          )
+        )}
       </p>
     </div>
   );
