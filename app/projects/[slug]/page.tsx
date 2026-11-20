@@ -52,9 +52,9 @@ export async function generateMetadata({
       type: "article",
       images: [
         {
+          // No width/height: the screenshot isn't 1200x630, and declaring
+          // dimensions that don't match makes scrapers crop or reject it.
           url: project.image,
-          width: 1200,
-          height: 630,
           alt: `${project.title} — ${project.category} by Rajin Sakha`,
         },
       ],
@@ -78,13 +78,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const projectUrl = `${SITE_URL}/projects/${project.slug}`;
 
-  const softwareSchema = {
+  // Match the schema type to what the project actually is. A blanket
+  // SoftwareApplication/"Web" mislabelled the mobile apps and the Shopify
+  // storefront; category and operatingSystem are left out rather than guessed.
+  const schemaType =
+    project.category === "Mobile Application"
+      ? "MobileApplication"
+      : project.category === "Web Application"
+        ? "WebApplication"
+        : "CreativeWork";
+
+  const projectSchema = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
+    "@type": schemaType,
     name: project.title,
     description: project.description,
-    applicationCategory: "BusinessApplication",
-    operatingSystem: "Web",
     url: projectUrl,
     image: `${SITE_URL}${project.image}`,
     author: {
@@ -119,7 +127,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <article className="py-16 md:py-24">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
       />
       <script
         type="application/ld+json"
