@@ -30,7 +30,9 @@ export default function ProjectCard({
 
   const allImages = isStaticCard
     ? [project.image]
-    : [project.image, ...project.screenshotUrls];
+    : // Some projects reuse the card image as their first screenshot; without
+      // dedupe the first hover/focus step would show no change.
+      Array.from(new Set([project.image, ...project.screenshotUrls]));
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -50,6 +52,19 @@ export default function ProjectCard({
         className="group relative overflow-hidden h-full flex flex-col transition-[box-shadow,transform] duration-300 hover:shadow-md hover:-translate-y-1 gap-0 py-0 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsHovered(false)}
+        // Keyboard parity with hover. Focus bubbles from each link in the
+        // card, so only react when it enters from outside — otherwise tabbing
+        // through the card's three links would cycle the image three times.
+        onFocus={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+            handleMouseEnter();
+          }
+        }}
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+            setIsHovered(false);
+          }
+        }}
       >
         <div className="relative h-48 overflow-hidden">
           <motion.div
@@ -94,7 +109,7 @@ export default function ProjectCard({
                 variant="ghost"
                 asChild
                 className="relative z-20"
-                aria-label={`View ${project.title} demo`}
+                aria-label={`Demo — ${project.title}`}
               >
                 <a
                   href={project.links.live}
@@ -112,7 +127,7 @@ export default function ProjectCard({
                 variant="ghost"
                 asChild
                 className="relative z-20"
-                aria-label={`View ${project.title} source code`}
+                aria-label={`Code — ${project.title}`}
               >
                 <a
                   href={project.links.github}
@@ -131,9 +146,12 @@ export default function ProjectCard({
               <Link
                 href={`/projects/${project.slug}`}
                 className="after:absolute after:inset-0 after:content-['']"
-                aria-label={`View ${project.title} details`}
               >
                 View Details
+                {/* Visible text stays first so the accessible name contains
+                    it (WCAG 2.5.3); the title disambiguates six identical
+                    links for screen-reader link lists. */}
+                <span className="sr-only"> — {project.title}</span>
               </Link>
             </Button>
           </div>
