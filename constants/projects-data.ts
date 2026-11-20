@@ -75,6 +75,15 @@ export const projectSurfaces = [
   "E-commerce Storefront",
 ] as const;
 
+// Projects shown on the homepage, in display order. Everything else lives on
+// /projects. Chosen for range: an AI web platform, a shipped mobile game and a
+// consumer mobile app with its own landing site.
+export const homeProjectSlugs = [
+  "kennedy-ai-studio",
+  "five-one",
+  "mitho",
+] as const;
+
 export const projects: Project[] = [
   {
     id: 8,

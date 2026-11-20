@@ -13,6 +13,10 @@ import { Button } from "@/components/ui/button";
 import type { ProjectCardData } from "@/types";
 import ProjectSurfaces from "@/components/ui/project-surfaces";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+
+// Full lists run past 20 badges and drown the card; the detail page shows all.
+const MAX_CARD_TECHNOLOGIES = 8;
 
 export default function ProjectCard({
   project,
@@ -94,10 +98,15 @@ export default function ProjectCard({
 
           <div className="mb-4">
             <div className="flex flex-wrap gap-1.5 mt-2">
-              {resolveTechIcons(project.technologies).map(
-                ({ tech, iconPath }) => (
-                  <TechBadge key={tech} tech={tech} iconPath={iconPath} />
-                )
+              {resolveTechIcons(
+                project.technologies.slice(0, MAX_CARD_TECHNOLOGIES)
+              ).map(({ tech, iconPath }) => (
+                <TechBadge key={tech} tech={tech} iconPath={iconPath} />
+              ))}
+              {project.technologies.length > MAX_CARD_TECHNOLOGIES && (
+                <Badge variant="outline" className="text-xs">
+                  +{project.technologies.length - MAX_CARD_TECHNOLOGIES} more
+                </Badge>
               )}
             </div>
           </div>
