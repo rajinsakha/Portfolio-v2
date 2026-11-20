@@ -37,17 +37,18 @@ export default function CTA() {
           </div>
 
           <h2 className="font-display mx-auto max-w-2xl text-4xl font-normal tracking-tight md:text-6xl">
-            Ready to bring your ideas to life?
+            Have a product to build or a team to extend?
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground md:text-lg">
-            Whether it&apos;s a freelance project or a new opportunity, I&apos;d
-            love to hear what you&apos;re building.
+            I take on remote freelance projects from clients abroad &mdash; web,
+            mobile and the backend behind them. Tell me what you&apos;re
+            building.
           </p>
 
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button size="lg" asChild className="group w-full sm:w-auto">
               <Link href="#contact">
-                Let&apos;s Talk
+                Start a project
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>

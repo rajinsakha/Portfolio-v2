@@ -3,7 +3,7 @@ export const experiences = [
     title: "Full-stack Developer",
     company: "Kennedy Studio",
     period: "February 2026 - Present",
-    description: "Developing and maintaining web applications",
+    description: "Building the company's own product, Kennedy AI Studio, an AI-run Meta ads platform: guided campaign setup, a Gemini creative pipeline on BullMQ workers, Stripe subscription billing and an internal admin console.",
     technologies: [
       "React.js",
       "Next.js",
@@ -26,8 +26,8 @@ export const experiences = [
   {
     title: "Full-stack Developer",
     company: "FiveOne",
-    period: "August 2025 - Present",
-    description: "Building full-stack web and mobile applications",
+    period: "August 2025 - Present · Part-time",
+    description: "Building FiveOne, an elimination-game dating app on iOS and Android with 20,000+ downloads: React Native client, real-time NestJS backend, and server-authoritative round timers over Socket.io.",
     technologies: [
       "React.js",
       "Next.js",
@@ -48,7 +48,7 @@ export const experiences = [
     company: "Hunchha Digital",
     period: "December 2023 - January 2026",
     description:
-      "Developed and maintained front-end features for products and client projects, focusing on performance, responsiveness, and UI/UX improvements.",
+      "Front-end developer on Hajir Khata, the company's own HR and payroll SaaS used by 40+ organisations, and on Site IQ, a client workforce platform for construction teams with live map tracking. Focused on performance, responsiveness and UI/UX.",
     technologies: [
       "React.js",
       "Next.js",

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Code2, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, Code2, ExternalLink, Github, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TechBadge } from "@/components/ui/tech-badge";
@@ -101,6 +101,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       url: SITE_URL,
     },
     keywords: project.technologies.join(", "),
+    ...(project.links.playStore && { installUrl: project.links.playStore }),
   };
 
   const breadcrumbSchema = {
@@ -231,7 +232,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </div>
 
                 {(project.links.live && project.links.live !== "#") ||
-                  project.links.github ? (
+                  project.links.github ||
+                  project.links.playStore ? (
                   <div>
                     <h4 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
                       Links
@@ -249,6 +251,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                             rel="noopener noreferrer"
                           >
                             <ExternalLink className="mr-2 size-4" /> Live Demo
+                          </a>
+                        </Button>
+                      )}
+                      {project.links.playStore && (
+                        <Button
+                          variant="outline"
+                          className="w-full justify-start"
+                          asChild
+                        >
+                          <a
+                            href={project.links.playStore}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Smartphone className="mr-2 size-4" /> Google Play
                           </a>
                         </Button>
                       )}

@@ -15,14 +15,9 @@ export default function StructuredData() {
       addressLocality: "Bhaktapur",
       addressCountry: "NP",
     },
-    worksFor: {
-      "@type": "Organization",
-      name: "Freelance",
-    },
     sameAs: [
       "https://github.com/rajinsakha",
       "https://www.linkedin.com/in/rajinsakha/",
-      "https://twitter.com/rajinsakha",
     ],
     description:
       "Full-stack Developer building web and mobile products end to end with React, Next.js, React Native, Nest.js, PostgreSQL and Redis.",
