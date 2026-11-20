@@ -14,7 +14,7 @@ export default function Contact() {
   return (
     <section id="contact" className="py-16 md:py-24">
       <div className="container">
-        <SectionHeading title="Get In Touch" subtitle="Let's work together" />
+        <SectionHeading title="Get In Touch" subtitle="Tell me what you're building" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
           <motion.div
@@ -25,9 +25,9 @@ export default function Contact() {
           >
             <h3 className="font-display text-2xl font-normal mb-6">Contact Information</h3>
             <p className="text-muted-foreground mb-8">
-              Feel free to reach out to me for any questions or opportunities.
-              I&apos;m always open to discuss new projects, creative ideas,
-              or opportunities to be part of your vision.
+              Tell me what you&apos;re building, where you&apos;re stuck, or what
+              role you need filled. I work remotely from Nepal (UTC+5:45) with
+              clients abroad, and I reply by email.
             </p>
 
             <div className="space-y-6">

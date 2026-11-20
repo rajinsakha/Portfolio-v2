@@ -18,7 +18,7 @@ export default function Skills() {
         <SectionHeading
           id="skills-heading"
           title="Skills"
-          subtitle="Technologies I work with"
+          subtitle="What I build with"
         />
 
         <div className="mt-12">

@@ -15,10 +15,6 @@ export default function StructuredData() {
       addressLocality: "Bhaktapur",
       addressCountry: "NP",
     },
-    worksFor: {
-      "@type": "Organization",
-      name: "Freelance",
-    },
     sameAs: [
       "https://github.com/rajinsakha",
       "https://www.linkedin.com/in/rajinsakha/",

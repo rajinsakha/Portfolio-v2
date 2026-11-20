@@ -3,7 +3,7 @@ export const experiences = [
     title: "Full-stack Developer",
     company: "Kennedy Studio",
     period: "February 2026 - Present",
-    description: "Developing and maintaining web applications",
+    description: "Building Kennedy AI Studio, an AI-run Meta ads platform: guided campaign setup, a Gemini creative pipeline on BullMQ workers, Stripe subscription billing and an internal admin console.",
     technologies: [
       "React.js",
       "Next.js",
@@ -27,7 +27,7 @@ export const experiences = [
     title: "Full-stack Developer",
     company: "FiveOne",
     period: "August 2025 - Present",
-    description: "Building full-stack web and mobile applications",
+    description: "Building FiveOne, an elimination-game dating app on iOS and Android with 20,000+ downloads: React Native client, real-time NestJS backend, and server-authoritative round timers over Socket.io.",
     technologies: [
       "React.js",
       "Next.js",

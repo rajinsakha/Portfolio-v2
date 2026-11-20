@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Rajin Sakha",
   },
   description:
-    "Full-stack Developer building web and mobile products end to end \u2014 React, Next.js and React Native frontends on top of Nest.js APIs, PostgreSQL, Redis and background job queues.",
+    "Full-stack developer working remotely from Nepal. I build web and mobile products end to end for clients abroad with React, Next.js, React Native, Nest.js and PostgreSQL.",
   keywords: [
     "Full-stack Developer",
     "React.js",
@@ -109,8 +109,8 @@ export default function RootLayout({
         </noscript>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
         >
           <a
