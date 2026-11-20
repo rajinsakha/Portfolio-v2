@@ -144,6 +144,8 @@ export const projects: Project[] = [
     slug: "drixwalls",
     links: {
       live: "https://drixwalls.com",
+      playStore:
+        "https://play.google.com/store/apps/details?id=com.thelostcoder.drixwalls",
     },
     challenges:
       "One catalogue had to serve two very different clients. The web needs crawlable, browsable pages for people arriving from search; the phone needs a fast grid and a native way to set the wallpaper. Both had to share one account, one set of likes and collections, and one paid membership, whichever side it was bought on.\n\nThe freemium line had to hold on the server, not in the client: a daily download cap for free accounts, a premium-only catalogue, and full-size originals that can't simply be pulled from a public URL.\n\nOpening uploads to members meant untrusted images arriving at any time. They can't be processed inside a request, and they can't go live without someone looking at them.",
@@ -206,6 +208,8 @@ export const projects: Project[] = [
     slug: "plamora",
     links: {
       live: "https://plamora.rajinsakha.com.np",
+      playStore:
+        "https://play.google.com/store/apps/details?id=com.rajinsakha.lifeplanner",
     },
     challenges:
       "Hamro Patro already owns “Nepali calendar” in most people’s minds, so Plamora couldn’t win on the calendar alone. It needed a reason to open it every day and a reason to stay.\n\nNepali time isn’t Gregorian time. A monthly bill due on Aswin 31 has no Aswin 31 the next month, salaries and rent follow the BS month, and lunar festival dates can’t safely be computed forward.\n\nPeople don’t want an account for a to-do list, but a household’s shared list has to sync, survive bad connectivity, and never silently overwrite someone else’s change.",
@@ -876,6 +880,7 @@ export const projects: Project[] = [
       // Play listing (play.google.com/store/apps/details?id=com.rajinsakha.mitho)
       // still 404s publicly — swap `live` to it once the listing resolves.
       live: "https://mitho.rajinsakha.com.np",
+      playStore: "https://play.google.com/store/apps/details?id=com.rajinsakha.mitho",
     },
     challenges: `
       The core problem is decision fatigue, so the usual answer—show more options—makes the product worse. The interface had to resist becoming a browsable catalogue while still giving enough information to trust a suggestion.

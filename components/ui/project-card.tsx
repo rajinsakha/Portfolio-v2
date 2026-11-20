@@ -5,7 +5,7 @@ import type React from "react";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Smartphone } from "lucide-react";
 import { TechBadge } from "@/components/ui/tech-badge";
 import { resolveTechIcons } from "@/constants/tech-icons";
 import Image from "next/image";
@@ -92,7 +92,7 @@ export default function ProjectCard({
         <CardContent className="px-4 pt-4 pb-3 flex flex-col flex-grow">
           <h3 className="text-xl font-bold mb-2">{project.title}</h3>
           <ProjectSurfaces surfaces={project.surfaces} className="mb-3" />
-          <p className="text-muted-foreground text-sm mb-4 line-clamp-3 flex-grow">
+          <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
             {project.description}
           </p>
 
@@ -111,7 +111,7 @@ export default function ProjectCard({
             </div>
           </div>
 
-          <div className="relative z-10 flex gap-2 mt-auto">
+          <div className="relative z-10 mt-auto flex flex-wrap items-center gap-2">
             {project.links.live && project.links.live !== "#" && (
               <Button
                 size="sm"
@@ -127,6 +127,24 @@ export default function ProjectCard({
                 >
                   <ExternalLink className="size-4 mr-1" aria-hidden="true" />{" "}
                   Demo
+                </a>
+              </Button>
+            )}
+            {project.links.playStore && (
+              <Button
+                size="sm"
+                variant="ghost"
+                asChild
+                className="relative z-20"
+                aria-label={`Google Play — ${project.title}`}
+              >
+                <a
+                  href={project.links.playStore}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Smartphone className="size-4 mr-1" aria-hidden="true" />{" "}
+                  Google Play
                 </a>
               </Button>
             )}
