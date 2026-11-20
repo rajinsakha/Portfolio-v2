@@ -10,7 +10,7 @@ import { TechBadge } from "@/components/ui/tech-badge";
 import { resolveTechIcons } from "@/constants/tech-icons";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import type { Project } from "@/types";
+import type { ProjectCardData } from "@/types";
 import ProjectSurfaces from "@/components/ui/project-surfaces";
 import Link from "next/link";
 
@@ -18,7 +18,7 @@ export default function ProjectCard({
   project,
   index,
 }: {
-  project: Project;
+  project: ProjectCardData;
   index: number;
 }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -30,7 +30,7 @@ export default function ProjectCard({
 
   const allImages = isStaticCard
     ? [project.image]
-    : [project.image, ...project.screenshots.map((screenshot) => screenshot.url)];
+    : [project.image, ...project.screenshotUrls];
 
   const handleMouseEnter = () => {
     setIsHovered(true);
