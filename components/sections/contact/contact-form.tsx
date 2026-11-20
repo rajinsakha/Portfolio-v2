@@ -1,74 +1,82 @@
 "use client";
-import { useState } from "react";
-import React from "react";
+
+import { useActionState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle2, Loader2, Send } from "lucide-react";
+import { CheckCircle2, CircleAlert, Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { contactItems } from "@/constants/contact-data";
+import {
+  sendContactMessage,
+  type ContactField,
+  type ContactState,
+} from "@/app/actions/contact";
 
 const CONTACT_EMAIL =
   contactItems.find((item) => item.title === "Email")?.content ??
   "rajinsakha07@gmail.com";
 
+const initialState: ContactState = {
+  status: "idle",
+  values: { name: "", email: "", subject: "", message: "" },
+};
+
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+  const [state, formAction, isPending] = useActionState(
+    sendContactMessage,
+    initialState
+  );
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // After a failed submit, move focus to the first field that needs fixing so
+  // keyboard and screen-reader users land where the problem is.
+  useEffect(() => {
+    if (state.status !== "error" || !state.fieldErrors) return;
+    formRef.current
+      ?.querySelector<HTMLElement>('[aria-invalid="true"]')
+      ?.focus();
+  }, [state]);
+
+  const errorFor = (field: ContactField) => state.fieldErrors?.[field];
+  const fieldProps = (field: ContactField) => ({
+    id: field,
+    name: field,
+    defaultValue: state.values[field],
+    "aria-invalid": errorFor(field) ? true : undefined,
+    "aria-describedby": errorFor(field) ? `${field}-error` : undefined,
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSent, setIsSent] = useState(false);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    const subject = formData.subject || `New message from ${formData.name}`;
-    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`;
-
-    const mailtoUrl = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-
-    // Open the visitor's email client with the message pre-filled.
-    window.location.href = mailtoUrl;
-
-    setFormData({ name: "", email: "", subject: "", message: "" });
-    setIsSubmitting(false);
-    setIsSent(true);
-  };
+  const fieldError = (field: ContactField) =>
+    errorFor(field) ? (
+      <p id={`${field}-error`} className="text-sm text-destructive">
+        {errorFor(field)}
+      </p>
+    ) : null;
 
   return (
     <Card>
       <CardContent className="px-6">
         <h3 className="font-display text-2xl font-normal mb-6">Send Me a Message</h3>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form
+          ref={formRef}
+          action={formAction}
+          className="flex flex-col gap-4"
+        >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
               <label htmlFor="name" className="text-sm font-medium">
                 Your Name
               </label>
               <Input
-                id="name"
-                name="name"
+                {...fieldProps("name")}
                 autoComplete="name"
-                value={formData.name}
-                onChange={handleChange}
+                maxLength={100}
                 placeholder="Jane Doe"
                 required
               />
+              {fieldError("name")}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -76,17 +84,16 @@ const ContactForm = () => {
                 Your Email
               </label>
               <Input
-                id="email"
-                name="email"
+                {...fieldProps("email")}
                 type="email"
                 inputMode="email"
                 autoComplete="email"
                 spellCheck={false}
-                value={formData.email}
-                onChange={handleChange}
+                maxLength={254}
                 placeholder="jane@example.com"
                 required
               />
+              {fieldError("email")}
             </div>
           </div>
 
@@ -95,14 +102,13 @@ const ContactForm = () => {
               Subject
             </label>
             <Input
-              id="subject"
-              name="subject"
+              {...fieldProps("subject")}
               autoComplete="off"
-              value={formData.subject}
-              onChange={handleChange}
+              maxLength={150}
               placeholder="How can I help you?"
               required
             />
+            {fieldError("subject")}
           </div>
 
           <div className="flex flex-col gap-2">
@@ -110,18 +116,33 @@ const ContactForm = () => {
               Message
             </label>
             <Textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
+              {...fieldProps("message")}
+              maxLength={5000}
               placeholder="Your message here…"
               rows={5}
               required
             />
+            {fieldError("message")}
           </div>
 
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? (
+          {/* Honeypot — off-screen and skipped by keyboard and assistive tech.
+              Bots that fill every field give themselves away. */}
+          <div
+            aria-hidden="true"
+            className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+          >
+            <label htmlFor="website">Leave this field empty</label>
+            <input
+              id="website"
+              name="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+
+          <Button type="submit" className="w-full" disabled={isPending}>
+            {isPending ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
                 Sending…
@@ -133,20 +154,40 @@ const ContactForm = () => {
             )}
           </Button>
 
-          {isSent && (
-            <p
-              role="status"
-              className="flex items-center justify-center gap-2 text-sm text-muted-foreground"
-            >
-              <CheckCircle2 className="h-4 w-4 text-primary" />
-              Your email app should open with the message ready to send. You can
-              also reach me directly at{" "}
-              <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary underline">
-                {CONTACT_EMAIL}
-              </a>
-              .
-            </p>
-          )}
+          {/* Always mounted so screen readers announce changes inside it. */}
+          <div aria-live="polite" className="text-sm">
+            {state.status === "success" && (
+              <p className="flex items-start justify-center gap-2 text-muted-foreground">
+                <CheckCircle2
+                  className="mt-0.5 h-4 w-4 shrink-0 text-primary"
+                  aria-hidden="true"
+                />
+                {state.message}
+              </p>
+            )}
+            {state.status === "error" && (
+              <p
+                role="alert"
+                className="flex items-start justify-center gap-2 text-destructive"
+              >
+                <CircleAlert
+                  className="mt-0.5 h-4 w-4 shrink-0"
+                  aria-hidden="true"
+                />
+                <span>
+                  {state.message}{" "}
+                  {!state.fieldErrors && (
+                    <a
+                      href={`mailto:${CONTACT_EMAIL}`}
+                      className="underline underline-offset-2"
+                    >
+                      {CONTACT_EMAIL}
+                    </a>
+                  )}
+                </span>
+              </p>
+            )}
+          </div>
         </form>
       </CardContent>
     </Card>
