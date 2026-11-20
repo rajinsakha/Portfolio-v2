@@ -70,7 +70,6 @@ export const metadata: Metadata = {
     title: "Rajin Sakha | Full-stack Developer",
     description:
       "Full-stack Developer building web and mobile products end to end with React, Next.js, React Native, Nest.js, PostgreSQL and Redis.",
-    creator: "@rajinsakha",
   },
   robots: {
     index: true,
