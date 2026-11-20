@@ -7,12 +7,12 @@ export default function HeroActions() {
   return (
     <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
       <Button size="lg" asChild>
-        <Link href="#projects">
-          View My Work <ArrowRight className="ml-2 h-4 w-4" />
+        <Link href="#contact">
+          Start a project <ArrowRight className="ml-2 h-4 w-4" />
         </Link>
       </Button>
       <Button size="lg" variant="outline" asChild>
-        <Link href="#contact">Contact Me</Link>
+        <Link href="#projects">See my work</Link>
       </Button>
     </div>
   );

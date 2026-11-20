@@ -4,13 +4,16 @@ import { Button } from "@/components/ui/button";
 
 import { SectionHeading } from "@/components/ui/section-heading";
 
-import { projects } from "@/constants/projects-data";
+import { homeProjectSlugs, projects } from "@/constants/projects-data";
 import { toProjectCardData } from "@/lib/projects";
 import ProjectCard from "../ui/project-card";
 
 // Server component on purpose: it reads the full project data here and hands
 // the client-side cards only the fields they render.
-const cardProjects = projects.map(toProjectCardData);
+const cardProjects = homeProjectSlugs
+  .map((slug) => projects.find((project) => project.slug === slug))
+  .filter((project): project is NonNullable<typeof project> => Boolean(project))
+  .map(toProjectCardData);
 
 export default function Projects() {
   return (
@@ -22,11 +25,11 @@ export default function Projects() {
       <div className="container">
         <SectionHeading
           id="projects-heading"
-          title="My Projects"
-          subtitle="Recent work I've done"
+          title="Selected Work"
+          subtitle="Products I've built end to end"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           {cardProjects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
@@ -35,7 +38,7 @@ export default function Projects() {
         <div className="mt-12 text-center">
           <Button asChild>
             <Link href="/projects">
-              View All Projects <ArrowUpRight className="ml-2 size-4" />
+              View all {projects.length} projects <ArrowUpRight className="ml-2 size-4" />
             </Link>
           </Button>
         </div>

@@ -6,16 +6,11 @@ import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import profile from "@/assets/images/about-img.jpg";
 
-// Year I started web development — keeps the "X years" copy from going stale.
-const CAREER_START_YEAR = 2023;
-
-export default function About() {
-  const yearsOfExperience = new Date().getFullYear() - CAREER_START_YEAR;
-
+export default function About({ careerLength }: { careerLength: string }) {
   return (
     <section id="about" className="py-16 md:py-24">
       <div className="container">
-        <SectionHeading title="About Me" subtitle="Get to know me better" />
+        <SectionHeading title="About Me" subtitle="How I work" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
           <motion.div
@@ -55,7 +50,7 @@ export default function About() {
                 from the interface down to the database. I work across React, Next.js and React Native on the frontend, and NestJS, PostgreSQL, Redis, background job queues and Docker on the backend.
               </p>
               <p className="text-sm sm:text-base ">
-                My journey in software began {yearsOfExperience} years ago as a
+                My journey in software began {careerLength} ago as a
                 frontend developer, and I&apos;ve since grown into owning whole
                 features: schema design, API endpoints, auth and integrations,
                 then the UI that consumes them. That range covers e-commerce

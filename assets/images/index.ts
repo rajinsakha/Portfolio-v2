@@ -56,6 +56,16 @@ import fiveOneImage from "@/assets/images/fiveone.png";
 import fiveOneRoundsImage from "@/assets/images/fiveone-rounds.png";
 import fiveOneWildcardImage from "@/assets/images/fiveone-wildcard.png";
 
+import drixWallsImage from "@/assets/images/drixwalls.jpg";
+import drixWallsDashboardImage from "@/assets/images/drixwalls-dashboard.jpg";
+import drixWallsSetWallpaperImage from "@/assets/images/drixwalls-set-wallpaper.jpg";
+import drixWallsPricingImage from "@/assets/images/drixwalls-pricing.jpg";
+import plamoraImage from "@/assets/images/plamora.jpg";
+import plamoraHomeImage from "@/assets/images/plamora-home.jpg";
+import plamoraCaptureImage from "@/assets/images/plamora-capture.jpg";
+import plamoraRoomsImage from "@/assets/images/plamora-rooms.jpg";
+import plamoraMoneyImage from "@/assets/images/plamora-money.jpg";
+
 export {
   workspaceImage,
   hajirKhataImage,
@@ -113,4 +123,13 @@ export {
   vaanyardCollectionImage,
   vaanyardProductImage,
   vaanyardAboutImage,
+  drixWallsImage,
+  drixWallsDashboardImage,
+  drixWallsSetWallpaperImage,
+  drixWallsPricingImage,
+  plamoraImage,
+  plamoraHomeImage,
+  plamoraCaptureImage,
+  plamoraRoomsImage,
+  plamoraMoneyImage,
 };

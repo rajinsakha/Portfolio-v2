@@ -1,6 +1,8 @@
 interface ProjectLink {
   live: string;
   github?: string;
+  // Public Google Play listing, for apps that are published there.
+  playStore?: string;
 }
 
 interface ProjectScreenshot {
