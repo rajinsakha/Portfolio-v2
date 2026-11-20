@@ -53,6 +53,15 @@ import {
   vaanyardCollectionImage,
   vaanyardProductImage,
   vaanyardAboutImage,
+  drixWallsImage,
+  drixWallsDashboardImage,
+  drixWallsSetWallpaperImage,
+  drixWallsPricingImage,
+  plamoraImage,
+  plamoraHomeImage,
+  plamoraCaptureImage,
+  plamoraRoomsImage,
+  plamoraMoneyImage,
 } from "@/assets/images";
 import { Project } from "@/types";
 
@@ -75,16 +84,161 @@ export const projectSurfaces = [
   "E-commerce Storefront",
 ] as const;
 
-// Projects shown on the homepage, in display order. Everything else lives on
-// /projects. Chosen for range: an AI web platform, a shipped mobile game and a
-// consumer mobile app with its own landing site.
+// Projects shown on the homepage, in display order (two rows of three).
+// Everything else lives on /projects. Leads with shipped products that show
+// end-to-end range, plus Hajir Khata for its adoption numbers.
 export const homeProjectSlugs = [
   "kennedy-ai-studio",
   "five-one",
+  "drixwalls",
+  "plamora",
   "mitho",
+  "hajir-khata",
 ] as const;
 
 export const projects: Project[] = [
+  {
+    id: 9,
+    title: "DrixWalls",
+    description:
+      "A curated wallpaper platform for Android and the web. Every wall is hand-picked and downloads as the full-size original with no watermark, and one account and one Premium membership carry across the site and the Android app.",
+    fullDescription:
+      "DrixWalls is a wallpaper product built end to end: a public catalogue on the web, an Android app that sets a wall as the home or lock screen in two taps, admin tools for moderation, and the NestJS API behind all of them. The catalogue is curated rather than scraped. Walls are filed under twelve categories, from anime and cars to minimal, AMOLED and astronomy, new ones land every week, and every download is the original file at full size with no watermark.\n\nThe model is freemium. Anyone can browse the whole catalogue in a browser with no account and no install. A free account adds likes, collections and 10 downloads a day. Premium, at $1.99 a month or $9.99 a year, lifts the cap and opens the premium catalogue, and one membership covers both the web and the Android app.\n\nBehind it sits a NestJS API on Prisma and PostgreSQL, with BullMQ workers on Redis for background work, sharp for image processing, JWT and Google sign-in, Resend for transactional email, and Dodo Payments for billing with signed webhooks. Members can submit their own walls, which move through processing and review to admin approval before going live, with an in-app notification at each step. The web app is Next.js; the Android client is React Native on Expo with Redux Toolkit, FlashList for the grid, RevenueCat for in-app purchases and AdMob.",
+    keyFeatures: [
+      "Curated catalogue across twelve categories, browsable on the web with no account and no install",
+      "Android app sets a wall as the home screen, lock screen or both in two taps",
+      "Full-size original downloads with no watermark, with a daily cap for free accounts enforced on the server",
+      "One account and one Premium membership across web and Android, with likes and collections that follow the user",
+      "Member uploads that move through processing, review and admin approval, with in-app status notifications",
+      "Background jobs on BullMQ and Redis, transactional email through Resend, and billing webhooks through Dodo Payments",
+      "Containerised NestJS API with GitHub Actions CI covering lint, build, tests, image publishing and CodeQL",
+    ],
+    image: drixWallsImage.src,
+    technologies: [
+      "React Native",
+      "Expo",
+      "Next.js",
+      "TypeScript",
+      "Redux Toolkit",
+      "Tailwind CSS",
+      "NestJS",
+      "Prisma",
+      "PostgreSQL",
+      "Redis",
+      "BullMQ",
+      "RevenueCat",
+      "AdMob",
+      "Dodo Payments",
+      "Resend",
+      "Docker",
+    ],
+    category: "Web Application",
+    surfaces: [
+      "Marketing Site",
+      "Web App",
+      "Mobile App",
+      "Admin Console",
+      "Backend API",
+    ],
+    featured: true,
+    slug: "drixwalls",
+    links: {
+      live: "https://drixwalls.com",
+    },
+    challenges:
+      "One catalogue had to serve two very different clients. The web needs crawlable, browsable pages for people arriving from search; the phone needs a fast grid and a native way to set the wallpaper. Both had to share one account, one set of likes and collections, and one paid membership, whichever side it was bought on.\n\nThe freemium line had to hold on the server, not in the client: a daily download cap for free accounts, a premium-only catalogue, and full-size originals that can't simply be pulled from a public URL.\n\nOpening uploads to members meant untrusted images arriving at any time. They can't be processed inside a request, and they can't go live without someone looking at them.",
+    solutions:
+      "A single NestJS API serves both clients, so entitlements, likes, collections and download counts live in one place and the web and Android app read the same state. Premium bought on the web unlocks the app too.\n\nDownloads go through protected endpoints that check the daily cap and premium entitlement before releasing the original file.\n\nUploads are handed to BullMQ workers on Redis and processed with sharp off the request path, then wait in review until an admin approves them. The uploader gets an in-app notification as the wall moves from processing to review to live.",
+    screenshots: [
+      {
+        url: drixWallsImage.src,
+        caption:
+          "Landing page — hand-picked walls for Android and the web, browsable with no account.",
+      },
+      {
+        url: drixWallsDashboardImage.src,
+        caption:
+          "Web app — featured wall, trending and new drops, with category counts in the sidebar.",
+      },
+      {
+        url: drixWallsSetWallpaperImage.src,
+        caption:
+          "Set it in two taps — the Android app applies a wall to the home screen, lock screen or both.",
+      },
+      {
+        url: drixWallsPricingImage.src,
+        caption:
+          "Premium — one membership across web and Android lifts the free daily download cap.",
+      },
+    ],
+  },
+  {
+    id: 10,
+    title: "Plamora",
+    description:
+      "A Nepali-first, local-first organiser built around the Bikram Sambat calendar: dates, festivals, tasks, bills and the month’s money in one place, in English and Nepali, with shared household rooms that sync across phones.",
+    fullDescription:
+      "Plamora treats the Bikram Sambat calendar as the spine of daily life. Today’s BS date, the week ahead, the next festival, tasks, reminders, household work and spending all sit on one time axis instead of in disconnected tabs. It is free, bilingual in English and Nepali with Devanagari or Latin numerals, and works without a signal.\n\nIt is local-first by design. Personal tasks, notes, the journal, expenses, bills and budgets stay on the phone and need no account. Google sign-in is only required for shared rooms: a household joins with a six-character invite code and shares tasks, bills and split expenses that sync through Supabase, with row-level security and Realtime updates. Shared-task edits made offline queue on the phone and replay with version checks, asking “keep mine or use theirs” when someone else changed the task first.\n\nCapture understands the way people actually type — “bholi 4 baje doctor” becomes tomorrow at 4 PM — in Nepali, English or Romanized Nepali, and shows what it parsed before saving. Money follows the BS month, because salaries and rent do, with income, budgets, a safe-to-spend figure, CSV export, and on-device import of text-based bank PDFs, eSewa XLS statements and pasted SMS. The React Native and Expo app also runs as a web app, alongside a separate marketing site.",
+    keyFeatures: [
+      "Bikram Sambat calendar as the home screen: today’s BS date, the week ahead and the next festival, already counted",
+      "Natural-language capture in Nepali, English or Romanized Nepali, with a parsed preview to correct before saving",
+      "Shared household rooms with six-character invite codes, owner and member roles, and shared tasks, bills and split expenses",
+      "Room access enforced by Supabase row-level security and validated RPCs, with Realtime updates instead of polling",
+      "Offline shared-task edits queued on the phone and replayed with version checks and a conflict prompt",
+      "BS-month money: income, budgets, safe-to-spend, bills with reminders and CSV export",
+      "On-device import of text-based bank PDFs, eSewa XLS statements and pasted transaction SMS — no bank logins",
+      "Study timer that survives a closed screen, and an optional app lock with fingerprint or Face ID",
+    ],
+    image: plamoraImage.src,
+    technologies: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Zustand",
+      "SQLite",
+      "Supabase",
+      "PostgreSQL",
+      "Astro",
+    ],
+    category: "Mobile Application",
+    surfaces: ["Mobile App", "Web App", "Marketing Site", "Backend API"],
+    featured: true,
+    slug: "plamora",
+    links: {
+      live: "https://plamora.rajinsakha.com.np",
+    },
+    challenges:
+      "Hamro Patro already owns “Nepali calendar” in most people’s minds, so Plamora couldn’t win on the calendar alone. It needed a reason to open it every day and a reason to stay.\n\nNepali time isn’t Gregorian time. A monthly bill due on Aswin 31 has no Aswin 31 the next month, salaries and rent follow the BS month, and lunar festival dates can’t safely be computed forward.\n\nPeople don’t want an account for a to-do list, but a household’s shared list has to sync, survive bad connectivity, and never silently overwrite someone else’s change.",
+    solutions:
+      "The calendar became the daily habit and the household the retention loop: shared rooms put the same tasks, bills and splits on every member’s phone.\n\nRecurrence and money are BS-aware. An Aswin 31 task rolls to Kartik 30 when the next month is shorter, and budgets, reports and bill cycles run on the BS month. Festival dates come from a verified panchang seed for 2083–2084 BS rather than being extrapolated.\n\nPersonal data is local-first with no sign-in; only shared rooms use Google and Supabase. Room access is enforced by row-level security and validated RPCs, changes arrive over Realtime, and offline edits replay with version checks that ask which version to keep on conflict.",
+    screenshots: [
+      {
+        url: plamoraImage.src,
+        caption:
+          "Marketing site — today’s Bikram Sambat date, the week, and the next festival counted.",
+      },
+      {
+        url: plamoraHomeImage.src,
+        caption:
+          "Home — the BS date, today’s tasks, spending, habits and anything overdue.",
+      },
+      {
+        url: plamoraCaptureImage.src,
+        caption:
+          "Capture — “bholi 4 baje doctor” parsed into a task for tomorrow at 4 PM before saving.",
+      },
+      {
+        url: plamoraRoomsImage.src,
+        caption:
+          "Rooms — create a shared household room, or join one with a six-character code.",
+      },
+      {
+        url: plamoraMoneyImage.src,
+        caption:
+          "Money — the BS month’s income, spending and net, with SMS and statement import.",
+      },
+    ],
+  },
   {
     id: 8,
     title: "VAANYARD®",
