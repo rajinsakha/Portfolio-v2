@@ -27,11 +27,13 @@ export default function About() {
           >
             <div className="h-full min-h-[400px] lg:min-h-full lg:h-full w-full relative">
               <Image
-                src={profile.src}
+                src={profile}
                 alt="Rajin Sakha"
                 fill
+                // Column is capped at max-w-md (448px); without `sizes`, `fill`
+                // makes the browser assume 100vw and fetch an oversized image.
+                sizes="(max-width: 448px) 100vw, 448px"
                 className="object-cover"
-                priority
               />
             </div>
           </motion.div>

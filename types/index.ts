@@ -31,6 +31,24 @@ export interface Project {
   screenshots: ProjectScreenshot[];
 }
 
+// The slice of a Project the home-page cards render. Passed to the client-side
+// ProjectCard instead of the full Project so case-study prose (fullDescription,
+// challenges, solutions, captions) stays out of the homepage JS bundle.
+export type ProjectCardData = Pick<
+  Project,
+  | "id"
+  | "title"
+  | "description"
+  | "image"
+  | "technologies"
+  | "category"
+  | "surfaces"
+  | "slug"
+  | "links"
+> & {
+  screenshotUrls: string[];
+};
+
 export interface IContactItem {
   icon: React.ReactNode;
   title: string;

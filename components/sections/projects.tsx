@@ -1,7 +1,3 @@
-"use client";
-
-import type React from "react";
-
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,7 +5,12 @@ import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 import { projects } from "@/constants/projects-data";
+import { toProjectCardData } from "@/lib/projects";
 import ProjectCard from "../ui/project-card";
+
+// Server component on purpose: it reads the full project data here and hands
+// the client-side cards only the fields they render.
+const cardProjects = projects.map(toProjectCardData);
 
 export default function Projects() {
   return (
@@ -26,7 +27,7 @@ export default function Projects() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-          {projects.map((project, index) => (
+          {cardProjects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>

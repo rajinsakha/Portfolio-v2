@@ -6,6 +6,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import Navbar from "@/components/sections/navbar";
 import Footer from "@/components/sections/footer";
+import { SITE_URL } from "@/lib/site";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -50,7 +52,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://rajinsakha.com.np"),
+  metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: "/",
   },
@@ -58,7 +60,7 @@ export const metadata: Metadata = {
     title: "Rajin Sakha | Full-stack Developer",
     description:
       "Full-stack Developer building web and mobile products end to end with React, Next.js, React Native, Nest.js, PostgreSQL and Redis.",
-    url: "https://rajinsakha.com.np",
+    url: SITE_URL,
     siteName: "Rajin Sakha Portfolio",
     locale: "en_US",
     type: "website",
@@ -100,6 +102,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}
       >
+        {/* Scroll-reveal sections server-render at opacity 0 and are shown by
+            JS. Without JS (or before it loads) they would stay invisible. */}
+        <noscript>
+          <style>{`[style*="opacity:0;"],[style$="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
