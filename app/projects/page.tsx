@@ -72,7 +72,7 @@ export default function ProjectsPage() {
                 </div>
 
                 <CardContent className="p-5 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                  <h3 className="font-display text-2xl font-normal mb-2">{project.title}</h3>
                   <ProjectSurfaces surfaces={project.surfaces} className="mb-3" />
                   <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
                     {project.description}

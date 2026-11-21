@@ -206,7 +206,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           <div>
             <div className="bg-card rounded-xl p-6 border border-border/50 sticky top-24">
-              <h3 className="text-xl font-bold mb-4">Project Details</h3>
+              <h3 className="font-display text-2xl font-normal mb-4">Project Details</h3>
 
               <div className="space-y-6">
                 {project.surfaces?.length ? (

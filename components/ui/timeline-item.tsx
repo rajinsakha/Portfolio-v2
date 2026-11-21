@@ -44,7 +44,7 @@ const TimelineItem = ({
       {/* Content */}
       <div className="bg-card rounded-lg p-6 shadow-sm">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-          <h3 className="text-xl font-semibold">{title}</h3>
+          <h3 className="font-display text-2xl font-normal">{title}</h3>
           <span className="text-muted-foreground text-sm mt-1 md:mt-0">
             {period}
           </span>
