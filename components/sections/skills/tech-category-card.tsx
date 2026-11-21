@@ -27,7 +27,7 @@ export default function TechCategoryCard({
             <div className="p-2 rounded-md bg-primary/10 text-primary">
               {category.icon}
             </div>
-            <h3 className="text-xl font-semibold">{category.title}</h3>
+            <h3 className="font-display text-2xl font-normal">{category.title}</h3>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
