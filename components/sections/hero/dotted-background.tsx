@@ -12,8 +12,9 @@ export default function DottedBackground({ className }: DottedBackgroundProps) {
         aria-hidden="true"
         className={cn(
           "hero-static-dots pointer-events-none absolute inset-0 -z-10",
-          "bg-[radial-gradient(#e5e7eb_1px,transparent_1px)]",
-          "dark:bg-[radial-gradient(#212121_1px,transparent_1px)]",
+          // Same tint as the canvas grid's resting dots (16%, see dot-grid.tsx)
+          // so the two layers match, and it follows both themes via tokens.
+          "bg-[radial-gradient(color-mix(in_oklch,var(--foreground)_16%,var(--background))_1px,transparent_1px)]",
           "[background-size:16px_16px]",
           className,
         )}
