@@ -20,7 +20,7 @@ export default function StructuredData() {
       "https://www.linkedin.com/in/rajinsakha/",
     ],
     description:
-      "Full-stack Developer building web and mobile products end to end with React, Next.js, React Native, Nest.js, PostgreSQL and Redis.",
+      "Full-stack Developer building web and mobile products end to end with React, Next.js, React Native, NestJS, PostgreSQL and Redis.",
     knowsAbout: [
       "React.js",
       "Next.js",
@@ -46,7 +46,7 @@ export default function StructuredData() {
     name: "Rajin Sakha's Portfolio",
     url: SITE_URL,
     description:
-      "Portfolio website of Rajin Sakha, a Full-stack Developer working across React, Next.js, React Native and Nest.js.",
+      "Portfolio website of Rajin Sakha, a Full-stack Developer working across React, Next.js, React Native and NestJS.",
     inLanguage: "en",
     author: {
       "@id": `${SITE_URL}/#person`,

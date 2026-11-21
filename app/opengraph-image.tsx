@@ -44,7 +44,7 @@ export default function OpenGraphImage() {
             maxWidth: 900,
           }}
         >
-          Building product end to end — React & Next.js on top of Nest.js
+          Building product end to end — React & Next.js on top of NestJS
           APIs, PostgreSQL, and Redis
         </div>
       </div>

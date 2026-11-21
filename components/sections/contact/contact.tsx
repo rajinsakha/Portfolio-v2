@@ -23,11 +23,11 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="font-display text-2xl font-normal mb-6">Contact Information</h3>
+            <h3 className="font-display text-2xl font-normal mb-6">Send me the brief</h3>
             <p className="text-muted-foreground mb-8">
               Tell me what you&apos;re building, where you&apos;re stuck, or what
-              role you need filled. I work remotely from Nepal (UTC+5:45) with
-              clients abroad, and I reply by email.
+              role you need filled. I&apos;m based in Nepal (UTC+5:45), work
+              with clients abroad, and reply by email.
             </p>
 
             <div className="space-y-6">

@@ -11,7 +11,7 @@ export default function Footer() {
               Rajin<span className="text-primary">.</span>
             </Link>
             <p className="text-sm text-muted-foreground text-center md:text-left">
-              Full-stack developer building product end to end with Next.js and Nest.js
+              Full-stack developer building web and mobile products end to end
             </p>
           </div>
 
