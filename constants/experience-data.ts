@@ -48,7 +48,7 @@ export const experiences = [
     company: "Hunchha Digital",
     period: "December 2023 - January 2026",
     description:
-      "Front-end developer on Hajir Khata, the company's own HR and payroll SaaS used by 40+ organisations, and on Site IQ, a client workforce platform for construction teams with live map tracking. Focused on performance, responsiveness and UI/UX.",
+      "Front-end developer on Hajir Khata, the company's own HR and payroll SaaS used by 40+ organisations (admin web app, employee app and marketing site), and on Site IQ, a client workforce platform for construction teams with live map tracking. Focused on performance, responsiveness and UI/UX.",
     technologies: [
       "React.js",
       "Next.js",
