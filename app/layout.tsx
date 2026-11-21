@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Rajin Sakha",
   },
   description:
-    "Full-stack developer based in Nepal. I build web and mobile products end to end for clients abroad with React, Next.js, React Native, NestJS and PostgreSQL.",
+    "Full-stack developer based in Nepal. I build web and mobile products end to end for clients in Nepal and worldwide with React, Next.js, React Native, NestJS and PostgreSQL.",
   keywords: [
     "Full-stack Developer",
     "React.js",

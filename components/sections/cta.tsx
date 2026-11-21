@@ -40,7 +40,7 @@ export default function CTA() {
             Have a product to build or a team to extend?
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground md:text-lg">
-            I take on remote freelance projects from clients abroad &mdash; web,
+            I take on freelance projects, remote or in person, from clients in Nepal and worldwide &mdash; web,
             mobile and the backend behind them. Tell me what you&apos;re
             building.
           </p>
