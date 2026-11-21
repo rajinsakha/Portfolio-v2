@@ -5,7 +5,8 @@ import type React from "react";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Github, ExternalLink, Smartphone } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
+import { GooglePlayIcon } from "@/components/ui/google-play-icon";
 import { TechBadge } from "@/components/ui/tech-badge";
 import { resolveTechIcons } from "@/constants/tech-icons";
 import Image from "next/image";
@@ -143,7 +144,7 @@ export default function ProjectCard({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Smartphone className="size-4 mr-1" aria-hidden="true" />{" "}
+                  <GooglePlayIcon className="size-4 mr-1" />{" "}
                   Google Play
                 </a>
               </Button>
