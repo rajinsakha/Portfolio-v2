@@ -54,7 +54,7 @@ export default function About({ careerLength }: { careerLength: string }) {
                 since grown into owning whole features: schema design, API
                 endpoints, auth and integrations, then the UI that consumes
                 them. That has meant an AI ads platform, a dating app past
-                20,000 downloads, HR software running 40+ organisations, and
+                20,000 downloads, the web frontend of HR software running 40+ organisations, and
                 e-commerce and enterprise dashboards.
               </p>
               <p className="text-sm sm:text-base ">
