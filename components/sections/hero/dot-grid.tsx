@@ -3,7 +3,7 @@
 import { gsap } from "gsap";
 import { InertiaPlugin } from "gsap/InertiaPlugin";
 import { useTheme } from "next-themes";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 gsap.registerPlugin(InertiaPlugin);
 
@@ -30,6 +30,10 @@ const SHOCK_STRENGTH = 4;
 const MAX_SPEED = 5000;
 const RESISTANCE = 750;
 const RETURN_DURATION = 1.5;
+// How far the resting dots sit from the background toward the foreground, as a
+// percentage. Low enough to stay quiet, high enough that the grid reads before
+// anyone touches it.
+const REST_STRENGTH = 16;
 
 type Dot = {
   cx: number;
@@ -41,14 +45,28 @@ type Dot = {
 
 type Rgb = { r: number; g: number; b: number };
 
-function hexToRgb(hex: string): Rgb {
-  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!m) return { r: 0, g: 0, b: 0 };
-  return {
-    r: parseInt(m[1], 16),
-    g: parseInt(m[2], 16),
-    b: parseInt(m[3], 16),
-  };
+/**
+ * Resolve any CSS colour expression - including var() tokens and color-mix() -
+ * to sRGB. The canvas interpolates in sRGB and can't read the oklch design
+ * tokens or var() itself, so the browser resolves the expression on a probe
+ * element and a 1px canvas converts whatever space comes back.
+ */
+function resolveColor(host: HTMLElement, expression: string): Rgb {
+  const probe = document.createElement("span");
+  probe.style.color = expression;
+  host.appendChild(probe);
+  const computed = getComputedStyle(probe).color;
+  host.removeChild(probe);
+
+  const px = document.createElement("canvas");
+  px.width = px.height = 1;
+  const ctx = px.getContext("2d", { willReadFrequently: true });
+  if (!ctx) return { r: 128, g: 128, b: 128 };
+  ctx.fillStyle = "#808080"; // fallback if `computed` can't be parsed
+  ctx.fillStyle = computed;
+  ctx.fillRect(0, 0, 1, 1);
+  const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+  return { r, g, b };
 }
 
 function throttle<T extends (...args: never[]) => void>(fn: T, limit: number) {
@@ -79,16 +97,32 @@ export default function DotGrid() {
   // Visibility is read inside the rAF loop and mutated from observers, so it
   // lives in a ref rather than state - flipping it must not re-render.
   const visibleRef = useRef(true);
+  // Set whenever the canvas has been wiped or recoloured, so the loop repaints
+  // even though nothing is moving. Resizing a canvas clears it; without this
+  // the grid stayed blank at rest until the pointer first moved.
+  const needsDrawRef = useRef(true);
 
-  // --primary and the dot colour differ per theme, so both are resolved from
-  // the theme rather than baked in. Hex, because the canvas interpolates in
-  // sRGB and can't read the oklch tokens directly.
-  const isDark = resolvedTheme === "dark";
-  const baseColor = isDark ? "#212121" : "#e4e4e7";
-  const activeColor = isDark ? "#e9504d" : "#cc3336";
+  // Colours come from the design tokens, so changing --primary or the
+  // background retints the grid with no edit here. Resolved after mount and
+  // again whenever the theme flips.
+  const [palette, setPalette] = useState<{ base: Rgb; active: Rgb } | null>(
+    null,
+  );
 
-  const baseRgb = useMemo(() => hexToRgb(baseColor), [baseColor]);
-  const activeRgb = useMemo(() => hexToRgb(activeColor), [activeColor]);
+  useEffect(() => {
+    const host = wrapperRef.current;
+    if (!host) return;
+    setPalette({
+      base: resolveColor(
+        host,
+        `color-mix(in oklch, var(--foreground) ${REST_STRENGTH}%, var(--background))`,
+      ),
+      active: resolveColor(host, "var(--primary)"),
+    });
+  }, [resolvedTheme]);
+
+  const baseRgb = palette?.base;
+  const activeRgb = palette?.active;
 
   const circlePath = useMemo(() => {
     if (typeof window === "undefined" || !window.Path2D) return null;
@@ -131,14 +165,16 @@ export default function DotGrid() {
       }
     }
     dotsRef.current = dots;
+    needsDrawRef.current = true;
   }, []);
 
   // Render loop. Redraws only when the pointer has moved or a dot is still
   // settling, so a hero nobody is touching costs nothing.
   useEffect(() => {
-    if (!circlePath) return;
+    if (!circlePath || !baseRgb || !activeRgb) return;
+    const baseColor = `rgb(${baseRgb.r},${baseRgb.g},${baseRgb.b})`;
     let rafId = 0;
-    let forceDraw = true;
+    needsDrawRef.current = true; // new colours: repaint
     const proxSq = PROXIMITY * PROXIMITY;
 
     const frame = () => {
@@ -155,9 +191,9 @@ export default function DotGrid() {
       const settling = dotsRef.current.some(
         (d) => d.xOffset !== 0 || d.yOffset !== 0,
       );
-      if (!forceDraw && !pointerMoved && !settling) return;
+      if (!needsDrawRef.current && !pointerMoved && !settling) return;
 
-      forceDraw = false;
+      needsDrawRef.current = false;
       pointer.lastDrawnX = pointer.x;
       pointer.lastDrawnY = pointer.y;
 
@@ -186,7 +222,7 @@ export default function DotGrid() {
 
     rafId = requestAnimationFrame(frame);
     return () => cancelAnimationFrame(rafId);
-  }, [baseColor, baseRgb, activeRgb, circlePath]);
+  }, [baseRgb, activeRgb, circlePath]);
 
   // Size the grid, and pause the loop when the hero scrolls away or the tab
   // goes to the background.

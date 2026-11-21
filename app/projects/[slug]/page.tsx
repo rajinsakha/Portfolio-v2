@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Code2, ExternalLink, Github, Smartphone } from "lucide-react";
+import { ArrowLeft, Code2, ExternalLink, Github } from "lucide-react";
+import { GooglePlayIcon } from "@/components/ui/google-play-icon";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TechBadge } from "@/components/ui/tech-badge";
@@ -265,7 +266,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <Smartphone className="mr-2 size-4" /> Google Play
+                            <GooglePlayIcon className="mr-2 size-4" /> Google Play
                           </a>
                         </Button>
                       )}
