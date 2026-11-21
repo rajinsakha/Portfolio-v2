@@ -496,9 +496,9 @@ export const projects: Project[] = [
     id: 1,
     title: "Hajir Khata",
     description:
-      "The web frontend for a multi-tenant HR and payroll SaaS used by 40+ organisations and 2,025+ active users: the admin console, employee self-service app and marketing site, covering attendance, leave, claims and payroll.",
+      "The web frontend for a multi-tenant HRMS (HR and payroll SaaS) used by 40+ organisations and 2,025+ active users: the admin console, employee self-service app and marketing site, covering attendance, leave, claims and payroll.",
     fullDescription: `
-      Hajir Khata is a production HR and payroll platform with 40+ organisations and more than 2,025 active users on it, sold into hospitality, retail, manufacturing, healthcare, education and financial services. I worked on the frontend as part of the company's team: the admin web app, the employee self-service app and the marketing site. The backend and the mobile app were built by others.
+      Hajir Khata is a production HRMS (HR and payroll platform) with 40+ organisations and more than 2,025 active users on it, sold into hospitality, retail, manufacturing, healthcare, education and financial services. I worked on the frontend as part of the company's team: the admin web app, the employee self-service app and the marketing site. The backend and the mobile app were built by others.
 
       The problem it solves is the gap between how attendance is actually captured and how payroll gets calculated. Most of these organisations were reconciling a paper register, a biometric device export and a spreadsheet by hand every month. Hajir Khata closes that loop: fingerprint and face devices sync straight into the platform, field staff clock in from the product's mobile app with location capture, and that attendance data flows directly into salary components, overtime, allowances and tax without a manual export step.
 
