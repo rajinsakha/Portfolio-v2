@@ -10,7 +10,7 @@ export default function About({ careerLength }: { careerLength: string }) {
   return (
     <section id="about" className="py-16 md:py-24">
       <div className="container">
-        <SectionHeading title="About Me" subtitle="How I work" />
+        <SectionHeading title="About Me" subtitle="Who you'd be working with" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
           <motion.div
@@ -50,17 +50,19 @@ export default function About({ careerLength }: { careerLength: string }) {
                 from the interface down to the database. I work across React, Next.js and React Native on the frontend, and NestJS, PostgreSQL, Redis, background job queues and Docker on the backend.
               </p>
               <p className="text-sm sm:text-base ">
-                My journey in software began {careerLength} ago as a
-                frontend developer, and I&apos;ve since grown into owning whole
-                features: schema design, API endpoints, auth and integrations,
-                then the UI that consumes them. That range covers e-commerce
-                platforms, enterprise dashboards and AI-driven ad tooling.
+                I started as a frontend developer {careerLength} ago and have
+                since grown into owning whole features: schema design, API
+                endpoints, auth and integrations, then the UI that consumes
+                them. That has meant an AI ads platform, a dating app past
+                20,000 downloads, the web frontend of HR software running 40+ organisations, and
+                e-commerce and enterprise dashboards.
               </p>
               <p className="text-sm sm:text-base ">
-                Working across the stack means I can trace a bug from a slow
-                page straight through to the query causing it, and design APIs
-                that the UI actually wants to consume. I care about performance,
-                accessibility and code that stays readable once the team grows.
+                Working across the stack means I can trace a slow page
+                straight through to the query causing it, and design APIs the
+                UI actually wants to consume. I build to WCAG accessibility
+                guidelines and watch bundle size and Core Web Vitals, and this
+                site is built the same way.
               </p>
             </div>
 
