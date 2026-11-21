@@ -16,10 +16,10 @@ import {
   // pimsShortlistedImage,
   // pimsLeadsImage,
   // pimsSettingsThemeImage,
-  siteIqDashboardImage,
-  siteIqEmployeeDetailsImage,
-  siteIqMapViewImage,
-  siteIqMarketingLandingImage,
+  // siteIqDashboardImage,
+  // siteIqEmployeeDetailsImage,
+  // siteIqMapViewImage,
+  // siteIqMarketingLandingImage,
   mithoImage,
   mithoHomeImage,
   mithoRecommendImage,
@@ -496,11 +496,11 @@ export const projects: Project[] = [
     id: 1,
     title: "Hajir Khata",
     description:
-      "A multi-tenant HR and payroll SaaS running attendance, leave, claims and payroll for 40+ organisations and 2,025+ active users, with biometric device sync, geofenced check-in and role-based access.",
+      "The web frontend for a multi-tenant HR and payroll SaaS used by 40+ organisations and 2,025+ active users: the admin console, employee self-service app and marketing site, covering attendance, leave, claims and payroll.",
     fullDescription: `
-      Hajir Khata is a production HR and payroll platform with 40+ organisations and more than 2,025 active users on it, sold into hospitality, retail, manufacturing, healthcare, education and financial services.
+      Hajir Khata is a production HR and payroll platform with 40+ organisations and more than 2,025 active users on it, sold into hospitality, retail, manufacturing, healthcare, education and financial services. I worked on the frontend as part of the company's team: the admin web app, the employee self-service app and the marketing site. The backend and the mobile app were built by others.
 
-      The problem it solves is the gap between how attendance is actually captured and how payroll gets calculated. Most of these organisations were reconciling a paper register, a biometric device export and a spreadsheet by hand every month. Hajir Khata closes that loop: fingerprint and face devices sync straight into the platform, field staff clock in from a mobile app with location capture, and that attendance data flows directly into salary components, overtime, allowances and tax without a manual export step.
+      The problem it solves is the gap between how attendance is actually captured and how payroll gets calculated. Most of these organisations were reconciling a paper register, a biometric device export and a spreadsheet by hand every month. Hajir Khata closes that loop: fingerprint and face devices sync straight into the platform, field staff clock in from the product's mobile app with location capture, and that attendance data flows directly into salary components, overtime, allowances and tax without a manual export step.
 
       Around that core sit the workflows an HR team needs to actually run the month — leave requests, approvals, allocations and substitute cover; advance, proposed and overtime claims from submission through review; announcements and events; and device and geofence management for teams split across offices and sites.
 
@@ -538,21 +538,21 @@ export const projects: Project[] = [
       "Framer Motion",
     ],
     category: "Web Application",
-    surfaces: ["Admin Console", "Web App", "Mobile App", "Marketing Site"],
+    surfaces: ["Admin Console", "Web App", "Marketing Site"],
     featured: true,
     slug: "hajir-khata",
     links: {
       live: "https://hajirkhata.com",
     },
     challenges: `
-      One of the main challenges in developing Hajir Khata was creating a system that could handle various attendance scenarios while maintaining accuracy in payroll calculations. We needed to account for different work schedules, overtime, leaves, and holidays.
+      On the frontend, the hard part was presenting attendance, leave and payroll data clearly across very different organisations: different work schedules, overtime rules, leave types and holidays all have to show up correctly in the same screens.
       
-      Another challenge was ensuring the application remained responsive and performant even with large datasets, as some businesses would need to track hundreds of employees simultaneously.
+      Another challenge was keeping the admin console responsive with large datasets, as some businesses track hundreds of employees at once.
     `,
     solutions: `
-      To address these challenges, we implemented a flexible rule-based system that allows businesses to define their own attendance and payroll policies. This made the application adaptable to different business needs.
+      I built the screens around the configurable policies the backend exposes, so each organisation sees its own schedules, leave types and payroll components without separate UI per customer.
       
-      For performance optimization, we used efficient data structures and implemented pagination and lazy loading techniques to ensure the application remains responsive even with large datasets.
+      For performance, I used pagination, lazy loading and server-driven filtering so the admin console stays responsive even with large datasets.
     `,
     screenshots: [
       {
@@ -772,74 +772,74 @@ export const projects: Project[] = [
   // ],
   // },
 
-  {
-    id: 4,
-    title: "Site IQ",
-    description:
-      "A multi-tenant workforce platform for construction and field teams: attendance and HR in one place—employees, job sites, live map tracking, shifts, leave, claims, messaging, and admin reporting.",
-    fullDescription:
-      "Site IQ helps organizations run day-to-day workforce operations without juggling spreadsheets. Each company gets its own space: people sign in, complete onboarding, and land in a dashboard tailored to attendance, HR, and payroll-related workflows.\n\nThe product centers on a clear home dashboard (who’s present, who’s absent, department trends, pending leave, birthdays, and events), deep employee profiles (contact, site, shift, documents, bank details, attendance and leave history), job sites, and a map view so supervisors can see people and sites in context—with locations updating in real time. Teams also get leave, overtime claims, supervisors, shifts, and sub-contractors, plus notifications, messaging, and events.\n\nAdministrators manage users and roles, run payroll-related reports and archives, handle adjustments, and configure master data (departments, positions, leave types, tax settings, and more). A separate public marketing site, SiteIQPro, introduces the product to SMBs—demo CTAs and trust messaging—while the authenticated app is where daily operations happen.",
-    keyFeatures: [
-      "Multi-tenant: each organization works in its own environment with secure sign-in, onboarding, and session handling",
-      "Operations dashboard: attendance snapshot, department view, pending leave, birthdays, and quick visibility into who’s unavailable",
-      "Employee lifecycle: directory, rich profiles, documents and bank details, attendance and leave in one record",
-      "Job sites and map view: see sites and field staff on a map with filters and live location updates",
-      "Workforce tools: leave, shifts, supervisors, overtime claims, and sub-contractors",
-      "Communication: notifications, one-way messages, and events or meetings",
-      "Administration: users and roles, reports and archives, adjustments, and settings for HR and payroll-related master data",
-      "Marketing site (SiteIQPro) for product positioning, demos, and lead-friendly content alongside the main app",
-    ],
-    image: siteIqDashboardImage.src,
-    technologies: [
-      "React",
-      "TypeScript",
-      "Vite",
-      "Tailwind CSS",
-      "Shadcn UI",
-      "Redux Toolkit",
-      "React Router",
-      "React Hook Form",
-      "Zod",
-      "Recharts",
-      "ApexCharts",
-      "Google Maps ",
-      "WebSocket",
-      "Google OAuth",
-    ],
-    category: "Web Application",
-    surfaces: ["Web App", "Admin Console", "Marketing Site"],
-    featured: true,
-    slug: "site-iq",
-    links: {
-      live: "https://siteiqpro.com.au",
-    },
-    challenges:
-      "Covering attendance, HR, maps, real-time location, messaging, and payroll-related settings in one product without the UI feeling fragmented or overwhelming.\n\nMulti-tenant safety: every request must target the correct organization, and authentication has to stay reliable when many actions run at once.\n\nPermissions: dozens of screens need to respect what each role can see and do—aligned with backend rules, not just hidden buttons.\n\nScale of data: long employee lists and heavy forms need to stay fast, validated, and pleasant to use day after day.",
-    solutions:
-      "A single app shell with grouped navigation (General, Communication, Administration) and route-level permission checks so capabilities match each role.\n\nCentral API client: each organization’s API base URL and auth headers applied consistently, with careful token refresh so parallel requests don’t corrupt session state.\n\nShared form and validation patterns for complex screens, plus searchable selects and pagination where lists get large.\n\nMaps and live location isolated to dedicated views with clear filters; cross-cutting state (auth, filters, refetch) kept predictable so the app stays maintainable as features grow.",
-    screenshots: [
-      {
-        url: siteIqDashboardImage.src,
-        caption:
-          "Dashboard — attendance summary (present, absent, late, on leave), department bar chart, unavailable list, pending leave requests, and birthdays.",
-      },
-      {
-        url: siteIqEmployeeDetailsImage.src,
-        caption:
-          "Employee details — profile, contact and work info, Summary / Insight / Attendance & Leave tabs, other details, timesheet, documents, and bank details with actions (change shift, assign site, archive, edit).",
-      },
-      {
-        url: siteIqMapViewImage.src,
-        caption:
-          "Map view — live map of Kathmandu with employee and site filters, markers for people and sites, and status highlighting.",
-      },
-      {
-        url: siteIqMarketingLandingImage.src,
-        caption:
-          "SiteIQPro marketing site — hero for Attendance, HR & Payroll, feature strip, demo CTAs, and trusted-by logos.",
-      },
-    ],
-  },
+  //   {
+  //     id: 4,
+  //     title: "Site IQ",
+  //     description:
+  //       "A multi-tenant workforce platform for construction and field teams: attendance and HR in one place—employees, job sites, live map tracking, shifts, leave, claims, messaging, and admin reporting.",
+  //     fullDescription:
+  //       "Site IQ helps organizations run day-to-day workforce operations without juggling spreadsheets. Each company gets its own space: people sign in, complete onboarding, and land in a dashboard tailored to attendance, HR, and payroll-related workflows.\n\nThe product centers on a clear home dashboard (who’s present, who’s absent, department trends, pending leave, birthdays, and events), deep employee profiles (contact, site, shift, documents, bank details, attendance and leave history), job sites, and a map view so supervisors can see people and sites in context—with locations updating in real time. Teams also get leave, overtime claims, supervisors, shifts, and sub-contractors, plus notifications, messaging, and events.\n\nAdministrators manage users and roles, run payroll-related reports and archives, handle adjustments, and configure master data (departments, positions, leave types, tax settings, and more). A separate public marketing site, SiteIQPro, introduces the product to SMBs—demo CTAs and trust messaging—while the authenticated app is where daily operations happen.",
+  //     keyFeatures: [
+  //       "Multi-tenant: each organization works in its own environment with secure sign-in, onboarding, and session handling",
+  //       "Operations dashboard: attendance snapshot, department view, pending leave, birthdays, and quick visibility into who’s unavailable",
+  //       "Employee lifecycle: directory, rich profiles, documents and bank details, attendance and leave in one record",
+  //       "Job sites and map view: see sites and field staff on a map with filters and live location updates",
+  //       "Workforce tools: leave, shifts, supervisors, overtime claims, and sub-contractors",
+  //       "Communication: notifications, one-way messages, and events or meetings",
+  //       "Administration: users and roles, reports and archives, adjustments, and settings for HR and payroll-related master data",
+  //       "Marketing site (SiteIQPro) for product positioning, demos, and lead-friendly content alongside the main app",
+  //     ],
+  //     image: siteIqDashboardImage.src,
+  //     technologies: [
+  //       "React",
+  //       "TypeScript",
+  //       "Vite",
+  //       "Tailwind CSS",
+  //       "Shadcn UI",
+  //       "Redux Toolkit",
+  //       "React Router",
+  //       "React Hook Form",
+  //       "Zod",
+  //       "Recharts",
+  //       "ApexCharts",
+  //       "Google Maps ",
+  //       "WebSocket",
+  //       "Google OAuth",
+  //     ],
+  //     category: "Web Application",
+  //     surfaces: ["Web App", "Admin Console", "Marketing Site"],
+  //     featured: true,
+  //     slug: "site-iq",
+  //     links: {
+  //       live: "https://siteiqpro.com.au",
+  //     },
+  //     challenges:
+  //       "Covering attendance, HR, maps, real-time location, messaging, and payroll-related settings in one product without the UI feeling fragmented or overwhelming.\n\nMulti-tenant safety: every request must target the correct organization, and authentication has to stay reliable when many actions run at once.\n\nPermissions: dozens of screens need to respect what each role can see and do—aligned with backend rules, not just hidden buttons.\n\nScale of data: long employee lists and heavy forms need to stay fast, validated, and pleasant to use day after day.",
+  //     solutions:
+  //       "A single app shell with grouped navigation (General, Communication, Administration) and route-level permission checks so capabilities match each role.\n\nCentral API client: each organization’s API base URL and auth headers applied consistently, with careful token refresh so parallel requests don’t corrupt session state.\n\nShared form and validation patterns for complex screens, plus searchable selects and pagination where lists get large.\n\nMaps and live location isolated to dedicated views with clear filters; cross-cutting state (auth, filters, refetch) kept predictable so the app stays maintainable as features grow.",
+  //     screenshots: [
+  //       {
+  //         url: siteIqDashboardImage.src,
+  //         caption:
+  //           "Dashboard — attendance summary (present, absent, late, on leave), department bar chart, unavailable list, pending leave requests, and birthdays.",
+  //       },
+  //       {
+  //         url: siteIqEmployeeDetailsImage.src,
+  //         caption:
+  //           "Employee details — profile, contact and work info, Summary / Insight / Attendance & Leave tabs, other details, timesheet, documents, and bank details with actions (change shift, assign site, archive, edit).",
+  //       },
+  //       {
+  //         url: siteIqMapViewImage.src,
+  //         caption:
+  //           "Map view — live map of Kathmandu with employee and site filters, markers for people and sites, and status highlighting.",
+  //       },
+  //       {
+  //         url: siteIqMarketingLandingImage.src,
+  //         caption:
+  //           "SiteIQPro marketing site — hero for Attendance, HR & Payroll, feature strip, demo CTAs, and trusted-by logos.",
+  //       },
+  //     ],
+  //   },
   {
     id: 5,
     title: "Mitho",
