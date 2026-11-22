@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    // Vercel's image optimizer has a monthly quota on the free tier and
+    // returns 402 once it's spent, which broke images on the live site. The
+    // sources are pre-sized WebP (max 1600px wide), so serve them as-is.
+    unoptimized: true,
+  },
   async headers() {
     return [
       {
