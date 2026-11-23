@@ -89,16 +89,21 @@ export default function Navbar() {
     // pass through the empty strip on either side of it.
     <header
       className={cn(
-        "pointer-events-none fixed inset-x-0 top-0 z-50 px-4 transition-[padding] duration-300",
+        "pointer-events-none fixed inset-x-0 top-0 z-50 transition-[padding] duration-300",
         scrolled ? "pt-2" : "pt-3 md:pt-4"
       )}
     >
+      {/* At the top of the page this is a plain full-width bar, lined up with
+          the page container (same max width and padding as the
+          `.container` class). Past the first scroll it contracts into a
+          floating pill. Everything that differs between the two states is a
+          transitionable property, so the change animates. */}
       <div
         className={cn(
-          "pointer-events-auto mx-auto flex max-w-4xl items-center justify-between rounded-full border px-4 py-2 backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-300 md:px-5",
+          "pointer-events-auto mx-auto flex items-center justify-between border backdrop-blur-xl transition-[width,max-width,padding,border-radius,background-color,border-color,box-shadow,backdrop-filter] duration-300",
           scrolled
-            ? "border-border bg-background/80 shadow-lg shadow-black/5"
-            : "border-border/50 bg-background/50"
+            ? "w-[calc(100%-2rem)] max-w-4xl rounded-full border-border bg-background/80 px-4 py-2 shadow-lg shadow-black/5 md:px-5"
+            : "w-full max-w-7xl rounded-none border-transparent bg-transparent px-6 py-3 shadow-none backdrop-blur-none sm:px-8 lg:px-12"
         )}
       >
         <Link href="/" className="flex items-center gap-2 rounded-full">
