@@ -27,8 +27,7 @@ export default function Contact() {
             <p className="text-muted-foreground mb-8">
               Tell me what you&apos;re building, where you&apos;re stuck, or what
               role you need filled. I&apos;m based in Nepal (UTC+5:45) and work
-              with clients in Nepal and worldwide. Remote is fine, and I&apos;m
-              happy to meet in Bhaktapur or Kathmandu. I reply by email.
+              with clients in Nepal and worldwide.
             </p>
 
             <div className="space-y-6">
