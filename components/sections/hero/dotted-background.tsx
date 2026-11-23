@@ -29,7 +29,9 @@ export default function DottedBackground({ className }: DottedBackgroundProps) {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 -z-10 h-[50vh] w-full bg-gradient-to-b from-primary/5 to-transparent"
+        // Red wash reads as a dirty pink cast on the light background, so it
+        // only shows in the dark theme.
+        className="pointer-events-none absolute top-0 -z-10 hidden h-[50vh] w-full bg-gradient-to-b from-primary/5 to-transparent dark:block"
       />
     </>
   );
