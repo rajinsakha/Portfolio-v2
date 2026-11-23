@@ -18,9 +18,9 @@ export default function Home() {
     <>
       <StructuredData />
       <Hero />
+      <Projects />
       <About careerLength={describeCareerLength()} />
       <Skills />
-      <Projects />
       <Experience />
       <CTA />
       <Contact />

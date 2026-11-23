@@ -25,7 +25,7 @@ export default function ProjectSurfaces({
       {surfaces.map((surface) => (
         <li
           key={surface}
-          className="rounded-sm bg-muted px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground"
+          className="rounded-sm bg-muted px-1.5 py-0.5 text-xs font-medium text-muted-foreground"
         >
           {surface}
         </li>

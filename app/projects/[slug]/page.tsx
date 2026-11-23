@@ -77,6 +77,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  const coverCaption = project.screenshots.find(
+    (screenshot) => screenshot.url === project.image
+  )?.caption;
   const projectUrl = `${SITE_URL}/projects/${project.slug}`;
 
   // Match the schema type to what the project actually is. A blanket
@@ -139,7 +142,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Back button */}
         <div className="mb-8">
           <Button variant="ghost" asChild>
-            <Link href="/#projects" className="hover:text-primary">
+            <Link href="/projects" className="hover:text-primary">
               <ArrowLeft className="mr-2 size-4 " /> Back to Projects
             </Link>
           </Button>
@@ -168,10 +171,41 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <p className="text-xl text-muted-foreground max-w-3xl">
             {project.description}
           </p>
+          {project.slug === "kennedy-ai-studio" && (
+            <p className="mt-4 max-w-[65ch] text-muted-foreground">
+              As a full-stack developer at Kennedy Studio, I worked on guided
+              campaign setup, AI creative generation, billing, and the admin
+              console. Median onboarding took 8 minutes 40 seconds.
+            </p>
+          )}
+
+          <div className="mt-5 flex flex-wrap gap-3 empty:hidden">
+            {project.links.live && project.links.live !== "#" && (
+              <Button asChild>
+                <a href={project.links.live} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="size-4" aria-hidden="true" /> Live Demo
+                </a>
+              </Button>
+            )}
+            {project.links.playStore && (
+              <Button variant="outline" asChild>
+                <a href={project.links.playStore} target="_blank" rel="noopener noreferrer">
+                  <GooglePlayIcon className="size-4" aria-hidden="true" /> Google Play
+                </a>
+              </Button>
+            )}
+            {project.links.github && (
+              <Button variant="outline" asChild>
+                <a href={project.links.github} target="_blank" rel="noopener noreferrer">
+                  <Github className="size-4" aria-hidden="true" /> Source Code
+                </a>
+              </Button>
+            )}
+          </div>
         </div>
 
         {/* Main image */}
-        <div className="relative w-full h-auto">
+        <figure>
           <Image
             src={project.image || "/placeholder.svg"}
             alt={project.title}
@@ -179,13 +213,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             height={1000}
             className="w-full h-auto object-contain"
           />
-        </div>
+          {coverCaption && (
+            <figcaption className="mt-3 max-w-[65ch] text-sm text-muted-foreground">
+              {coverCaption}
+            </figcaption>
+          )}
+        </figure>
 
         {/* Project details */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 my-8">
           <div className="lg:col-span-2">
             <h2 className="font-display text-3xl font-normal mb-4">Overview</h2>
-            <div className="prose prose-lg dark:prose-invert max-w-none">
+            <div className="prose prose-lg dark:prose-invert max-w-[54ch]">
               {project.fullDescription.split("\n\n").map((paragraph, i) => (
                 <p key={i} className="mb-4 text-muted-foreground">
                   {paragraph}
@@ -207,22 +246,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           <div>
             <div className="bg-card rounded-xl p-6 border border-border/50 sticky top-24">
-              <h3 className="font-display text-2xl font-normal mb-4">Project Details</h3>
+              <h2 className="font-display text-2xl font-normal mb-4">Project Details</h2>
 
               <div className="space-y-6">
                 {project.surfaces?.length ? (
                   <div>
-                    <h4 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                    <h3 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
                       Surfaces Built
-                    </h4>
+                    </h3>
                     <ProjectSurfaces surfaces={project.surfaces} />
                   </div>
                 ) : null}
 
                 <div>
-                  <h4 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                  <h3 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
                     Technologies
-                  </h4>
+                  </h3>
                   <div className="flex flex-wrap gap-2">
                     {resolveTechIcons(project.technologies).map(
                       ({ tech, iconPath }) => (
@@ -232,62 +271,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </div>
                 </div>
 
-                {(project.links.live && project.links.live !== "#") ||
-                  project.links.github ||
-                  project.links.playStore ? (
-                  <div>
-                    <h4 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
-                      Links
-                    </h4>
-                    <div className="space-y-2">
-                      {project.links.live && project.links.live !== "#" && (
-                        <Button
-                          variant="outline"
-                          className="w-full justify-start"
-                          asChild
-                        >
-                          <a
-                            href={project.links.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <ExternalLink className="mr-2 size-4" /> Live Demo
-                          </a>
-                        </Button>
-                      )}
-                      {project.links.playStore && (
-                        <Button
-                          variant="outline"
-                          className="w-full justify-start"
-                          asChild
-                        >
-                          <a
-                            href={project.links.playStore}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <GooglePlayIcon className="mr-2 size-4" /> Google Play
-                          </a>
-                        </Button>
-                      )}
-                      {project.links.github && (
-                        <Button
-                          variant="outline"
-                          className="w-full justify-start"
-                          asChild
-                        >
-                          <a
-                            href={project.links.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <Github className="mr-2 size-4" /> Source Code
-                          </a>
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                ) : null}
               </div>
             </div>
           </div>
@@ -301,7 +284,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Next/Prev navigation */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-border pt-8">
           <Button variant="ghost" asChild>
-            <Link href="/#projects">
+            <Link href="/projects">
               <ArrowLeft className="mr-2 size-4" /> Back to All Projects
             </Link>
           </Button>

@@ -71,7 +71,7 @@ export default function ProjectsPage() {
                 </div>
 
                 <CardContent className="p-5 flex flex-col flex-grow">
-                  <h3 className="font-display text-2xl font-normal mb-2">{project.title}</h3>
+                  <h2 className="font-display text-2xl font-normal mb-2">{project.title}</h2>
                   <ProjectSurfaces surfaces={project.surfaces} className="mb-3" />
                   <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
                     {project.description}
@@ -82,11 +82,6 @@ export default function ProjectsPage() {
                       ({ tech, iconPath }) => (
                         <TechBadge key={tech} tech={tech} iconPath={iconPath} />
                       )
-                    )}
-                    {project.technologies.length > 3 && (
-                      <Badge variant="outline" className="text-xs">
-                        +{project.technologies.length - 3} more
-                      </Badge>
                     )}
                   </div>
                 </CardContent>
