@@ -41,8 +41,7 @@ export default function ProjectsPage() {
         <div className="mb-12 max-w-3xl">
           <h1 className="font-display text-5xl md:text-6xl font-normal mb-6">My Projects</h1>
           <p className="text-xl text-muted-foreground">
-            Explore my portfolio of web and mobile application projects. Each
-            project represents unique challenges and solutions.
+            Explore my portfolio of web and mobile application projects.
           </p>
         </div>
 

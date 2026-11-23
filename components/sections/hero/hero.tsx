@@ -19,8 +19,8 @@ export default function Hero() {
             <p className="mx-auto mb-8 max-w-2xl text-base text-muted-foreground lg:text-lg">
               I build web and mobile products end to end for teams anywhere
               &mdash; from the database to the interface. Recent work: an AI
-              ads platform, a dating app past 20,000 downloads, and HRMS software
-              running 40+ organisations.
+              ads platform, a dating app past 20,000 downloads, and a wallpaper
+              app on web and Android.
             </p>
           </MotionWrapper>
 

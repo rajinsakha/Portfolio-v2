@@ -41,7 +41,7 @@ export default function About({ careerLength }: { careerLength: string }) {
             className="flex flex-col justify-center"
           >
             <h3 className="font-display text-3xl font-normal mb-4">
-              Full-stack Developer who ships product end to end
+              Full-stack developer who owns features from schema to UI
             </h3>
 
             <div className="space-y-4 text-muted-foreground">

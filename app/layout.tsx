@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Rajin Sakha | Full-stack Developer",
     description:
-      "Full-stack Developer building web and mobile products end to end with React, Next.js, React Native, NestJS, PostgreSQL and Redis.",
+      "Full-stack Developer building web and mobile products with React, Next.js, React Native, NestJS, PostgreSQL and Redis.",
     url: SITE_URL,
     siteName: "Rajin Sakha Portfolio",
     locale: "en_US",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Rajin Sakha | Full-stack Developer",
     description:
-      "Full-stack Developer building web and mobile products end to end with React, Next.js, React Native, NestJS, PostgreSQL and Redis.",
+      "Full-stack Developer building web and mobile products with React, Next.js, React Native, NestJS, PostgreSQL and Redis.",
   },
   robots: {
     index: true,

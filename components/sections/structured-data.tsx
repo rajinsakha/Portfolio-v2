@@ -20,7 +20,7 @@ export default function StructuredData() {
       "https://www.linkedin.com/in/rajinsakha/",
     ],
     description:
-      "Full-stack Developer building web and mobile products end to end with React, Next.js, React Native, NestJS, PostgreSQL and Redis.",
+      "Full-stack Developer building web and mobile products with React, Next.js, React Native, NestJS, PostgreSQL and Redis.",
     knowsAbout: [
       "React.js",
       "Next.js",
