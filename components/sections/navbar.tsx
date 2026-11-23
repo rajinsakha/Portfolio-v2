@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog as DialogPrimitive } from "radix-ui";
+import { motion, useReducedMotion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -28,6 +29,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
 
   const pathname = usePathname();
+  const reduceMotion = useReducedMotion();
 
   // Every nav item now points at a homepage section, so highlighting only
   // applies on the homepage itself.
@@ -83,41 +85,63 @@ export default function Navbar() {
   }, []);
 
   return (
+    // The header only positions the pill; pointer-events-none lets clicks
+    // pass through the empty strip on either side of it.
     <header
       className={cn(
-        "fixed top-0 w-full z-50 transition-[padding,background-color,border-color,box-shadow] duration-300",
-        scrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-border shadow-sm py-3"
-          : "bg-transparent py-5"
+        "pointer-events-none fixed inset-x-0 top-0 z-50 px-4 transition-[padding] duration-300",
+        scrolled ? "pt-2" : "pt-3 md:pt-4"
       )}
     >
-      <div className="container flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+      <div
+        className={cn(
+          "pointer-events-auto mx-auto flex max-w-4xl items-center justify-between rounded-full border px-4 py-2 backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-300 md:px-5",
+          scrolled
+            ? "border-border bg-background/80 shadow-lg shadow-black/5"
+            : "border-border/50 bg-background/50"
+        )}
+      >
+        <Link href="/" className="flex items-center gap-2 rounded-full">
           <span className="font-display text-2xl">
             Rajin<span className="text-primary">.</span>
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav aria-label="Main" className="hidden md:flex items-center gap-6">
-          <ul className="flex items-center gap-6">
-            {navItems.map((item) => (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  aria-current={isActiveItem(item.id) ? "location" : undefined}
-                  className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary",
-                    isActiveItem(item.id) ? "text-primary" : "text-muted-foreground"
-                  )}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
+        <nav aria-label="Main" className="hidden md:flex items-center gap-3">
+          <ul className="flex items-center gap-1">
+            {navItems.map((item) => {
+              const active = isActiveItem(item.id);
+              return (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    aria-current={active ? "location" : undefined}
+                    className={cn(
+                      "relative block rounded-full px-3 py-1.5 text-sm font-medium transition-colors hover:text-foreground",
+                      active ? "text-foreground" : "text-muted-foreground"
+                    )}
+                  >
+                    {active && (
+                      <motion.span
+                        layoutId="nav-active"
+                        aria-hidden="true"
+                        className="absolute inset-0 rounded-full bg-muted"
+                        transition={
+                          reduceMotion
+                            ? { duration: 0 }
+                            : { type: "spring", stiffness: 400, damping: 32 }
+                        }
+                      />
+                    )}
+                    <span className="relative">{item.name}</span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
           <ModeToggle />
-          <Button size="sm" asChild>
+          <Button size="sm" className="rounded-full" asChild>
             <a href={RESUME_URL} download={RESUME_FILE_NAME}>
               Resume
             </a>
