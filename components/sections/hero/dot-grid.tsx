@@ -2,7 +2,6 @@
 
 import { gsap } from "gsap";
 import { InertiaPlugin } from "gsap/InertiaPlugin";
-import { useTheme } from "next-themes";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 gsap.registerPlugin(InertiaPlugin);
@@ -81,7 +80,6 @@ function throttle<T extends (...args: never[]) => void>(fn: T, limit: number) {
 }
 
 export default function DotGrid() {
-  const { resolvedTheme } = useTheme();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dotsRef = useRef<Dot[]>([]);
@@ -112,14 +110,34 @@ export default function DotGrid() {
   useEffect(() => {
     const host = wrapperRef.current;
     if (!host) return;
-    setPalette({
-      base: resolveColor(
+
+    const same = (a: Rgb, b: Rgb) => a.r === b.r && a.g === b.g && a.b === b.b;
+    const update = () => {
+      const base = resolveColor(
         host,
         `color-mix(in oklch, var(--foreground) ${REST_STRENGTH}%, var(--background))`,
-      ),
-      active: resolveColor(host, "var(--primary)"),
+      );
+      const active = resolveColor(host, "var(--primary)");
+      setPalette((prev) =>
+        prev && same(prev.base, base) && same(prev.active, active)
+          ? prev
+          : { base, active },
+      );
+    };
+
+    update();
+
+    // Watch the <html> element rather than reacting to useTheme(): next-themes
+    // updates its state before it flips the class, and child effects run
+    // before the provider's, so reading colours on a theme-state change got the
+    // previous theme's values and left the grid stuck on them.
+    const observer = new MutationObserver(update);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class", "style", "data-theme"],
     });
-  }, [resolvedTheme]);
+    return () => observer.disconnect();
+  }, []);
 
   const baseRgb = palette?.base;
   const activeRgb = palette?.active;
