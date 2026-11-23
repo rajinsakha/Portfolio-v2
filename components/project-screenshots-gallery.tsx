@@ -3,6 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import {
+  type CarouselApi,
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -29,7 +30,23 @@ export function ProjectScreenshotsGallery({
   const [open, setOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  const openAt = (index: number) => {
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [carouselApi, setCarouselApi] = React.useState<CarouselApi>();
+  const thumbnail = React.useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    if (!open || !carouselApi) return;
+
+    const syncSlide = () => setSelectedIndex(carouselApi.selectedScrollSnap());
+    carouselApi.on("select", syncSlide);
+    return () => {
+      carouselApi.off("select", syncSlide);
+    };
+  }, [open, carouselApi]);
+
+  const openAt = (index: number, button: HTMLButtonElement) => {
+    thumbnail.current = button;
+    setSelectedIndex(index);
     setActiveIndex(index);
     setOpen(true);
   };
@@ -50,13 +67,13 @@ export function ProjectScreenshotsGallery({
             <button
               key={`${screenshot.url}-${index}`}
               type="button"
-              onClick={() => openAt(index)}
+              onClick={(event) => openAt(index, event.currentTarget)}
               className="group rounded-xl overflow-hidden border border-border/50 text-left transition-[box-shadow,transform] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <div className="relative aspect-video">
                 <Image
                   src={getImageSrc(screenshot.url)}
-                  alt={screenshot.caption}
+                  alt=""
                   fill
                   className="object-cover transition-transform group-hover:scale-[1.02]"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -73,7 +90,12 @@ export function ProjectScreenshotsGallery({
         <DialogContent
           showCloseButton
           className="!w-[96vw] !max-w-[1280px]  p-4"
-          aria-label="Screenshot gallery"
+          onCloseAutoFocus={(event) => {
+            if (thumbnail.current?.isConnected) {
+              event.preventDefault();
+              thumbnail.current.focus({ preventScroll: true });
+            }
+          }}
         >
           <DialogTitle className="sr-only">Project screenshots</DialogTitle>
           <DialogDescription className="sr-only">
@@ -81,16 +103,20 @@ export function ProjectScreenshotsGallery({
           </DialogDescription>
           <Carousel
             key={activeIndex}
+            setApi={setCarouselApi}
             opts={{ startIndex: activeIndex, align: "center" }}
             className="w-full overflow-hidden"
           >
             <CarouselContent>
               {screenshots.map((screenshot, index) => (
-                <CarouselItem key={`${screenshot.url}-${index}`}>
-                  <div className="relative h-[80vh] max-h-[900px] min-h-[320px] w-full overflow-hidden rounded-lg border border-border/50">
+                <CarouselItem
+                  key={`${screenshot.url}-${index}`}
+                  aria-hidden={index !== selectedIndex}
+                >
+                  <div className="relative h-[65dvh] max-h-[900px] w-full overflow-hidden rounded-lg border border-border/50">
                     <Image
                       src={getImageSrc(screenshot.url)}
-                      alt={screenshot.caption}
+                      alt=""
                       fill
                       className="object-contain"
                       sizes="(max-width: 768px) 92vw, (max-width: 1400px) 88vw, 1280px"
@@ -115,6 +141,10 @@ export function ProjectScreenshotsGallery({
               </>
             )}
           </Carousel>
+          <span className="sr-only" role="status">
+            Screenshot {selectedIndex + 1} of {screenshots.length}.{" "}
+            {screenshots[selectedIndex]?.caption}
+          </span>
         </DialogContent>
       </Dialog>
     </>

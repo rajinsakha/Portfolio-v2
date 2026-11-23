@@ -25,7 +25,7 @@ export default function Projects() {
       <div className="container">
         <SectionHeading
           id="projects-heading"
-          title="Selected Work"
+          title="Projects"
           subtitle="Web and mobile products I've shipped"
         />
 

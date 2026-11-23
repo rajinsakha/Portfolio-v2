@@ -50,7 +50,7 @@ const TimelineItem = ({
           </span>
         </div>
         <h4 className="text-primary font-medium mb-3">{company}</h4>
-        <p className="text-muted-foreground mb-4">{description}</p>
+        <p className="text-muted-foreground mb-4 max-w-[54ch]">{description}</p>
         {technologies.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {technologies.map((tech) => (

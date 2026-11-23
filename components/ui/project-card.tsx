@@ -14,10 +14,9 @@ import { Button } from "@/components/ui/button";
 import type { ProjectCardData } from "@/types";
 import ProjectSurfaces from "@/components/ui/project-surfaces";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 
 // Full lists run past 20 badges and drown the card; the detail page shows all.
-const MAX_CARD_TECHNOLOGIES = 8;
+const MAX_CARD_TECHNOLOGIES = 3;
 
 export default function ProjectCard({
   project,
@@ -48,8 +47,8 @@ export default function ProjectCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ y: 8 }}
+      whileInView={{ y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
@@ -104,15 +103,10 @@ export default function ProjectCard({
               ).map(({ tech, iconPath }) => (
                 <TechBadge key={tech} tech={tech} iconPath={iconPath} />
               ))}
-              {project.technologies.length > MAX_CARD_TECHNOLOGIES && (
-                <Badge variant="outline" className="text-xs">
-                  +{project.technologies.length - MAX_CARD_TECHNOLOGIES} more
-                </Badge>
-              )}
             </div>
           </div>
 
-          <div className="relative z-10 mt-auto flex flex-wrap items-center gap-2">
+          <div className="mt-auto flex flex-wrap items-center gap-2">
             {project.links.live && project.links.live !== "#" && (
               <Button
                 size="sm"
@@ -173,7 +167,7 @@ export default function ProjectCard({
             <Button size="sm" variant="default" asChild className="ml-auto">
               <Link
                 href={`/projects/${project.slug}`}
-                className="after:absolute after:inset-0 after:content-['']"
+                className="after:absolute after:inset-0 after:z-10 after:content-['']"
               >
                 View Details
                 {/* Visible text stays first so the accessible name contains
