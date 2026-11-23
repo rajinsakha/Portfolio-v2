@@ -25,10 +25,8 @@ export default function Contact() {
           >
             <h3 className="font-display text-2xl font-normal mb-6">Send me the brief</h3>
             <p className="text-muted-foreground mb-8">
-              Tell me what you&apos;re building, where you&apos;re stuck, or what
-              role you need filled. I&apos;m based in Nepal (UTC+5:45) and work
-              with clients in Nepal and worldwide. Remote is fine, and I&apos;m
-              happy to meet in Bhaktapur or Kathmandu. I reply by email.
+              I&apos;m based in Nepal (UTC+5:45) and work
+              with clients in Nepal and worldwide.
             </p>
 
             <div className="space-y-6">
