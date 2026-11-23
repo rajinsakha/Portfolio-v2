@@ -1,4 +1,5 @@
 import { Wrench, Layers, Database } from "lucide-react";
+import zustand from "@/assets/icons/zustand-mascot.svg";
 import {
   docker,
   expo,
@@ -18,9 +19,7 @@ import {
   typescript,
 } from "@/assets/icons";
 
-// Three categories, five each — fills one row at lg:grid-cols-3 without a
-// stranded card. TypeScript/JavaScript sit with Tools rather than under
-// Frontend or Backend because they span both.
+// TypeScript/JavaScript sit with Tools because they span Frontend and Backend.
 export const techCategories = [
   {
     icon: <Layers className="size-5" />,
@@ -31,6 +30,7 @@ export const techCategories = [
       { name: "Expo", icon: expo, invertInDark: true },
       { name: "Tailwind CSS", icon: tailwindcss },
       { name: "Redux", icon: redux },
+      { name: "Zustand", icon: zustand },
     ],
   },
   {

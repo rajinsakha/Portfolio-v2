@@ -195,8 +195,8 @@ export const projects: Project[] = [
     technologies: [
       "React Native",
       "Expo",
-      "TypeScript",
       "Zustand",
+      "TypeScript",
       "SQLite",
       "Supabase",
       "PostgreSQL",
@@ -464,7 +464,7 @@ export const projects: Project[] = [
       "PostHog",
     ],
     category: "Mobile Application",
-    surfaces: ["Mobile App", "Marketing Site", "Backend API"],
+    surfaces: ["Mobile App", "Marketing Site", "Admin Console", "Backend API"],
     featured: true,
     slug: "five-one",
     links: {
